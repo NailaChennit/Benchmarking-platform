@@ -1,0 +1,35 @@
+.map__image{
+	width: 80%;
+	float: left;
+	position: relative;
+    overflow: hidden;
+
+}
+
+.map__image path {
+	fill: #a4ced2;
+	stroke: #FFF;
+	stroke-width: 1px;
+	transition: fill 0.3s;
+	transform-box: fill-box;	
+    transform-origin: 50% 50%;
+    
+}
+/*
+.map__image path:hover {
+	fill: #3538d2;
+	stroke: #FFF;
+	stroke-width: 1px;
+	transition: fill 0.3s;
+
+}*/
+
+.map__image path:hover {
+	fill: red;
+	stroke: #FFF;
+	stroke-width: 1px;
+	transition: fill 0.3s;	
+	transform: scale(1.1,1.2);
+	z-index: 1;
+  	transform-origin: left;
+}

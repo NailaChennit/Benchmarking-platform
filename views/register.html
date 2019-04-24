@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>TelecomBenchmark</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css"/> 
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
+	<script src="js/register.js"></script>
+	<script src="js/awesomplete.js"></script>
+	<link href="css/awesomplete.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+	
+<!-- Navigation -->
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+<div class="container-fluid">
+	<a class="navbar-brand" href="#"><img src="#">
+	</a>
+	<button class="navbar-toggler" type="button" data_toggle="collapse" data-target="#navbarResponsive">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarResponsive">
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item active">
+				<a class="nav-link" href="#">Home</a>
+			</li>
+			<li class="nav-item ">
+				<a class="nav-link" href="#">About</a>
+			</li>
+			<li class="nav-item ">
+				<a class="nav-link" href="#">Services</a>
+			</li>
+			<li class="nav-item ">
+				<a class="nav-link" href="#">Team</a>
+			</li>
+			<li class="nav-item ">
+				<a class="nav-link" href="#">Connect</a>
+			</li>	
+			<li class="nav-item ">
+				<a class="nav-link" href="#">News</a>
+			</li>					
+
+		</ul>
+
+	</div>
+</div>	
+</nav>
+
+<!------RegisterForm----->
+<form id="form" action="/register" method="POST" class="main-form needs-validation ">
+	<div class="form-group">
+		<label for="subscribers">Email</label>
+		<input type="Email" name="email" id="email" required class="form-control">
+		<h5><font color="red" id="error_index"><%=data.error_email%></font></h5>
+	</div>
+	<div class="form-group">
+		<label for="subscribers">Password</label>
+		<input type="Password" name="password" id="password" required class="form-control">
+	</div>
+	<div class="form-group">
+		<label for="subscribers">Confirm your password</label>
+		<input type="Password" name="confirm_password" id="confirm_password" required class="form-control">
+		<small id="error_password"></small>
+	</div>	
+
+	<div class="row">
+		<div class="col">
+			<div class="form-group">	
+				<label for="index" >Yahoo Finance index of your company</label>
+				<input type="text" name="index" id="index" required placeholder="Index from yahoo finance" class="form-control"> 
+				<h5><font color="red" id="error_index"><%=data.error_index%></font></h5>
+				<datalist id="input-list"></datalist>
+			</div>
+		</div>	
+	</div>
+	<div class="row">
+		<div class="col">
+			<div class="form-group">
+				<label for="name">Name of your company</label>
+				<input type="text"  name="name" id="name" required class="form-control">
+			</div>
+		</div>	
+		<div class="col">
+			<div class="form-group">		
+				<label for="country">Country</label>
+				<input type="text" name="country" id="country" required class="form-control">
+				<small ><font color="red" id="error_country"><%=data.error%></font></small>
+				<datalist id="input-list"></datalist>
+			</div>	
+		</div>
+	</div>			
+	<div class="form-group">
+		<label for="website">Website of your company</label>
+		<input type="url" name="website" id="website" required class="form-control">
+	</div>		
+	<div class="form-group">
+		<button type="submit"  value="Submit" style="background-color: #3f3f3f;" class="btn btn-outline-light btn-lg" id="btnRegister">Run it!</button>
+	</div>
+</form>
+
+
+
+<!--- Footer -->
+<footer>
+<div class="container-fluid padding">
+<div class="row text-center">
+	<div class="col-md-4">
+		<img src="">
+		<hr class="light">
+		<p>556-318-233</p>
+		<p>email@outlook.com</p>
+		<p>Algiers, Algeria, 16000</p>
+	</div>
+	
+	<div class="col-md-4">
+		<img src="">
+		<hr class="light">
+		<h5>Our hours</h5>
+		<hr class="light">
+		<p>Monday: 9am - 5pm</p>
+		<p>Saturday: 10am - 6pm</p>
+		<p>Sunday: closed</p>
+	</div>
+
+	<div class="col-md-4">
+		<img src="">
+		<hr class="light">
+		<h5>Service Area</h5>
+		<hr class="light">
+		<p>We work only online currently </p>
+	</div>
+	<div class="col-12">
+		<hr class="light-100">
+		<h6>&copy: telecomBenchmarking.com</h6>
+	</div>
+	
+</div>		
+</div>	
+</footer>
+
+
+
+
+
+
+
+</body>
+</html>
