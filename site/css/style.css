@@ -7,6 +7,24 @@ html, body {
   color: #222;
   scroll-behavior: smooth;
 }
+text:hover { opacity: .3 !important; }
+
+.pointer{ cursor: pointer; }
+
+#wordCloud{
+  height:100%;
+  width:100%;
+  min-height:150px;
+  -vendor-animation-duration: 3s;
+  -vendor-animation-delay: 2s;
+  -vendor-animation-iteration-count: infinite;
+}
+.card{
+border: 1px solid #fff;
+-webkit-box-shadow: -4px 2px 30px 1px rgba(0,0,0,0.75);
+-moz-box-shadow: -4px 2px 30px 1px rgba(0,0,0,0.75);
+box-shadow: -4px 2px 30px 1px rgba(0,0,0,0.75);
+}
 
 .navbar{
   padding: .8rem;

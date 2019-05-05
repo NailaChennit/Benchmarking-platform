@@ -3,6 +3,7 @@ var articles;
 
 $(document).ready(function(){
 	$.get("/afficher",function(data){
+		console.log('fegvjhqefvhjb')
 	if(!data){
 				console.log("No datssssa ");
 				}

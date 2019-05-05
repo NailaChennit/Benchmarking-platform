@@ -55,11 +55,11 @@ let exist_in_YH = function(request,response){
   yahooStockPrices.getCurrentPrice('t', function(err, price){
   if(price==undefined){response.render('register.html',{data: {error:'Index does not exist in yahoo finance, please check the index!'}}); 
   reject()}
-  else{ response.render('dashbord.html',{data: {}}
+  else{ response.render('dashbord.html')
     resolve('exist')
   }
 });
-
+});
 }
 
 
@@ -73,14 +73,14 @@ let add_index = function(request){
         { index_YH : request.body.index,name: request.body.name,ISO2: (request.body.country).slice(-2),website: request.body.website }//verifier email
          ,function(e,docs){
 });
-
+});
 }
 
 
 
 
 
-/***************fin declaration depromo=esse***************/
+/***************fin declaration des promesses***************/
 
 const url= 'http://telecoms.com/news/';
 
@@ -92,7 +92,6 @@ app.get('/afficher',function(request,response){
     const $ = cheerio.load(html);
       var list=[];
       for (let i = 0; i < 5; i++) {
-        
         list.push($('div.search-content.left h4 a').eq(i).attr('href'));     
 
         //retouner une lite avec url image text titre
@@ -105,6 +104,7 @@ app.get('/afficher',function(request,response){
    
     })
    .then(function(articles) {
+    
     response.send(articles);
 })
    .catch((err) => {
@@ -127,10 +127,10 @@ app.get('/data',function(request,response){
 app.post('/data',function(request,response){//a revoiir
   
 
-  if(request.body.revenue!='' && request.body.expend!=''){  }
+  if(request.body.revenue!='' && request.body.expend!=''){  
      exec_kmean(request).then(function(result){//render dashboard
       response.render('dashboard.html',{data: {error:''}}); 
-     });
+     });}
   else{//verifier si l index appartient a la base de donnée
        index_exist_initDb(request).then(function(result){
         return exec_kmean(request)
@@ -221,29 +221,8 @@ app.post('/register',function(request,response){
  
 /********************************************dashbord*****************************/   //attr_index revoir
 app.get('/dashboard', function(req, res) {
-  const url = 'localhost:27017/music';
-  const db = monk(url);
-  const collection = db.get('artists');
-
-  if (req.session && req.session.user) { // Check if session exists
-    // lookup the user in the DB by pulling their email from the session
-    var data=collection.findOne({ email: 'https://www.linkedin.com/redir/general-malware-page?url=req%2esession%2euser%2eemail' }, function (err, user) {
-      if (!user) {
-        // if the user isn't found in the DB, reset the session info and
-        // redirect the user to the login page
-        req.session.reset();
-        res.redirect('/login');
-      } else {
-        // expose the user to the template
-        res.locals.user = user;
- 
-        // render the dashboard page
-        res.render('dashboard.jade');
-      }
-    });
-  } else {
-    res.redirect('/login');
-  }
+  res.render('visualization.html',{data: {error:''}}); 
+  
 });
 
 
