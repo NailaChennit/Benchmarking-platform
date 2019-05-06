@@ -1,6 +1,58 @@
 console.log("je suis la");
 var articles;
+function popsummary(index){
+		console.log('rrrrrrrrrrrrr')
+		console.log(articles[index]['title'])
+        var text=articles[index]['text'];
+		var title=articles[index]['title'];
+		var summarizer = new JsSummarize();
+		var summary = summarizer.summarize(title,text);
+		$("#popupSummary div.modal-body").text(summary);
+		$("#popupSummary h5.modal-title").text(articles[index]["title"]);
+  		$('#popupSummary').modal('show')
+}
 
+$(document).ready(function(){
+	
+
+	$.get("/afficher",function(data){
+	if(!data){
+				console.log("No dataaaaaa");
+				}
+	else{
+		articles=data;		//pb resize
+
+		 articles.forEach(function(element,index) { console.log(element['image'])
+		 	
+		 		var article =`<div class="col-lg-3">
+  <div class="card card-image" style="background-image: url(`+element['image']+`);height:300px;">
+  <!-- Content -->
+  <div style="background-color : rgba(0,0,0,0.5);" class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+    <div>
+      <div id="fitin" class="text-center"><div class="card-title"><strong>`+element['title']+`</strong></div></div>
+      <br>
+      <div class="row "><div class="col" style="text-align:center;"><button type="button" onclick="popsummary(`+index+`)" class="btn btn-outline-light btn-lg">SUMMARY</button></div></div>
+      <br>
+      <div class="row"><div class="col" style="text-align:center;"><a href="`+element['url']+`"><button type="button" class="btn btn-primary btn-lg">Complete Article</button></a></div></div>   
+    </div>
+  </div>
+  </div>
+</div>`
+           $("#test").append(article);
+});
+
+	$(function() {
+    while( $('#fitin div').height() > $('#fitin').height() ) { console.log('fsfsffsf')
+        $('#fitin div').css('font-size', (parseInt($('#fitin div').css('font-size')) - 1) + "px" );
+    }
+	});
+		 
+}
+
+});
+
+});
+/*
 $(document).ready(function(){
 	$.get("/afficher",function(data){
 		console.log('fegvjhqefvhjb')
@@ -34,7 +86,7 @@ $(document).ready(function(){
 	}
 	});
  });	
-
+*/
 
 //afficher les resumé dans un pop up
 $(document).ready(function(){

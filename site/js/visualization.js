@@ -1,8 +1,11 @@
 /*************cloud*************/
 $(document).ready(function(){
+  console.log(data)})
+/*  
 var height=500, width=750;
 var fill=d3.scale.category20b();
-var data=[{"text":"Ooredoo","size":1},{"text":"Djezzy","size":2},{"text":"Mobilis","size":3},{"text":"Orange","size":4},{"text":"Nrj","size":5},{"text":"Sfr ","size":6},{"text":"force","size":7},{"text":"energy","size":8},{"text":"solid-state","size":9},{"text":"particle","size":10}]
+//console.log(data)
+//var data=[{"text":"Ooredoo","size":1},{"text":"Djezzy","size":2},{"text":"Mobilis","size":3},{"text":"Orange","size":4},{"text":"Nrj","size":5},{"text":"Sfr ","size":6},{"text":"force","size":7},{"text":"energy","size":8},{"text":"solid-state","size":9},{"text":"particle","size":10}]
 var focus=d3.select("#wordCloud").append("svg")
       .attr("width", width)
       .attr("height", height)
@@ -11,14 +14,12 @@ var focus=d3.select("#wordCloud").append("svg")
       .attr("class","pointer")
       .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")")
 var colorScale = d3.scale.linear()
-              .domain([
-      d3.min(data,function(d){return d.size}),
-      d3.max(data,function(d){return d.size})])
+              .domain([1,data.size])
               .range(["#393b79","#637939","#d5dc9c"]);
 
 var sizeScale = d3.scale.linear()
-              .domain([1,10])
-              .range([60,15]);
+              .domain([1,data.size])
+              .range([5*(data.size-1)+15,15]);
  d3.layout.cloud().size([width, height])
     .words(data)
     .padding(5)
@@ -26,7 +27,7 @@ var sizeScale = d3.scale.linear()
     .font("Arial")
     .spiral("archimedean")
     //.spiral("rectangular")
-    .fontSize(function(d) { return sizeScale(d.size); })
+    .fontSize(function(d, index) { return sizeScale(index); })
     .on("end", draw)
     .start();
 
@@ -35,7 +36,7 @@ function draw(words) {
   
     focus.selectAll("text")
       .data(words)
-    .enter().append("text")
+    .enter().append("name")
       .style("font-size", function(d) { return d.size + "px"; })
       .style("font-family", "Arial")
       .style("fill", function(d, i) { return fill(i); })
@@ -49,7 +50,7 @@ function draw(words) {
            
 }
 });
-
+*/
 
 /********************graphe*************************/
 $(document).ready(function(){

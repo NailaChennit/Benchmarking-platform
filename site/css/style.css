@@ -52,7 +52,21 @@ box-shadow: -4px 2px 30px 1px rgba(0,0,0,0.75);
   text-transform: uppercase;
   text-shadow: 1px 1px 10px %000;
 }
+.carousel-control-prev{ 
+  width:100px;
+  margin:0 auto;
+}
+.carousel-control-next{
+  width:100px;
+  margin:0 auto;
+}
 
+#fitin{
+    width: 256px; 
+    height: 106px;
+    overflow: hidden;
+    font-size: 28px;
+}
 .btn-primary{
   background-color: #6648b1;
   border: 1px solid #6648b1;
@@ -69,6 +83,9 @@ box-shadow: -4px 2px 30px 1px rgba(0,0,0,0.75);
 
 .padding{
   padding-bottom: 2rem;
+}
+.paddingsmall{
+  padding-bottom: 1rem;
 }
 
 

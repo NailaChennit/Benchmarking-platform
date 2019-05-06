@@ -16,8 +16,8 @@ app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 app.use(session({secret: 'secret', resave: true, saveUninitialized: true}));
 /****************declaration des promess******************/
-let exec_kmean = function(request) {   
-  return new Promise(function(resolve, reject) {
+let exec_kmean = function(request,response) {   
+  //return new Promise(function(resolve, reject) {
   var options={
     mode: 'text',
     pythonOptions: ['-u'],
@@ -27,11 +27,11 @@ let exec_kmean = function(request) {
     pythonPath: 'C:/Users/naila/Anaconda3/python.exe'
     }
     var test= new PythonShell('kmean.py',options);
-    test.on('message',function(message){
-    console.log(message);///resultat kmean
-    resolve(message); 
+    test.on('message',function(message){console.log('ggsggsgs') 
+     response.render('visualization.html',{data: message});
+    //resolve(message); 
     });    
-});
+//});
 } 
 
 let index_exist_initDb = function(request) {   
@@ -55,7 +55,7 @@ let exist_in_YH = function(request,response){
   yahooStockPrices.getCurrentPrice('t', function(err, price){
   if(price==undefined){response.render('register.html',{data: {error:'Index does not exist in yahoo finance, please check the index!'}}); 
   reject()}
-  else{ response.render('dashbord.html')
+  else{ //response.render('visualization.html')
     resolve('exist')
   }
 });
@@ -91,7 +91,7 @@ app.get('/afficher',function(request,response){
    .then(function(html){
     const $ = cheerio.load(html);
       var list=[];
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 4; i++) {
         list.push($('div.search-content.left h4 a').eq(i).attr('href'));     
 
         //retouner une lite avec url image text titre
@@ -104,7 +104,7 @@ app.get('/afficher',function(request,response){
    
     })
    .then(function(articles) {
-    
+
     response.send(articles);
 })
    .catch((err) => {
@@ -126,21 +126,22 @@ app.get('/data',function(request,response){
 
 app.post('/data',function(request,response){//a revoiir
   
-
-  if(request.body.revenue!='' && request.body.expend!=''){  
-     exec_kmean(request).then(function(result){//render dashboard
-      response.render('dashboard.html',{data: {error:''}}); 
+  if(request.body.revenue!=undefined && request.body.expend!=undefined){  
+      exec_kmean(request,response).then(function(result){//render dashboard 
+      console.log('nailaaa')  
+      response.render('visualization.html',{data: {error:''}}); 
      });}
   else{//verifier si l index appartient a la base de donnée
-       index_exist_initDb(request).then(function(result){
-        return exec_kmean(request)
+        exec_kmean(request,response)
+      /* index_exist_initDb(request).then(function(result){
+        return exec_kmean(request,response)
        }).catch(function(fromReject){
-         return exist_in_YH(request)
+         return exist_in_YH(request,response)
        }).then(function(){
-        return exec_kmean(request)
+        return exec_kmean(request,response)
        }).then(function(){
         return add_index(request)
-       })
+       })*/
   } 
 
 });
