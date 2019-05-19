@@ -13,7 +13,6 @@ function popsummary(index){
 }
 
 $(document).ready(function(){
-	
 
 	$.get("/afficher",function(data){
 	if(!data){
@@ -27,14 +26,15 @@ $(document).ready(function(){
 		 		var article =`<div class="col-lg-3">
   <div class="card card-image" style="background-image: url(`+element['image']+`);height:300px;">
   <!-- Content -->
-  <div style="background-color : rgba(0,0,0,0.5);" class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
-    <div>
+  
+ 	 <div style="background-color : rgba(0,0,0,0.5);" class="text-white text-center d-flex align-items-center rgba-black-strong py-4 px-4">
+  <div>  
       <div id="fitin" class="text-center"><div class="card-title"><strong>`+element['title']+`</strong></div></div>
       <br>
       <div class="row "><div class="col" style="text-align:center;"><button type="button" onclick="popsummary(`+index+`)" class="btn btn-outline-light btn-lg">SUMMARY</button></div></div>
       <br>
       <div class="row"><div class="col" style="text-align:center;"><a href="`+element['url']+`"><button type="button" class="btn btn-primary btn-lg">Complete Article</button></a></div></div>   
-    </div>
+  </div>  
   </div>
   </div>
 </div>`

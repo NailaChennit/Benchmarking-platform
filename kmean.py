@@ -180,7 +180,7 @@ if __name__ == '__main__':
             dict = {}
             name = mycollection.find_one({"index_YH": idx})["name"]
             country = mycollection.find_one({"index_YH": idx})["ISO2"]
-            dict["name"]=name
+            dict["text"]=name+','+country##faut laisser la clé text
             dict["idx"]=idx
             dict["country"]=country
             cloud.append(dict)

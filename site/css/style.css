@@ -9,7 +9,31 @@ html, body {
 }
 text:hover { opacity: .3 !important; }
 
+a:hover{ opacity: .3 !important; }
+
+tr th{
+  font-weight: bold;
+}
+.svg {
+ text-align:center; 
+ display : block;
+ margin  : 0 auto;
+}
 .pointer{ cursor: pointer; }
+
+#info td {
+    font-weight: bold;   
+    font-family : 'Poppins';
+    color: black;
+   }   
+
+pre{
+  color: black;
+  font-size: 0.9rem;
+  font-weight: bold; 
+  margin-bottom: 0px;
+}
+
 
 #wordCloud{
   height:100%;
@@ -19,7 +43,7 @@ text:hover { opacity: .3 !important; }
   -vendor-animation-delay: 2s;
   -vendor-animation-iteration-count: infinite;
 }
-.card{
+.card_shadow{
 border: 1px solid #fff;
 -webkit-box-shadow: -4px 2px 30px 1px rgba(0,0,0,0.75);
 -moz-box-shadow: -4px 2px 30px 1px rgba(0,0,0,0.75);
