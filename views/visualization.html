@@ -8,11 +8,11 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<link href="css/mdb.min.css" rel="stylesheet">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 	<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css"/> 
-	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+	
 	<script src="js/awesomplete.js"></script>
 	<script src="http://d3js.org/d3.v3.min.js"></script>
 	<script type="text/javascript" src="js/d3.layout.cloud.js"></script>
@@ -73,10 +73,10 @@
 			<p>Click on a company to show more details</p>
 	    </div>
 		<div class="row">
-			<div  style="text-align:center; height: 450px;background-image: url('image/grey4.jpg');" class="col-12 animated fadeInUp" id="wordCloud">
-				    <div class="form-check-inline checked">
+			<div style="text-align:center; height: 500px;background-image: url('image/grey4.jpg');" class="col-12 animated fadeInUp" id="wordCloud">
+				    <div class="form-check-inline">
 					  <label class="form-check-label">
-					    <input type="radio" class="form-check-input" name="optradio">Default
+					    <input type="radio" class="form-check-input" checked name="optradio">Default
 					  </label>
 					</div>
 					<div class="form-check-inline">
@@ -86,7 +86,12 @@
 					</div>
 					<div class="form-check-inline ">
 					  <label class="form-check-label">
-					    <input type="radio" class="form-check-input" name="optradio" disabled>Maxy truc 2
+					    <input type="radio" class="form-check-input" name="optradio">Maxy truc 2
+					  </label>
+					</div> 
+					<div class="form-check-inline ">
+					  <label class="form-check-label">
+					    <input type="radio" class="form-check-input" name="optradio">Maxy truc 3
 					  </label>
 					</div> 				
 			</div>
@@ -106,26 +111,26 @@
 	<div class="row">
 		<div class="col-sm-4">
 			<table class="table table-sm" id="info">
-				<tr><td style="width:30px;"><i class="fas fa-id-card"></i></td><td id="name" style="text-align: left;"><span style="font-weight: bold;"></span></td></tr>
+				<tr><td style="width:30px;"><i class="fas fa-id-card"></i></td><td id="name" style="text-align: left;"></td></tr>
 				<tr><td style="width:20px;"><i class="fas fa-info"></i></i></td><td id="website" style="text-align: left;"><a href="#" style="color:blue;text-decoration: underline; "></a></td></tr>
-				<tr><td style="width:20px;"><i class="fas fa-info"></i></td><td id="yh__index" style="text-align: left;"><span style="font-weight: bold;"> Yahoo finance index : </span></td></tr>
-				<tr><td style="width:20px;"><i class="fas fa-users"></i></td><td id="nb_employee" style="text-align: left;"><span style="font-weight: bold;">Number of employee : </span></strong></td></tr>
-				<tr><td style="width:20px;"><i class="fas fa-phone-square"></i></td><td id="phone" style="text-align: left;"><span style="font-weight: bold;"></span></td></tr>
-				<tr><td style="width:20px;"><i class="fas fa-fax"></i></td><td id="fax" style="text-align: left;"><span style="font-weight: bold;"></span></td></tr>
-				<tr><td ><i class="fas fa-map-marker-alt"></i></td><td id="address" style="text-align: left;"><span style="font-weight: bold;"></span></td></tr>
+				<tr><td style="width:20px;"><i class="fas fa-info"></i></td><td id="yh__index" style="text-align: left;"> Yahoo finance index : </td></tr>
+				<tr><td style="width:20px;"><i class="fas fa-users"></i></td><td id="nb_employee" style="text-align: left;">Number of employee : </strong></td></tr>
+				<tr><td style="width:20px;"><i class="fas fa-phone-square"></i></td><td id="phone" style="text-align: left;"></td></tr>
+				<tr><td style="width:20px;"><i class="fas fa-fax"></i></td><td id="fax" style="text-align: left;"></td></tr>
+				<tr><td ><i class="fas fa-map-marker-alt"></i></td><td id="address" style="text-align: left;"></td></tr>
 		    </table>
 		    <hr>
 	    </div>	
 
 		<div class="col-md-8">
+			
 			<div class="row justify-content-md-center " >
 			    <div class="col-md-3 stretch-card grid-margin">
 			    	<div class="card text-white" style="background-color: #26b99a; height:115px">
 			    		<div class="card-body">
-			    			<h6>Annual Revenue</h6>
-			    			<i class="fas fa-chart-area float-right text-white" style="font-size:30px"></i>
-			    			<h5>$ 15,00000</h5>
-			    			<p class="card-text">Incresed by 60%</p>
+			    			<h6 id="aa">Annual Revenue</h6>			    			
+			    			<h5 id="revenue">$ 15,00000</h5>
+			    			<p class="card-text decinc" data-toggle="tooltip" data-placement="bottom" id="incresed_rev">Incresed by 60%</p>
 			    		</div>	    		
 			    	</div>      
 			    </div>
@@ -134,86 +139,188 @@
 			    	<div class="card text-white" style="background-color: #f78749; height:115px">
 			    		<div class="card-body">
 			    			<h6>GDP</h6>
-			    			<h5>$ 15,00000.00</h5>
-			    			<p class="card-text">Incresed by 60%</p>
+			    			<h5 id="GDP">$ 15,00000.00</h5>
+			    			<p class="card-text decinc" data-toggle="tooltip" data-placement="bottom" id="incresed_gdp">Incresed by 60%</p>
 			    		</div>	    		
 			    	</div>      
 			    </div>
 			
 			    <div class="col-md-3 stretch-card grid-margin">
-			    	<div class="card text-white" style="background-color: #dbd42d; height:115px">
+			    	<div class="card text-white" style="background-color: #b47fc9; height:115px">
 			    		<div class="card-body">
-			    			<h6>QOS</h6>
-			    			<h5>$ 15,00000.00</h5>
-			    			<p class="card-text">Incresed by 60%</p>
+			    			<i class="fas fa-phone float-right text-white" style="font-size:30px"></i>
+			    			<h6 id="qos-title" >QOS</h6>
+			    			<h5 id="QOS">$ 15,00000.00</h5>
+			    			<p class="card-text decinc" data-toggle="tooltip" data-placement="bottom" id="incresed_qos">Incresed by 60%</p>
 			    		</div>	    		
 			    	</div>      
 			    </div>
+
 			    <div class="col-md-3 stretch-card grid-margin">
-			    	<div class="card text-white" style="background-color: #7bd177; height:115px">
+			    	<div class="card text-white" style="background-color: #778ed1; height:115px">
+
 			    		<div class="card-body">
-			    			<h6>QON</h6>
-			    			<h5>$ 15,00000.00</h5>
-			    			<p class="card-text">Incresed by 60%</p>
+			    			<i class="fas fa-wifi float-right text-white" style="font-size:30px"></i>
+			    			<h6 id="qon-title">QON</h6>
+			    			<h5 id="QON">$ 15,00000.00</h5>
+			    			<p class="card-text decinc" data-toggle="tooltip" data-placement="bottom" id="incresed_qon">Incresed by 60%</p>
 			    		</div>	    		
 			    	</div>      
 			    </div>
 	
 			</div>
-			<div  class="row justify-content-md-center ">
-				<div class="col-8 ">
-			            
-	                	<h6 >Revenue and GDP</h6>
+			<div class="col-12 ">
+	            <div class="card">
+	                <div class="card-body">
+	                	<h5 class="card-title" ><font color="#482ece" bold> Overall growth (2018)</font></h5>
 	                	<hr>
-						<canvas id="pie-chart" height="100" ></canvas>
-							
-				</div>				
+	                	<p class="text-muted" style="margin-bottom: 0px;">Growth information for both company in 2018 compared to last year.</p>
+	                	<div class="row ">
+		                	<div class="col-6" style="padding-top: 0px;padding-bottom: 0px;">
+		                		<div class="row">
+			                		<div class="col-2"></div>	
+			                		<div class="col-10">	
+				                		<div class="row"><h4 id="name_user" style="font-weight: bold;"></h4></div>
+				                		<div class="row"> 	
+				                			<div class=" mr-4" id="rev_user"><h5></h5>Revenue</div>
+				                			<div class="mr-4"  id="capex_user"><h5></h5>CAPEX</div>
+				                			<div class=" mr-4" id="subs_user"><h5></h5>Subscribers</div>
+				                		</div>
+				                	</div>
+			                	</div>	
+		                	</div>
+		                	<div class="col-6" style="padding-top: 0px;padding-bottom: 0px;">
+		                		<div class="row">
+			                		<div class="col-2"></div>	
+			                		<div class="col-10">	
+				                		<div class="row"><h4 id="name_comp" style="font-weight: bold;"></h4></div>
+				                		<div class="row "> 
+				                			<div class="mr-4" id="rev_comp"><h5></h5>Revenue</div>
+				                			<div class="mr-4" id="capex_comp"><h5></h5>CAPEX</div>
+				                			<div class="mr-4" id="subs_comp"><h5></h5>Subscribers</div>
+				                		</div>
+				                	</div>				                		
+		                		</div>
+		                	</div>	
+	                	</div>
+	           		 </div>
+       			</div>	
+
 			</div>
-		
 		</div>
-	</div> 
+</div>	 
+
+
+
 
 	<div class="row">
-		<div class="col-6 ">
-            <div class="card">
-                <div class="card-body">
-                	<h5 class="card-title">Comparaison of revenue</h5>
-                	<hr>
-                    <canvas id="chBarRevenue"></canvas>
-                </div>
-            </div>
-        </div>
-        <div class="col-6 ">
-            <div class="card">
-                <div class="card-body">
-                	<h5 class="card-title">Growth</h5>
-                	<hr>
-                    <canvas id="bar-chart-horizontal" ></canvas>
-                </div>
-            </div>
-        </div>	
+		<div class="col-2" style="height: 100%;">
+			<div class="row">
+				<div class="col-12">
+					<div class="card">
+		                <div class="card-body">
+		                	<h5 class="card-title"> <font color="#482ece" bold>About</font></h5>
+		                	<hr>  
+		                	<br>
+		                	<p class="text-muted" style="font-size: 15px;">Quality of Service (QOS) is satisfaction rate of subscribers mesured from the processing of a large amount of comments left on different platform (social networks, website).</p> 
+		                	<br>
+		                	<p class="text-muted" style="font-size: 15px;">Quality of Network (QON) is measured from online newspaper article processing specilized in mobile communication.</p> 
+		                	<br>         		                			                	    
+		                </div>
+		                <canvas style="height: 200px; width: relative; background-image: url('image/wave3.png')" ></canvas>
+
+				    </div>
+			    </div>
+			</div>
+		</div>
+				
+		<div class="col-10">
+			<div class="row" >
+				<div class="col-8">
+		            <div class="card"  >
+		                <div class="card-body">
+		                	<h6 class="card-title">Comparison of revenue ($/year)</h6>
+		                	<hr>
+		                    <canvas id="chBarRevenue"></canvas>
+		                </div>
+		            </div>
+	            </div>
+	            <div class="col-4">
+		            <div class="card"  >
+		                <div class="card-body">
+		                	<p class="card-title">Average GDP for the 4 past years</p>
+		                	<hr>
+		                    <h4 class="text-center" style="color:#26B99A;" id="name_user_gdp" style="font-weight: bold;"></h4>
+		                    
+		                    <h4 class="text-center" style="color:#26B99A;" id="name_user_gdp_val" style="font-weight: bold;"></h4>
+		                    
+		                    <br>
+							<h4 class="text-center" style="color:#03586A;" id="name_comp_gdp" style="font-weight: bold;"></h4>
+		                    <h4 class="text-center" style="color:#03586A;" id="name_comp_gdp_val" style="font-weight: bold;"></h4>
+		                    
+		                    <br>
+		                    <p class="text-muted">the average GDP is calculated from the information collected from the IMF official website.</p>
+		                    
+		                </div>
+		            </div>
+	            </div>
+
+
+		    </div>    
+		    <div class="row">
+		    	<div class="col-6">
+		            <div class="card">
+		                <div class="card-body">
+		                	<h6 class="card-title">Comparison of Quality of service (%)</h6>
+		                	<hr>
+		                    <canvas id="chLineQos"></canvas>
+		                </div>
+		            </div>
+		        </div>
+		        <div class="col-6">
+		            <div class="card">
+		                <div class="card-body">
+		                	<h6 class="card-title">Comparison of quality of network (%)</h6>
+		                	<hr>
+		                    <canvas id="chLineQon"></canvas>
+		                </div>
+		            </div>
+		        </div>	
+			</div>	
+		</div>	
 	</div>	
-    <div class="row">
-    	<div class="col ">
-            <div class="card">
-                <div class="card-body">
-                	<h5 class="card-title">Comparaison of Quality of service</h5>
-                	<hr>
-                    <canvas id="chLineQos"></canvas>
-                </div>
-            </div>
-        </div>
-        <div class="col ">
-            <div class="card">
-                <div class="card-body">
-                	<h5 class="card-title">Comparaison of quality of network</h5>
-                	<hr>
-                    <canvas id="chLineQon"></canvas>
-                </div>
-            </div>
-        </div>	
-	</div>	
+
+	<!------------------abonnés---------->
 	
+	<div class="row">
+	    <div class="row" style="width: 100%">
+	    	<div class="col-7" >
+	    		<div class="col-12">
+		            <div class="card">
+		                <div class="card-body">
+		                	<h6 class="card-title">Comparison of number of subscribers</h6>
+		                	<hr>
+		                    <canvas id="bar-chart-horizontal"></canvas>
+		                </div>
+		            </div>
+	            </div>
+			</div>
+			<div class="col-5" style="padding-left: 0px;padding-right: 0px;">
+				<div class="col-12">
+		            <div class="card">
+		                <div class="card-body">
+		                	<h6 class="card-title" id="LDA">Main technoligies used by</h6>
+		                	<hr>
+
+		                </div>
+		            </div>
+	        	</div>
+			</div>				
+	    </div>
+	    
+	</div> 
+	  
+		
 
 </div>
 </div>

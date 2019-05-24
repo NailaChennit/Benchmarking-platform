@@ -243,9 +243,19 @@ app.get('/infos', function(req, res) {
   const db = monk(url);
   const collection = db.get('Operators');
  
-  var infos=collection.find({index_YH: req.query.index_compare},function(e,docs1){ 
-           console.log(docs1[0].address)
+  var infos=collection.find({index_YH: req.query.index},function(e,docs1){ 
            res.send(docs1)         
+       }) 
+});
+
+app.get('/country', function(req, res) {  //tirer le nom du pays
+  const url = 'localhost:27017/dump';
+  const db = monk(url);
+  const collection = db.get('World');
+  var data_user=collection.find({ISO2: req.query.iso2_count_user},function(e,docs1){ 
+          var index_compare=collection.find({ISO2: req.query.iso2_count_comp},function(e,docs2){ 
+           res.send({user_country:docs1,compare_country:docs2})
+         })
        }) 
 });
 
@@ -256,16 +266,26 @@ app.get('/account', function(req, res) {
   
 });
 
-app.get('/accountCharts', function(req, res) {
+app.get('/Operateur_same_country', function(req, res) {
   const url = 'localhost:27017/dump';
   const db = monk(url);
   const collection = db.get('Operators');
-  const collection2 = db.get('Statement');
  
-  var data_user=collection.find({ISO2: req.query.ISO2},function(e,docs1){ 
-          var index_compare=collection2.find({ID_operator: req.query.index_compare},function(e,docs2){ 
-           res.send({user:docs1,compare:docs2})
-         })
+
+  var data_user=collection.find({ISO2: req.query.id_country},function(e,docs1){ 
+      res.send(docs1)  
+          
+    }) 
+});
+
+app.get('/info_statement', function(req, res) {
+  const url = 'localhost:27017/dump';
+  const db = monk(url);
+  const collection = db.get('Statement');
+ 
+  var data_user=collection.find({ID_operator: req.query.index_user},function(e,docs1){ 
+          
+           res.send(docs1)
        }) 
 });
 

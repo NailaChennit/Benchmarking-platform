@@ -16,7 +16,7 @@
 	<script src="js/awesomplete.js"></script>
 	<script src="http://d3js.org/d3.v3.min.js"></script>
 	<script type="text/javascript" src="js/d3.layout.cloud.js"></script>
-	<script src="js/visualization.js"></script>
+	<script src="js/account.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 	<link href="css/awesomplete.css" rel="stylesheet">
 	<link href="css/style.css" rel="stylesheet">
@@ -80,58 +80,188 @@
 				<tr><td ><i class="fas fa-map-marker-alt"></i></td><td id="address" style="text-align: left;"><span style="font-weight: bold;"></span></td></tr>
 		    </table>
 		    <hr>
-	    </div>	
+	    </div>
+	    <div class="col-8 ">
+	            <div class="card">
+	                <div class="card-body">
+	                	<h5 class="card-title" ><font color="#482ece" bold> Overall growth (2018)</font></h5>
+	                	<hr>
+	                	<p class="text-muted" style="margin-bottom: 0px;">Growth information of your company in 2018 compared to last year.</p>
+	                	<div class="row ">
+		                	<div class="col-12" style="padding-top: 0px;padding-bottom: 0px;">
+		                		<div class="row">
+			                		<div class="col-2"></div>	
+			                		<div class="col-10">	
+				                		<div class="row"><h4 id="name_user" style="font-weight: bold;"></h4></div>
+				                		<div class="row"> 	
+				                			<div class=" mr-4" id="rev_user"><h5></h5>Revenue</div>
+				                			<div class="mr-4"  id="capex_user"><h5></h5>CAPEX</div>
+				                			<div class=" mr-4" id="subs_user"><h5></h5>Subscribers</div>
+				                		</div>
+				                	</div>
+			                	</div>	
+		                	</div>
+		                		
+	                	</div>
+	           		 </div>
+       			</div>	
+
+			</div>	
         
     </div>
 
+	
+		<div class="row jumbotron" style="padding-bottom: 0px;">
+			<div class="col-xs-12 col-sm-12 col-md-p col-lg-9 col-xl-10">
+				<p class="lead">
+					Try Benchmarking and imporove performance of your company
+				</p>
+				<p class="blue-text my-4 ">Benchmarkig is a great way to find the right competitors all around the wolrd </p>
+
+			</div>	
+			<div class="col-xs-12 col-sm-12 col-lg-3 col-xl-2">
+				<a href="http://telecoms.com/news/"><button type="button" class="btn btn-outline-secondary btn-lg"> Ty it now!</button></a>
+			</div>	
+			
+		</div>	
+	
 
 	<div class="row">
-		<div class="col-6">
-			<table class="table table-striped">
-			    <thead>
-			      <tr>
-			        <th>Year</th>
-			        <th>Revenue ($)</th>
-			        <th>GDP of the country</th>
-			      </tr>
-			    </thead>
-			    <tbody>
-			      <tr>
-			        <td style="font-weight: bold"> 2015 </td>
-			        <td>Doe</td>
-			        <td>john@example.com</td>
-			      </tr>
-			      <tr>
-			        <td style="font-weight: bold">2016</td>
-			        <td>Moe</td>
-			        <td>mary@example.com</td>
-			      </tr>
-			      <tr>
-			        <td style="font-weight: bold">2017</td>
-			        <td>Dooley</td>
-			        <td>july@example.com</td>
-			      </tr>
-			      <tr>
-			        <td style="font-weight: bold">2018</td>
-			        <td>Dooley</td>
-			        <td>july@example.com</td>
-			      </tr>
-			    </tbody>
-		  </table>
-		</div>  
+		<div class="col-7">			
+            <div class="card"  >
+                <div class="card-body">
+                	<h6 class="card-title">Comparison of revenue ($/year)</h6>
+                	<hr>
+                    <canvas id="chBarRevenue"></canvas>
+                </div>
+            </div>           		
+		</div> 
+		<div class="col-5">			
+            <div class="card"  >
+                <div class="card-body">
+                	<h6 class="card-title">Comparison of revenue ($/year)</h6>
+                	<hr>
+                </div>
+            </div>           		
+		</div> 
+
     </div>
 
-    <div class="col-8 ">			            
-    	<h6 >Revenue and GDP</h6>
+   
+    	<!--------------tabel abonné par trismestre------>
     	<hr>
-		<canvas id="pie-chart" height="150" ></canvas>
-							
-	</div>	
+    	<div class="row"><div class="col-12" style="padding-bottom: 0px;"><h5 style="margin-bottom: 0px;">Number of subscribers per quarter for last 4 years :</h5></div></div>
+    	<div class="row text-center" >
+	    	<table class="table table-striped">
+			  <thead>
+			    <tr>
+			      <th scope="col" >Quarter</th>	
+			      <th scope="col" >2015</th>
+			      <th scope="col">2016</th>
+			      <th scope="col">2017</th>
+			      <th scope="col">2018</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr>
+			      <th scope="row">Q1 :</th>
+			      <td>25555</td>
+			      <td>44444</td>
+			      <td>8888888</td>
+			      <td>8888888</td>
+			    </tr>
+			    <tr>
+			      <th scope="row">Q2 :</th>
+			      <td>Jacob</td>
+			      <td>Thornton</td>
+			      <td>@fat</td>
+			      <td>8888888</td>
+			    </tr>
+			    <tr>
+			      <th scope="row">Q3 :</th>
+			      <td>Larry</td>
+			      <td>the Bird</td>
+			      <td>@twitter</td>
+			      <td>8888888</td>
+			    </tr>
 
+			    <tr>
+			      <th scope="row">Q4 :</th>
+			      <td>Larry</td>
+			      <td>the Bird</td>
+			      <td>@twitter</td>
+			      <td>8888888</td>
+			    </tr>
+			  </tbody>
+			</table>
+    	</div>
+  
+   <hr>
+    <div class="row">
+    	<div class="col-5">			
+            <div class="card"  >
+                <div class="card-body">
+                	<h6 class="card-title">Comparison of revenue ($/year)</h6>
+                	<hr>
+                </div>
+            </div>           		
+		</div> 
+		<div class="col-7">			
+            <div class="card"  >
+                <div class="card-body">
+                	<h6 class="card-title">Number of subscribers per year</h6>
+                	<hr>
+                    <canvas id="bar-chart-horizontal"></canvas>
+                </div>
+            </div>           		
+		</div> 
+    	
+    </div>
 
+    <div class="row">
+    	<div class="col-8">			
+            <div class="card"  >
+                <div class="card-body">
+                	<h6 class="card-title">Comparison of revenue ($/year)</h6>
+                	<hr>
+                    <canvas id="chLineQon"></canvas>
+                </div>
+            </div>           		
+		</div> 
+		<div class="col-4">			
+            <div class="card"  >
+                <div class="card-body">
+                	<h6 class="card-title">Comparison of revenue ($/year)</h6>
+                	<hr>
+                </div>
+            </div>           		
+		</div> 
 
+    </div>
 
-
+    <hr>
+    <div class="row"><div class="col-12" style="padding-bottom: 0px;"><h5 style="margin-bottom: 0px;">Number of subscribers of all operators of the country</h5></div></div>
+    <div class="row justify-content-md-center">   	
+    	<div class="col-9" style="padding-top: 0px;" >
+    		<table class="table table-striped tableHeight" >
+    			<thead>
+				    <tr>
+				      <th scope="col" >Operator</th>	
+				      <th scope="col" >2015</th>
+				      <th scope="col">2016</th>
+				      <th scope="col">2017</th>
+				      <th scope="col">2018</th>
+				    </tr>
+			  </thead>
+			  <tbody id="table_ratio" >
+			  	<!------insertion----->
+			  </tbody>
+    			
+    		</table>
+    	</div>
+       	
+    </div>
+    <hr>
 
 </div>
 

@@ -10,19 +10,42 @@ html, body {
 text:hover { opacity: .3 !important; }
 
 a:hover{ opacity: .3 !important; }
+h4{
+  text-align: 'center';
+}
+
+.tableHeight tr{
+  line-height:10px;
+}
+.chart-container {
+  position: relative;
+  margin: auto;
+  height: 80vh;
+  width: 80vw;
+}
+
+
+.fit{
+  height: 100%; 
+  width: 100%;
+}
 
 tr th{
   font-weight: bold;
 }
+h6{
+  font-size: 0.9rem
+}
+
 .svg {
  text-align:center; 
  display : block;
  margin  : 0 auto;
 }
+
 .pointer{ cursor: pointer; }
 
 #info td {
-    font-weight: bold;   
     font-family : 'Poppins';
     color: black;
    }   
@@ -30,7 +53,6 @@ tr th{
 pre{
   color: black;
   font-size: 0.9rem;
-  font-weight: bold; 
   margin-bottom: 0px;
 }
 
@@ -108,6 +130,10 @@ box-shadow: -4px 2px 30px 1px rgba(0,0,0,0.75);
 .padding{
   padding-bottom: 2rem;
 }
+.nopadding{
+  padding-bottom: 0px;
+}
+
 .paddingsmall{
   padding-bottom: 1rem;
 }
@@ -148,6 +174,7 @@ footer{
   color: #d5d5d5;
   padding-top: 2rem;
 }
+
 
 hr.light{
   border-top: 1px solid #d5d5d5;
