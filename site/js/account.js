@@ -1,7 +1,36 @@
-$(document).ready(function(){
 
- 
-  var idx='SNMMF';
+  function popsummary(title,text){
+    
+    var summarizer = new JsSummarize();
+    var summary = summarizer.summarize(title,text);
+    $("#popupSummary div.modal-body").text(summary);
+    $("#popupSummary h5.modal-title").text(title);
+      $('#popupSummary').modal('show')
+     
+      
+}
+
+
+
+
+$(document).ready(function(){
+var idx='SNMMF';
+
+
+/*$('#btn_benchmark').click(function(){
+
+
+     $.get("/visualization",{index_user:idx},function(data){
+                if(!data){
+                console.log("No dataaaaaa");
+                }
+               else{ console.log(data) }
+
+      })
+    
+  });*/
+
+
 
   Charts(idx);
 
@@ -18,10 +47,10 @@ $(document).ready(function(){
                 }
                else{ 
                 var info_statement=data;
-                //console.log(info_statement);
                 bar_hor_subs(info_statement);
                 QOS_QON_line(info_statement)
                 Revenue_Capex_Bar(info_statement)
+                growth(info_statement)
                 
                }
              })
@@ -43,6 +72,7 @@ $(document).ready(function(){
                 $('#address').append('<pre style="font-family:Poppins;">'+(data[0].address).trim()+'</pre>')
                 $('#phone ').text(data[0].phone)
                 $('#fax').text(data[0].fax)
+                $('#btn_benchmark').attr("href","http://127.0.0.1:3000/visualization.html?idx="+data[0].index_YH)
                 //$('#2018').text('2018 statistics for '+ data[0].name)
                 
                 $('#name_comp').text(data[0].name)
@@ -280,12 +310,105 @@ $(document).ready(function(){
 */
 
    }
+   show_articles(idx);
+   
+   function show_articles(idx){
+
+    $.get("/article_account",{index:"VEON"},function(data){
+                if(!data){
+                console.log("No dataaaaaa");
+                }
+               else{  
+                       articles=data;    //pb resize
+                       var carou1=articles.slice(0,5);
+
+                       var carou2=articles.slice(5,10)
+                      var carou3=articles.slice(10,15)
+                       populate_caroussel(carou1,'#test')
+                       populate_caroussel(carou2,'#test2')
+                       populate_caroussel(carou3,'#test3')
+
+                      
+
+               }
 
 
+  function populate_caroussel(list,id){
 
+    list.forEach(function(element,index) {
+                        var date =element['Date'].replace('T00:00:00.000Z','')
+                        date=date.replace(/201.-/g,"2019-")
+                       
+                         var text = element['Text']
+
+                   
+                         text=text.replace(/''/g,'');
+                         text=text.replace(/"/g,'');
+                         text=text.replace(/’/g,'');
+                         text=text.replace(/'/g,'');
+                        var article =`<div class="col-lg-2" style="padding-right: 8px;padding-left: 8px;">
+                               <div class="card">
+                                  <div class="card-body">
+                                    <div id="fitin" class="col" style="padding-left: 0px;padding-right: 0px;"><div class="card-title"><strong>`+element['Title']+`</strong></div></div>
+                                    <br>
+                                    <h6 class="card-subtitle mb-2 text-muted">`+date+`</h6>
+                                    <a  onclick="popsummary('`+element['Title']+`','`+text.toString()+`')">Summary</a><br>
+                                    <a  href="`+element['Link']+`">Article</a>
+                                  </div>
+                                </div>
+                                </div>`
+                                 $(id).append(article);
+                      });
+                         
+                        $(function() {
+                          while( $('#fitin div').height() > $('#fitin').height() ) { console.log('fsfsffsf')
+                              $('#fitin div').css('font-size', (parseInt($('#fitin div').css('font-size')) - 1) + "px" );
+                          }
+                        });
+
+                     }
+
+
+    }) 
+
+  }
+
+  function growth(info_statement){ //premier ligne
+      grrevuser=((((info_statement[3]['Revenue']-info_statement[2]['Revenue'])*100)/info_statement[3]['Revenue']).toFixed(1))
+      grcapuser=((((info_statement[3]['Capex']*-1-info_statement[2]['Capex']*-1)*100)/(info_statement[3]['Capex'])*-1).toFixed(1))
+      grsubs=((((info_statement[3]['Nb_sub']-info_statement[2]['Nb_sub'])*100)/info_statement[3]['Nb_sub']).toFixed(1))
+      grpopu=((((info_statement[3]['Population']-info_statement[2]['Population'])*100)/info_statement[3]['Population']).toFixed(1))
+      grgdp=((((info_statement[3]['Gdp']-info_statement[2]['Gdp'])*100)/info_statement[3]['Gdp']).toFixed(1))
+      grqos=((((info_statement[3]['QOS']-info_statement[2]['QOS'])*100)/info_statement[3]['QOS']).toFixed(1))
+      grqon=((((info_statement[3]['QON']-info_statement[2]['QON'])*100)/info_statement[3]['QON']).toFixed(1))
+
+
+     text_color('#rev_user',info_statement[3]['Revenue'],grrevuser)
+     text_color('#capex_user',info_statement[3]['Capex'],grcapuser)
+     text_color('#gdp_user',info_statement[3]['Gdp'],grgdp)
+     text_color('#popu_user',info_statement[3]['Population'],grpopu)
+     text_color('#qos_user',info_statement[3]['QOS'],grqos)
+     text_color('#qon_user',info_statement[3]['QON'],grqon)
+     text_color('#subs_user',info_statement[3]['Nb_sub'],grsubs)
+
+
+  }
+
+  function text_color(id_tag,number, growth){
+
+      $(id_tag+' h5').text(($(id_tag+' h5').text())+number)
+
+      if(growth>0){   $(id_tag+' h6').text('+'+growth+'%')
+                      $(id_tag +' h6').addClass('text-primary')
+                                                      }
+      else{  $(id_tag+' h6').text(growth+'%')
+             $(id_tag + ' h6').addClass('text-danger')}
+
+
+  }
 
   function AddRowRatio(info_op_list,list_index,i){
-      console.log(list_index[i])
+      
       var row;
       row=`<tr>
               <th scope="row">`+list_index[i].name+' ('+list_index[i].index_YH+')'+`</th>`;

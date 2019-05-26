@@ -209,7 +209,7 @@ if __name__ == '__main__':
     #Partie à retourner à Naila
 
 
-    Id='VFQS.QA'
+    Id='VFQS.QA' ##iciiiiiiiiiii
     ids,cluster=Get_IdOp_Same_Cluster(Id,clusters)
     #print(ids) #liste des indexes du meme cluster que T.BA
     Maxy='Economic' # or 'Financial' or 'Media'

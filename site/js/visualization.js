@@ -1,17 +1,48 @@
 /*************cloud*************/
-$(document).ready(function(){
+text=['5G', 'SDN', 'IoT', 'IIoT', 'Automated home', 'Cloud', 'Managed security services', 'Low Earth Orbit (LEO) satellites', 'AI', 'Conversational platforms', 'Internet TV', 'Vehicle-tovehicle (V2V) comms', 'Mobile payments', 'Drones', 'Fixed wireless access (FWA)', 'Convergence and quad-play', 'eSIM']
 
-var info_user;
-var info_comp;  
+var word_list=[];
+var dataKnn;
 
-var averagePibUser;
-var averagePibcomp;
+var i=1;
+text.forEach(function(element){
+    var word={};
+    word["text"]=element;
+    word["count"]=i;
+    i=i+5
+    word_list.push(word)
+})
+
+
+
+ $(document).ready(function(){ 
+
+  var info_user;
+  var info_comp;  
+
+  var averagePibUser;
+  var averagePibcomp;
+  var queryString = decodeURIComponent(window.location.search);//recuperer les infoo de l url!!!
+  var id_user=queryString.replace('?idx=','')/// iD uuuserrr del url
+  console.log(id_user)
+
+ $.get("/visualization",{index:id_user},function(data){
+        if(!data){
+        console.log("No dataaaaaa");
+        }
+       else{ 
+        var data2=data.replace(/'/g,'"')
+        var datafinal = JSON.parse(data2)
+        dataKnn=datafinal['data_final']
+        
+            
+
 
 var height=450, width=750;
 var fill=d3.scale.category20b();
-//var data = datafinal['data_final']
-var data=[{"text":"China Unicom,HK","idx":"0762.HK","country":"HK"},{"text":"KPN,CH","idx":"KPO.SW","country":"CH"},{"text":"KPN,NL","idx":"KPN.AS","country":"NL"},{"text":"Rogers,CA","idx":"RCI-A.TO","country":"CA"},{"text":"Rogers,CA","idx":"RCI-B.TO","country":"CA"},{"text":"SoftBank,FR","idx":"SFT.F","country":"FR"},{"text":"KPN,FR","idx":"KPN.F","country":"FR"},{"text":"StarHub,FR","idx":"RYTB.F","country":"FR"},{"text":"AIS,FR","idx":"AISF.F","country":"FR"},{"text":"AIS,TH","idx":"ADVANC-R.BK","country":"TH"},{"text":"AIS,TH","idx":"ADVANC.BK","country":"TH"},{"text":"KPN,MX","idx":"KPNN.MX","country":"MX"},{"text":"M1,FR","idx":"MOJB.F","country":"FR"},{"text":"Inmarsat,GB","idx":"ISAT.L","country":"GB"},{"text":"Inmarsat,FR","idx":"IV4.F","country":"FR"},{"text":"Orange,FR","idx":"MOS.F","country":"FR"},{"text":"Partner,FR","idx":"PUG.F","country":"FR"},{"text":"KPN,FR","idx":"KPNB.F","country":"FR"},{"text":"KPN,FR","idx":"KPN.DE","country":"FR"},{"text":"TIM (Telecom Italia),MX","idx":"TSUN.MX","country":"MX"},{"text":"Turk Telekom (Oger Telecom),TR","idx":"TTKOM.IS","country":"TR"},{"text":"Rogers,FR","idx":"RCIB.F","country":"FR"},{"text":"Turkcell,TR","idx":"TCELL.IS","country":"TR"},{"text":"TIM (Telecom Italia),FR","idx":"TCLA.F","country":"FR"},{"text":"Orange,FR","idx":"TPA1.F","country":"FR"},{"text":"Singtel,FR","idx":"SIT4.F","country":"FR"},{"text":"Turkcell,FR","idx":"TUL1.F","country":"FR"},{"text":"Telus,CA","idx":"T.TO","country":"CA"},{"text":"Partner,IL","idx":"PTNR.TA","country":"IL"},{"text":"StarHub,SG","idx":"CC3.SI","country":"SG"},{"text":"Asia Pacific Telecom,TW","idx":"3682.TW","country":"TW"},{"text":"Telkom,FR","idx":"TZL1.F","country":"FR"},{"text":"Vodafone,QA","idx":"SNMMF","country":"QA"},{"text":"AIS,FR","idx":"NVAA.F","country":"FR"},{"text":"China Unicom,MX","idx":"CHUN.MX","country":"MX"},{"text":"Singtel,SG","idx":"Z74.SI","country":"SG"},{"text":"China Unicom,FR","idx":"XCIA.F","country":"FR"},{"text":"China Unicom,FR","idx":"XCI.F","country":"FR"},{"text":"KDDI,FR","idx":"DIP.F","country":"FR"},{"text":"NTT DOCOMO,FR","idx":"MCNA.F","country":"FR"},{"text":"NTT DOCOMO,FR","idx":"MCN.F","country":"FR"},{"text":"SoftBank,FR","idx":"SFTU.F","country":"FR"}];
-if(data.length >10){ var data2=data.slice(0,10) }
+var data = dataKnn;
+console.log(data)
+if(data.length >10){ var data2=data.slice(0,11) }
 else {var data2=data }  
 
 var focus=d3.select("#wordCloud").append("svg")
@@ -26,7 +57,9 @@ var colorScale = d3.scale.linear()
               .range(["#393b79","#9c9ede"]);
 var sizeScale = d3.scale.linear()
               .domain([1,data2.length])
-              .range([5*(data2.length-1)+15,15]);            
+              .range([5*(data2.length-1)+15,15]); 
+ 
+ console.log(data2)
  d3.layout.cloud().size([width, height])
     .words(data2)
     .padding(5)
@@ -37,9 +70,10 @@ var sizeScale = d3.scale.linear()
     .fontSize(function(d, index) { return sizeScale(index); })
     .on("end", draw)
     .start();
-
      
 function draw(words) {
+
+  console.log(words)
     //console.log(words)
     focus.selectAll("text")
       .data(words)
@@ -48,7 +82,8 @@ function draw(words) {
       .style("font-family", "Arial")
       .style("fill", function(d, i) { return fill(i); })
       .on("click", function (d, i){
-       charts(d.idx) })
+      
+       charts(d.idx,id_user) })
       .attr("text-anchor", "middle")
       .attr("transform", function(d) {
         return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
@@ -56,20 +91,31 @@ function draw(words) {
       .text(function(d) { return d.text; });
            
 }
+
+}
 });
+
+});
+
+/*************************reset canvas***********/
+   function resetCanvas(id_canvas,id_container){
+  $('#'+id_canvas).remove();
+  $('#'+id_container).append('<canvas id="'+id_canvas+'"><canvas>');
+
+}
 
 /********************graphe*************************/
 
-function charts(idx){
+function charts(idx,id_user){
     $(document).ready(function(){ 
-         $.get("/infos",{index:"T"},function(data){
+         $.get("/infos",{index:id_user},function(data){
                 if(!data){
                 console.log("No dataaaaaa");
                 }
                else{$('#name_user').text(data[0].name)
                     
                     info_user=data;
-                    console.log(info_user)
+                    
                }
              })
          $.get("/infos",{index:idx},function(data){
@@ -182,7 +228,7 @@ function charts(idx){
                     console.log("No dataaaaaa");
                     }
                     else{ 
-                          console.log(data)
+                          
                          $('#name_user_gdp').text(data.user_country[0].Country)
                          $('#name_user_gdp_val').text('$ '+averagePibUser.toFixed(2))
                          $('#name_comp_gdp').text(data.compare_country[0].Country)
@@ -192,7 +238,7 @@ function charts(idx){
 
 
                     ////LDA
-                    $('#LDA').text('Main technologies used by '+info_comp[0].name)
+                    $('#tit h6').text('Main technologies used by '+info_comp[0].name)
 
                          
 
@@ -229,7 +275,8 @@ function charts(idx){
                         capexcompare.push(element.Capex)
                    });
                    
-                   var revenueCanvas = document.getElementById("chBarRevenue");
+                   
+
 
                    Chart.defaults.global.defaultFontFamily = "Lato";
                    Chart.defaults.global.defaultFontSize = 15;
@@ -289,11 +336,25 @@ function charts(idx){
                     }
                   };
 
-                  var barChart = new Chart(revenueCanvas, {
+                  
+                  resetCanvas("chBarRevenue","contain_revenue");
+                  var revenueCanvas = document.getElementById("chBarRevenue");
+
+                    var barChart = new Chart(revenueCanvas, {
                     type: 'bar',
                     data: years,
                     options: chartOptions
                   });
+
+                
+              
+                    //barChart.data=null;
+                    //console.log(barChart)
+
+                   
+          
+
+                
 
                /****************************chartLine Qos*****************************/
                 var qOSuser=[];                     
@@ -305,7 +366,7 @@ function charts(idx){
                    (data.compare).forEach(function(element) {
                         qOScompare.push(element.QOS*100)
                    });
-                console.log(qOScompare)    
+                  
               
               
                 var qos_user = {
@@ -332,8 +393,11 @@ function charts(idx){
                 datasets: [qos_user,qos_compare]
               }; 
 
+              resetCanvas("chLineQos","contain_qos");
 
               var chLine = document.getElementById("chLineQos").getContext('2d');
+              
+
               if (chLine) {
                 new Chart(chLine, { 
                 type: 'line',
@@ -394,7 +458,7 @@ function charts(idx){
                 datasets: [qon_user,qon_compare]
               }; 
 
-
+              resetCanvas("chLineQon","contain_qon");
               var chLine = document.getElementById("chLineQon").getContext('2d');
               if (chLine) {
                 new Chart(chLine, { 
@@ -452,6 +516,8 @@ function charts(idx){
                                   labels: ["2015", "2016", "2017", "2018"],
                                   datasets: [subs_user, subs_compare]
                                 };                
+
+               resetCanvas("bar-chart-horizontal","contain_subs");                 
                new Chart(document.getElementById("bar-chart-horizontal"), {
                   type: 'horizontalBar',
                   data:data_subs,
@@ -537,6 +603,7 @@ function charts(idx){
 
               });
 */
+
 
 
 

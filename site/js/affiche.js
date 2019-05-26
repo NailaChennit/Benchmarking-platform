@@ -1,5 +1,8 @@
-console.log("je suis la");
+
 var articles;
+var carou1;
+var carou2;
+var carou3;
 function popsummary(index){
 		console.log('rrrrrrrrrrrrr')
 		console.log(articles[index]['title'])
@@ -21,35 +24,52 @@ $(document).ready(function(){
 	else{
 		articles=data;		//pb resize
 
-		 articles.forEach(function(element,index) { console.log(element['image'])
-		 	
-		 		var article =`<div class="col-lg-3">
-  <div class="card card-image" style="background-image: url(`+element['image']+`);height:300px;">
-  <!-- Content -->
-  
- 	 <div style="background-color : rgba(0,0,0,0.5);" class="text-white text-center d-flex align-items-center rgba-black-strong py-4 px-4">
-  <div>  
-      <div id="fitin" class="text-center"><div class="card-title"><strong>`+element['title']+`</strong></div></div>
-      <br>
-      <div class="row "><div class="col" style="text-align:center;"><button type="button" onclick="popsummary(`+index+`)" class="btn btn-outline-light btn-lg">SUMMARY</button></div></div>
-      <br>
-      <div class="row"><div class="col" style="text-align:center;"><a href="`+element['url']+`"><button type="button" class="btn btn-primary btn-lg">Complete Article</button></a></div></div>   
-  </div>  
-  </div>
-  </div>
-</div>`
-           $("#test").append(article);
-});
+		carou1=articles.slice(0,4)
+		carou2=articles.slice(4,8)
+		carou3=articles.slice(8,12)
+		populate_caroussel(carou1,'#test1')
+		populate_caroussel(carou2,'#test2')
+		populate_caroussel(carou3,'#test3')
 
-	$(function() {
-    while( $('#fitin div').height() > $('#fitin').height() ) { console.log('fsfsffsf')
-        $('#fitin div').css('font-size', (parseInt($('#fitin div').css('font-size')) - 1) + "px" );
-    }
-	});
+
+		
 		 
 }
 
 });
+
+	   function populate_caroussel(list,id){
+	   	 list.forEach(function(element,index) { 
+		 	
+		 		var article =`<div class="col-lg-3">
+				  <div class="card card-image" style="background-image: url(`+element['image']+`);height:276px;">
+				  <!-- Content -->
+				  
+				 	 <div style="background-color : rgba(0,0,0,0.5);" class="text-white text-center d-flex align-items-center rgba-black-strong py-4 px-4">
+				  <div>  
+				      <div id="fitin" class="col"><div class="card-title"><strong>`+element['title']+`</strong></div></div>
+				     
+				      <div class="row "><div class="col" style="text-align:center;"><button type="button" onclick="popsummary(`+index+`)" class="btn btn-outline-light btn-lg">SUMMARY</button></div></div>
+				      <br>
+				      <div class="row"><div class="col" style="text-align:center;"><a href="`+element['url']+`"><button type="button" class="btn btn-primary btn-lg">Complete Article</button></a></div></div>   
+				  </div>  
+				  </div>
+				  </div>
+				</div>`
+				           $(id).append(article);
+
+				    $(function() {
+				    while( $('#fitin div').height() > $('#fitin').height() ) {
+				        $('#fitin div').css('font-size', (parseInt($('#fitin div').css('font-size')) - 1) + "px" );
+				    }
+					});       
+				});
+
+					
+
+
+
+	   }
 
 });
 /*
@@ -87,7 +107,7 @@ $(document).ready(function(){
 	});
  });	
 */
-
+/*
 //afficher les resumé dans un pop up
 $(document).ready(function(){
 	$('#btnsummary').click(function(){
@@ -149,3 +169,4 @@ $(document).ready(function(){
 	});
 });
 
+*/

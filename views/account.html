@@ -21,6 +21,10 @@
 	<link href="css/awesomplete.css" rel="stylesheet">
 	<link href="css/style.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+	
+	<script type="text/javascript" src="lib/lodash/lodash.js"></script> 
+	<script type="text/javascript" src="js/js-summarize.js"></script>
+	<script type="text/javascript" src="lib/tokenizer/tokenizer.js"></script>
 <body>
 <!-----------get data kmean---->
 <!-------------------NOUBLIE PAS D AVJOUTER DATAAAA-------------->
@@ -67,6 +71,64 @@
 		<hr>
 	</div>
 	</div>
+    <!---------------artocles------>
+	<div class="row">
+		<!--- Image Slider -->
+		<div id="slides" class="carousel slide" data-ride="carousel" >
+			<ul class="carousel-indicators">
+				<li data-target="#slides" data-slide-to="0" class="active"></li>
+			</ul>
+			<div class="carousel-inner" id="carouarticle"> 
+				<div class="carousel-item active" >
+					<div class="row justify-content-md-center" id="test" style="background-image: url('image/mobile-telecom.png');"></div>
+				</div>
+				<div class="carousel-item" >
+					<div class="row justify-content-md-center" id="test2" style="background-image: url('image/mobile-telecom.png');"></div>
+				</div>	
+				<div class="carousel-item" >
+					<div class="row justify-content-md-center" id="test3" style="background-image: url('image/mobile-telecom.png');"></div>
+				</div>		
+			  
+			  <a class="carousel-control-prev" href="#slides" role="button" data-slide="prev">
+			    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			    <span class="sr-only">Previous</span>
+			  </a>
+			  <a class="carousel-control-next" href="#slides" role="button" data-slide="next">
+			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+			    <span class="sr-only">Next</span>
+			  </a>
+			</div>
+		</div>
+
+
+		<!-- Modal -->
+		<div class="modal fade" id="popupSummary" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+		  aria-hidden="true">
+
+		  <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+
+
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        text
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary">Save changes</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+
+	</div>
 
 	<div class="row">
 		<div class="col-sm-4">
@@ -89,15 +151,21 @@
 	                	<p class="text-muted" style="margin-bottom: 0px;">Growth information of your company in 2018 compared to last year.</p>
 	                	<div class="row ">
 		                	<div class="col-12" style="padding-top: 0px;padding-bottom: 0px;">
-		                		<div class="row">
-			                		<div class="col-2"></div>	
-			                		<div class="col-10">	
+		                		<div class="row ">
+			                	
+			                		<div class="col-12">	
 				                		<div class="row"><h4 id="name_user" style="font-weight: bold;"></h4></div>
-				                		<div class="row"> 	
-				                			<div class=" mr-4" id="rev_user"><h5></h5>Revenue</div>
-				                			<div class="mr-4"  id="capex_user"><h5></h5>CAPEX</div>
-				                			<div class=" mr-4" id="subs_user"><h5></h5>Subscribers</div>
+				                		
+				                		<div class="row justify-content-md-center"> 	
+				                			<div class=" mr-5" id="rev_user" style="margin-left: 10px;"><p style="margin-bottom: 12px;">Revenue</p><h5 class="text-muted">$ </h5><h6></h6></div>
+				                			<div class="mr-5"  id="capex_user"><p style="margin-bottom: 12px;">CAPEX</p><h5 class="text-muted">$ </h5><h6></h6></div>
+				                			<div class=" mr-5" id="gdp_user"><p style="margin-bottom: 12px;">GDP</p><h5 class="text-muted"></h5><h6></h6></div>
+				                			<div class=" mr-5" id="popu_user"><p style="margin-bottom: 12px;">Population</p><h5 class="text-muted"></h5><h6></h6></div>
+				                			<div class=" mr-5" id="qos_user"><p style="margin-bottom: 12px;">QOS</p><h5 class="text-muted"></h5><h6></h6></div>
+				                			<div class=" mr-5" id="qon_user"><p style="margin-bottom: 12px;">QON</p><h5 class="text-muted"></h5><h6></h6></div>
+				                			<div class=" mr-5" id="subs_user"><p style="margin-bottom: 12px;">Subscribers</p><h5 class="text-muted"></h5><h6></h6></div>
 				                		</div>
+
 				                	</div>
 			                	</div>	
 		                	</div>
@@ -120,7 +188,7 @@
 
 			</div>	
 			<div class="col-xs-12 col-sm-12 col-lg-3 col-xl-2">
-				<a href="http://telecoms.com/news/"><button type="button" class="btn btn-outline-secondary btn-lg"> Ty it now!</button></a>
+				<a id="btn_benchmark" href="http://127.0.0.1:3000/visualization.html?idx=T"><button type="button"  class="btn btn-outline-secondary btn-lg"> Ty it now!</button></a>
 			</div>	
 			
 		</div>	
@@ -139,7 +207,7 @@
 		<div class="col-5">			
             <div class="card"  >
                 <div class="card-body">
-                	<h6 class="card-title">Comparison of revenue ($/year)</h6>
+                	<h6 class="card-title"></h6>
                 	<hr>
                 </div>
             </div>           		

@@ -16,19 +16,21 @@ app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 app.use(session({secret: 'secret', resave: true, saveUninitialized: true}));
 /****************declaration des promess******************/
-let exec_kmean = function(request,response) {   
+let exec_kmean = function(req,response) {   
   //return new Promise(function(resolve, reject) {
+  //console.log(req.query.index_user)
   var options={
     mode: 'text',
     pythonOptions: ['-u'],
     encoding: 'utf8',
     scriptPath:'./',
-    args: [request.body.index],///////elment pour kmean ----- message est une liste des info du script pr kmean--------------------
+    args: [req.query.index_user],///////elment pour kmean ----- message est une liste des info du script pr kmean--------------------
     pythonPath: 'C:/Users/naila/Anaconda3/python.exe'
     }
     var test= new PythonShell('kmean.py',options);
-    test.on('message',function(message){console.log('ggsggsgs') 
-     response.render('visualization.html',{data: message});
+    test.on('message',function(message){
+     
+     response.send(message)
     //resolve(message); 
     });    
 //});
@@ -91,7 +93,7 @@ app.get('/afficher',function(request,response){
    .then(function(html){
     const $ = cheerio.load(html);
       var list=[];
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < 12; i++) {
         list.push($('div.search-content.left h4 a').eq(i).attr('href'));     
 
         //retouner une lite avec url image text titre
@@ -104,7 +106,6 @@ app.get('/afficher',function(request,response){
    
     })
    .then(function(articles) {
-
     response.send(articles);
 })
    .catch((err) => {
@@ -126,11 +127,15 @@ app.get('/data',function(request,response){
 
 app.post('/data',function(request,response){//a revoiir
   
+  
   if(request.body.revenue!=undefined && request.body.expend!=undefined){  
-      exec_kmean(request,response).then(function(result){//render dashboard 
+      /*exec_kmean(request,response).then(function(result){//render dashboard 
       console.log('nailaaa')  
       response.render('visualization.html',{data: {error:''}}); 
-     });}
+     });*/
+     
+     response.render('visualization.html',{data: {error:''}}); 
+     }
   else{//verifier si l index appartient a la base de donnée
         exec_kmean(request,response)
       /* index_exist_initDb(request).then(function(result){
@@ -222,9 +227,23 @@ app.post('/register',function(request,response){
  
 /********************************************visualization.html*****************************/   //attr_index revoir
 app.get('/visualization', function(req, res) {
-  res.render('visualization.html')
+   
+     exec_kmean(req,res)
+   
+    //res.render('visualization.html',{data: {error:''}});
+   //res.render('visualization.html',{data: {error:'Index'}})
+   //res.redirect(res.Url.path)
+   //res.end()
   
 });
+
+app.get('/visu', function(req, res) {
+  console.log('tytyttyt')
+    res.render('visualization.html',{data: {error:''}});
+
+})
+
+
 
 app.get('/charts', function(req, res) {
   const url = 'localhost:27017/dump';
@@ -262,6 +281,7 @@ app.get('/country', function(req, res) {  //tirer le nom du pays
 
 /*****************************Account*******************************/
 app.get('/account', function(req, res) {
+
   res.render('account.html')
   
 });
@@ -287,6 +307,20 @@ app.get('/info_statement', function(req, res) {
           
            res.send(docs1)
        }) 
+});
+
+app.get('/article_account', function(req, res) {
+  const url = 'localhost:27017/dump';
+  const db = monk(url);
+  const collection = db.get('Medias');
+ 
+
+  var data_user=collection.find({ID_operator: req.query.index},function(e,docs1){
+     
+      res.send(docs1.slice(0,15))  
+
+          
+    }) 
 });
 
 
