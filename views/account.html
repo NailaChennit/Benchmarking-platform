@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,43 +24,85 @@
 	<script type="text/javascript" src="lib/lodash/lodash.js"></script> 
 	<script type="text/javascript" src="js/js-summarize.js"></script>
 	<script type="text/javascript" src="lib/tokenizer/tokenizer.js"></script>
+</head>
+
 <body>
 <!-----------get data kmean---->
 <!-------------------NOUBLIE PAS D AVJOUTER DATAAAA-------------->
 <!-- Navigation -->
 <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
-<div class="container-fluid">
-	<a class="navbar-brand" href="#"><img src="#">
-	</a>
-	<button class="navbar-toggler" type="button" data_toggle="collapse" data-target="#navbarResponsive">
-		<span class="navbar-toggler-icon"></span>
-	</button>
-	<div class="collapse navbar-collapse" id="navbarResponsive">
-		<ul class="navbar-nav ml-auto">
-			<li class="nav-item active">
-				<a class="nav-link" href="#">Home</a>
-			</li>
-			<li class="nav-item ">
-				<a class="nav-link" href="#">About</a>
-			</li>
-			<li class="nav-item ">
-				<a class="nav-link" href="#">Services</a>
-			</li>
-			<li class="nav-item ">
-				<a class="nav-link" href="#">Team</a>
-			</li>
-			<li class="nav-item ">
-				<a class="nav-link" href="#">Connect</a>
-			</li>	
-			<li class="nav-item ">
-				<a class="nav-link" href="#">News</a>
-			</li>					
+	<div class="container-fluid">
+		<a class="navbar-brand" href="#"><img src="#">
+		</a>
+		<button class="navbar-toggler" type="button" data_toggle="collapse" data-target="#navbarResponsive">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarResponsive">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="#">Home</a>
+				</li>
+				<li class="nav-item ">
+					<a class="nav-link" href="#">Register</a>
+				</li>		
+				<li class="nav-item ">
+					<a class="nav-link" href="#">About</a>
+				</li>
+				<li>
+					<a class="nav-link" href="#">Contact</a>
+				</li>	
+				<li class="nav-item "><%=data.name%><br><%=data.lastname%>
+			    </li>					
+				<li class="nav-item">
+					<i class="fas fa-circle" style="color: #3bc63b"></i><br>
+					<div class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"> </a>
+						<div class="dropdown-menu  dropdown-menu-right " style="min-width:6rem; text-align: center;">
+				            <a  id="logout" data-toggle="modal" data-target="#LogOutModal" href="#">Log Out</a>
+				        <div>
+			        </div>
+				</li>				
 
-		</ul>
+			</ul>
 
+		</div>
 	</div>
-</div>	
+		
 </nav>
+
+<!----------secret data----->
+<script >	
+	var index_user='<%= data.index%>';
+
+</script>
+<!-----------model logout---------->
+<div class="modal fade" id="LogOutModal">
+    <div class="modal-dialog modal-dialog-centered ">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Log out</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          Are you sure you want to log out?
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" id="btn_logout" data-dismiss="modal">Yes</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+
 
 
 <div class="container-fluid padding">
@@ -188,7 +229,7 @@
 
 			</div>	
 			<div class="col-xs-12 col-sm-12 col-lg-3 col-xl-2">
-				<a id="btn_benchmark" href="http://127.0.0.1:3000/visualization.html?idx=T"><button type="button"  class="btn btn-outline-secondary btn-lg"> Ty it now!</button></a>
+				<button type="button" id="btn_benchmark"  class="btn btn-outline-secondary btn-lg"> Try it now!</button>
 			</div>	
 			
 		</div>	

@@ -17,6 +17,8 @@
     <script type="text/javascript" src="lib/tokenizer/tokenizer.js"></script>
     <script type="text/javascript" src="js/js-summarize.js"></script>
 	<link href="css/style.css" rel="stylesheet">
+	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
 </head>
 <body>
 <!-- Navigation -->
@@ -39,21 +41,47 @@
 				<a class="nav-link" href="#">Services</a>
 			</li>
 			<li class="nav-item ">
-				<a class="nav-link" href="#">Connect</a>
+				<a class="nav-link" href="http://127.0.0.1:3000/login">Log In</a>
 			</li>
 			<li class="nav-item ">
-				<a class="nav-link" href="#">Team</a>
+				<a class="nav-link" href="#">Connect</a>
 			</li>	
 			<li class="nav-item ">
-				<a class="nav-link" href="#">Contact</a>
+				<a class="nav-link" href="#">News</a>
 			</li>					
 
 		</ul>
 
 	</div>
-</div>
-	
+</div>	
 </nav>
+
+<!-----------model logout---------->
+<div class="modal fade" id="LogOutModal">
+    <div class="modal-dialog modal-dialog-centered ">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Log out</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          Are you sure you want to log out?
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" id="btn_logout" data-dismiss="modal">Yes</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
 
 
 <!--- Image Slider -->

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>TelecomBenchmark</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link href="css/mdb.min.css" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css"/> 
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+	<script src="js/awesomplete.js"></script>
+	<link href="css/awesomplete.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+	
+	<script type="text/javascript" src="lib/lodash/lodash.js"></script> 
+	<script type="text/javascript" src="js/js-summarize.js"></script>
+	<script type="text/javascript" src="lib/tokenizer/tokenizer.js"></script>
+<body>
+<!-----------get data kmean---->
+<!-------------------NOUBLIE PAS D AVJOUTER DATAAAA-------------->
+<!-- Navigation -->
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+<div class="container-fluid">
+	<a class="navbar-brand" href="#"><img src="#">
+	</a>
+	<button class="navbar-toggler" type="button" data_toggle="collapse" data-target="#navbarResponsive">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarResponsive">
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item active">
+				<a class="nav-link" href="#">Home</a>
+			</li>
+			<li class="nav-item ">
+				<a class="nav-link" href="#">About</a>
+			</li>
+			<li class="nav-item ">
+				<a class="nav-link" href="#">Services</a>
+			</li>
+			<li class="nav-item ">
+				<a class="nav-link" href="#">Team</a>
+			</li>
+			<li class="nav-item ">
+				<a class="nav-link" href="#">Connect</a>
+			</li>	
+			<li class="nav-item ">
+				<a class="nav-link" href="#">News</a>
+			</li>					
+
+		</ul>
+
+	</div>
+</div>	
+</nav>
+
+
+<br>
+
+
+<div class="container-fluid padding">
+
+	<div  class="row justify-content-center " id="alert">
+	</div>
+
+	<div class="d-flex justify-content-center h-100">
+		<div class="card fadeInDown " >
+			<div class="card-header">
+				<h3>Sign In</h3>
+			</div>
+			<div class="card-body">
+		
+				<form id="form" action="/login" method="POST" class="main-form needs-validation ">
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-user"></i></span>
+						</div>
+						<input type="text" name="email" class="form-control" placeholder="email">
+						<h5><font color="red" id="error_index"><%=data.error_email%></font></h5>						
+					</div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-key"></i></span>
+						</div>
+						<input type="password" name="password" class="form-control" placeholder="password">
+					</div>
+
+						
+					<div class="form-group">
+						<button type="submit"  value="Submit" style="background-color: #3f3f3f;" class="btn btn-outline-light btn-lg float-right" id="btnRegister">Run it!</button>
+					</div>
+				</form>
+			</div>
+			<div class="card-footer">
+				<div class="d-flex justify-content-center links">
+					Don't have an account?<pre> </pre><a href="http://127.0.0.1:3000/register">Sign Up</a>
+				</div>
+			</div>	
+		</div>	
+			
+	</div>	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--- Footer -->
+<footer>
+<div class="container-fluid padding">
+<div class="row text-center">
+	<div class="col-md-4">
+		<img src="">
+		<hr class="light">
+		<p>556-318-233</p>
+		<p>email@outlook.com</p>
+		<p>Algiers, Algeria, 16000</p>
+	</div>
+	
+	<div class="col-md-4">
+		<img src="">
+		<hr class="light">
+		<h5>Our hours</h5>
+		<hr class="light">
+		<p>Monday: 9am - 5pm</p>
+		<p>Saturday: 10am - 6pm</p>
+		<p>Sunday: closed</p>
+	</div>
+
+	<div class="col-md-4">
+		<img src="">
+		<hr class="light">
+		<h5>Service Area</h5>
+		<hr class="light">
+		<p>We work only online currently </p>
+	</div>
+	<div class="col-12">
+		<hr class="light-100">
+		<h6>&copy: telecomBenchmarking.com</h6>
+	</div>
+	
+</div>		
+</div>	
+</footer>
+
+<script >
+	var error='<%= data.error%>';
+
+	if(error=='Incorrect Email and / or Password, try again!')
+		{ 
+		  $("#alert").append('<div class="col-6 text-center alert alert-danger fadeInDown"><p style="margin-bottom: 0px;">'+error+'</p></div>');
+		}
+
+
+	if(error=='Succefully Logged Out!')
+		{ 
+		  $("#alert").append('<div class="col-6 text-center alert alert-primary fadeInDown"><p style="margin-bottom: 0px;">'+error+'</p></div>');
+		}	
+</script>
+
+
+</body>
+</html>		

@@ -23,52 +23,86 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
 	<script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+</head>	
 <body>
 <!-----------get data kmean---->
 <!-------------------NOUBLIE PAS D AVJOUTER DATAAAA-------------->
 <!-- Navigation -->
 <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
-<div class="container-fluid">
-	<a class="navbar-brand" href="#"><img src="#">
-	</a>
-	<button class="navbar-toggler" type="button" data_toggle="collapse" data-target="#navbarResponsive">
-		<span class="navbar-toggler-icon"></span>
-	</button>
-	<div class="collapse navbar-collapse" id="navbarResponsive">
-		<ul class="navbar-nav ml-auto">
-			<li class="nav-item active">
-				<a class="nav-link" href="#">Home</a>
-			</li>
-			<li class="nav-item ">
-				<a class="nav-link" href="#">About</a>
-			</li>
-			<li class="nav-item ">
-				<a class="nav-link" href="#">Services</a>
-			</li>
-			<li class="nav-item ">
-				<a class="nav-link" href="#">Team</a>
-			</li>
-			<li class="nav-item ">
-				<a class="nav-link" href="#">Connect</a>
-			</li>	
-			<li class="nav-item ">
-				<a class="nav-link" href="#">News</a>
-			</li>					
+	<div class="container-fluid">
+		<a class="navbar-brand" href="#"><img src="#">
+		</a>
+		<button class="navbar-toggler" type="button" data_toggle="collapse" data-target="#navbarResponsive">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarResponsive">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="#">Home</a>
+				</li>
+				<li class="nav-item ">
+					<a class="nav-link" href="#">Register</a>
+				</li>		
+				<li class="nav-item ">
+					<a class="nav-link" href="#">About</a>
+				</li>
+				<li>
+					<a class="nav-link" href="#">Contact</a>
+				</li>	
+				<li class="nav-item "><%=name%><br><%=lastname%></li>					
+				<li class="nav-item">
+					<i class="fas fa-circle" style="color: #3bc63b"></i><br>
+					<div class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"> </a>
+						<div class="dropdown-menu  dropdown-menu-right " style="min-width:6rem; text-align: center;">
+				            <a  id="logout" data-toggle="modal" data-target="#LogOutModal" href="#">Log Out</a>
+				        <div>
+			        </div>
+				</li>				
 
-		</ul>
+			</ul>
 
+		</div>
 	</div>
-</div>	
+		
 </nav>
 
 <!-------------secret data--------------->
 <script>
+	var id_user= '<%= id_user%>';
 	var info='<%= data%>';
 	var info2=info.replace(/&#39;/g,'"')
 	var datafinal = JSON.parse(info2)
-	console.log(datafinal)
 	
 </script>
+
+<!-----------model logout---------->
+<div class="modal fade" id="LogOutModal">
+    <div class="modal-dialog modal-dialog-centered ">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Log out</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          Are you sure you want to log out?
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" id="btn_logout" data-dismiss="modal">Yes</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+
 
 
 <!-------------------cloud------------->
@@ -321,8 +355,8 @@
 		                	<h6 class="card-title"></h6>
 		                	<hr style="margin-bottom: 0px;">
 		                	<div id="LDA">	</div>
-		                		<script>
-		                		console.log(word_list)
+		                	<script>
+
 					            ZC.LICENSE = ["b55b025e438fa8a98e32482b5f768ff5"];
 					            var myConfig = {
 					                type: 'wordcloud',

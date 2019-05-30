@@ -15,7 +15,38 @@ function popsummary(index){
   		$('#popupSummary').modal('show')
 }
 
+
+
 $(document).ready(function(){
+	$.get("/ckeck_log",function(data){
+	if(!data){
+				console.log("No dataaaaaa");
+				}
+	else{
+			if(data.user){ Display_Nav_Loggin(data.user); 
+						  } 
+				
+
+		}
+	})
+
+
+
+	$('#btn_logout').click(function(){
+		$.get("/logout",function(data){
+			if(!data){
+						console.log("No dataaaaaa");
+					}
+			else{	 
+					 //window.open('index.html', '_self')
+					  document.open();
+                      document.write(data);
+                      document.close(); 
+				}
+		
+		});
+	});
+
 
 	$.get("/afficher",function(data){
 	if(!data){
@@ -37,6 +68,11 @@ $(document).ready(function(){
 }
 
 });
+		$(function() {
+				    while( $('#fitin div').height() > $('#fitin').height() ) {
+				        $('#fitin div').css('font-size', (parseInt($('#fitin div').css('font-size')) - 1) + "px" );
+				    }
+					});  
 
 	   function populate_caroussel(list,id){
 	   	 list.forEach(function(element,index) { 
@@ -56,7 +92,7 @@ $(document).ready(function(){
 				  </div>
 				  </div>
 				</div>`
-				           $(id).append(article);
+				    $(id).append(article);
 
 				    $(function() {
 				    while( $('#fitin div').height() > $('#fitin').height() ) {
@@ -121,52 +157,50 @@ $(document).ready(function(){
 	});
 });
 
-$(document).ready(function(){
-	$('#btnsummary1').click(function(){
-		var text=articles[1]['text'];
-		var title=articles[1]['title'];
-		var summarizer = new JsSummarize();
-		var summary = summarizer.summarize(title,text);
-		$("#popupSummary div.modal-body").text(summary);
-		$("#popupSummary h5.modal-title").text(articles[1]["title"]);
-  		$('#popupSummary').modal('show')
-	});
-});
-
-$(document).ready(function(){
-	$('#btnsummary2').click(function(){
-		var text=articles[2]['text'];
-		var title=articles[2]['title'];
-		var summarizer = new JsSummarize();
-		var summary = summarizer.summarize(title,text);
-		$("#popupSummary div.modal-body").text(summary);
-		$("#popupSummary h5.modal-title").text(articles[2]["title"]);
-  		$('#popupSummary').modal('show')
-	});
-});
-
-$(document).ready(function(){
-	$('#btnsummary3').click(function(){
-		var text=articles[3]['text'];
-		var title=articles[3]['title'];
-		var summarizer = new JsSummarize();
-		var summary = summarizer.summarize(title,text);
-		$("#popupSummary div.modal-body").text(summary);
-		$("#popupSummary h5.modal-title").text(articles[3]["title"]);
-  		$('#popupSummary').modal('show')
-	});
-});
-
-$(document).ready(function(){
-	$('#btnsummary4').click(function(){
-		var text=articles[4]['text'];
-		var title=articles[4]['title'];
-		var summarizer = new JsSummarize();
-		var summary = summarizer.summarize(title,text);
-		$("#popupSummary div.modal-body").text(summary);
-		$("#popupSummary h5.modal-title").text(articles[4]["title"]);
-  		$('#popupSummary').modal('show')
-	});
-});
-
 */
+function Display_Nav_Loggin(user){
+ $('nav').replaceWith(
+ 	`
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="#"><img src="#">
+		</a>
+		<button class="navbar-toggler" type="button" data_toggle="collapse" data-target="#navbarResponsive">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarResponsive">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="#">Home</a>
+				</li>
+				<li class="nav-item ">
+					<a class="nav-link" href="#">Register</a>
+				</li>		
+				<li class="nav-item ">
+					<a class="nav-link" href="#">About</a>
+				</li>
+				<li>
+					<a class="nav-link" href="#">Contact</a>
+				</li>	
+				<li class="nav-item ">`+
+				user.name+`<br>`+
+					user.lastname+ 
+				`</li>					
+				<li class="nav-item">
+					<i class="fas fa-circle" style="color: #3bc63b"></i><br>
+					<div class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"> </a>
+						<div class="dropdown-menu  dropdown-menu-right " style="min-width:6rem; text-align: center;">
+				            <a  id="logout" data-toggle="modal" data-target="#LogOutModal" href="#">Log Out</a>
+				        <div>
+			        </div>
+				</li>				
+
+			</ul>
+
+		</div>
+	</div>
+		
+</nav>`)
+
+}

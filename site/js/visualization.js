@@ -22,26 +22,27 @@ text.forEach(function(element){
 
   var averagePibUser;
   var averagePibcomp;
-  var queryString = decodeURIComponent(window.location.search);//recuperer les infoo de l url!!!
-  var id_user=queryString.replace('?idx=','')/// iD uuuserrr del url
-  console.log(id_user)
 
- $.get("/visualization",{index:id_user},function(data){
-        if(!data){
-        console.log("No dataaaaaa");
+$('#btn_logout').click(function(){
+    $.get("/logout",function(data){
+      if(!data){
+            console.log("No dataaaaaa");
+          }
+      else{  
+           //window.open('index.html', '_self')
+            document.open();
+            document.write(data);
+            document.close(); 
         }
-       else{ 
-        var data2=data.replace(/'/g,'"')
-        var datafinal = JSON.parse(data2)
-        dataKnn=datafinal['data_final']
+    
+    });
+  });
         
             
-
-
 var height=450, width=750;
 var fill=d3.scale.category20b();
-var data = dataKnn;
-console.log(data)
+//var data = dataKnn;
+var data=datafinal['data_final'];
 if(data.length >10){ var data2=data.slice(0,11) }
 else {var data2=data }  
 
@@ -59,22 +60,20 @@ var sizeScale = d3.scale.linear()
               .domain([1,data2.length])
               .range([5*(data2.length-1)+15,15]); 
  
- console.log(data2)
+
  d3.layout.cloud().size([width, height])
     .words(data2)
-    .padding(5)
-    .rotate(function() { return ~~(Math.random() * 2) * 90; })
+    .padding(3)
+    .rotate(function() { return ~~(Math.random() * 2) *0; })
     .font("Arial")
     .spiral("archimedean")
-    //.spiral("rectangular")
     .fontSize(function(d, index) { return sizeScale(index); })
     .on("end", draw)
     .start();
-     
-function draw(words) {
-
-  console.log(words)
-    //console.log(words)
+ //.spiral("rectangular")   
+ 
+function draw(words) { 
+    
     focus.selectAll("text")
       .data(words)
     .enter().append("text")
@@ -92,8 +91,8 @@ function draw(words) {
            
 }
 
-}
-});
+//}
+//});
 
 });
 
@@ -162,7 +161,7 @@ function charts(idx,id_user){
                     
                     $('#qos-title').tooltip({title: "Quality of Service"});
                     $('#qon-title').tooltip({title: "Quality of Network"});
-                    $('.decinc').tooltip({title: "Compared to 2017"});
+                     $('.decinc').tooltip({title: "Compared to 2017"});
 
                     grrevuser=((((data.user[3]['Revenue']-data.user[2]['Revenue'])*100)/data.user[3]['Revenue']).toFixed(1))
                     grcapuser=((((data.user[3]['Capex']*-1-data.user[2]['Capex']*-1)*100)/(data.user[3]['Capex'])*-1).toFixed(1))

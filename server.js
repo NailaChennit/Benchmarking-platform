@@ -15,6 +15,45 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 app.use(session({secret: 'secret', resave: true, saveUninitialized: true}));
+
+app.use(function(req, res, next) {
+  if (req.session && req.session.user) {
+
+  const url = 'localhost:27017/music';
+  const db = monk(url);
+  const user = db.get('artists');
+  var data=user.findOne({ email: req.session.user.email}, function(err, user) {
+      if (user) {
+        
+        req.user = user;
+        delete req.user.password; // delete the password from the session
+        req.session.user = user;  //refresh the session value
+        res.locals.user = user;
+      }
+      // finishing processing the middleware and run the route
+      next();
+    });
+  } else {
+    next();
+  }
+});
+
+function requireLogin (req, res, next) {
+  if (!req.user) {
+    res.redirect('/login');
+  } else {
+    next();
+  }
+};
+
+app.get('/ckeck_log',function(request,response){
+  
+  response.send(request.session)
+})
+
+
+
+
 /****************declaration des promess******************/
 let exec_kmean = function(req,response) {   
   //return new Promise(function(resolve, reject) {
@@ -30,7 +69,8 @@ let exec_kmean = function(req,response) {
     var test= new PythonShell('kmean.py',options);
     test.on('message',function(message){
      
-     response.send(message)
+     response.render('visualization.html',{data:message,id_user:req.query.index_user,name:req.session.user.name,lastname:req.session.user.lastname});
+     //response.send(message)
     //resolve(message); 
     });    
 //});
@@ -79,16 +119,12 @@ let add_index = function(request){
 }
 
 
-
-
-
 /***************fin declaration des promesses***************/
 
 const url= 'http://telecoms.com/news/';
 
 //tirer le text le titre l image et l url
 app.get('/afficher',function(request,response){
-	console.log('Get request recieved at /afficher ');
   rp(url)   
    .then(function(html){
     const $ = cheerio.load(html);
@@ -167,20 +203,20 @@ app.get('/login',function(request,response){
 });
 
 app.post('/login',function(request,response){
-  //verifier inddex
+  //verifier index
   const url = 'localhost:27017/music';
   const db = monk(url);
   const collection = db.get('artists');
-
-  var data=collection.find(
+  var data=collection.findOne(
   { email : request.body.email, password: request.body.password }//verifier email
   ,function(e,user){ 
-    if(docs.length==1) {
+    if(user) {
           request.session.loggedin = true;
           request.session.user = user;
-          response.redirect('/dashboard');
-    }else {request.session.reset();
-          response.render('login.html',{data: {error:'Incorrect Email and/or Password, try again!'}});
+          //response.redirect('/dashboard');
+          response.redirect('/account')
+    }else {//request.session.reset();
+          response.render('login.html',{data: {error:'Incorrect Email and / or Password, try again!'}});
           } 
 
   });
@@ -189,8 +225,8 @@ app.post('/login',function(request,response){
 
 /*********************************************logout*****************************/
 app.get('/logout', function(req, res) {
-  req.session.reset();
-  res.redirect('/affiche');
+  req.session.destroy();
+  res.render('login.html',{data: {error:'Succefully Logged Out!'}}); 
 });
 
 
@@ -226,22 +262,12 @@ app.post('/register',function(request,response){
 });
  
 /********************************************visualization.html*****************************/   //attr_index revoir
-app.get('/visualization', function(req, res) {
+app.get('/visualization',requireLogin, function(req, res) {
    
      exec_kmean(req,res)
-   
-    //res.render('visualization.html',{data: {error:''}});
-   //res.render('visualization.html',{data: {error:'Index'}})
-   //res.redirect(res.Url.path)
-   //res.end()
+    //res.render('visualization.html')
   
 });
-
-app.get('/visu', function(req, res) {
-  console.log('tytyttyt')
-    res.render('visualization.html',{data: {error:''}});
-
-})
 
 
 
@@ -280,10 +306,9 @@ app.get('/country', function(req, res) {  //tirer le nom du pays
 
 
 /*****************************Account*******************************/
-app.get('/account', function(req, res) {
+app.get('/account',requireLogin, function(req, res) {
 
-  res.render('account.html')
-  
+  res.render('account.html',{data : {index : req.session.user.index, name :req.session.user.name,lastname:req.session.user.lastname}})  
 });
 
 app.get('/Operateur_same_country', function(req, res) {

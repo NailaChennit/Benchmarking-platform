@@ -14,21 +14,41 @@
 
 
 $(document).ready(function(){
-var idx='SNMMF';
+var idx=index_user;
+
+$('#btn_logout').click(function(){
+    $.get("/logout",function(data){
+      if(!data){
+            console.log("No dataaaaaa");
+          }
+      else{  
+           //window.open('index.html', '_self')
+            document.open();
+            document.write(data);
+            document.close(); 
+        }
+    
+    });
+  });
 
 
-/*$('#btn_benchmark').click(function(){
 
 
-     $.get("/visualization",{index_user:idx},function(data){
-                if(!data){
+$('#btn_benchmark').click(function(){ 
+       $.get("/visualization",{index_user:idx},function(data){
+
+        if(!data){
                 console.log("No dataaaaaa");
                 }
-               else{ console.log(data) }
+               else{ 
+                     
+                      document.open();
+                      document.write(data);
+                      document.close();                      
+               }
+       })
 
-      })
-    
-  });*/
+})
 
 
 
