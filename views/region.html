@@ -7,26 +7,30 @@
 	<title>TelecomBenchmark</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<link href="css/mdb.min.css" rel="stylesheet">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 	<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css"/> 
-	
+
+    
+	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
 
-
-		<link rel="stylesheet"  href="app.css">
-		<script type="text/javascript" src="map.js"></script>
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+		<link rel="stylesheet"  href="css/app.css">
+		<link rel="stylesheet"  href="css/style.css">
+		<script type="text/javascript" src="js/map.js"></script>
 
 	</head>
 	
-	<body>
-			
+	<body>	
 
-			<div class="map__image">
-				<svg xmlns="http://www.w3.org/2000/svg" xmlns:amcharts="http://amcharts.com/ammap" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 1000 700" >
+<div class="container-fluid">		
+    <div class="row" >
+
+			<div class="col-8 map__image" style="padding-bottom: 0px;" >
+				<svg xmlns="http://www.w3.org/2000/svg" xmlns:amcharts="http://amcharts.com/ammap" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 1000 700" style="border-style: groove;color: #98e7e7;background: #eaeef8;" id='aa' >
 	
 				<g id='Latin_America_and_the_Caribbean'>
 		<path onclick="ShowOp('JM')" data-html="true" data-toggle="tooltip" id="JM" title2="Jamaica" class="land" d="M257.76,410.96L259.65,411.22L261.14,411.93L261.6,412.73L259.63,412.78L258.78,413.27L257.21,412.8L255.61,411.73L255.94,411.06L257.12,410.86z"/>
@@ -99,6 +103,7 @@
 
 </g>
 <g id='Sub_Saharan_Africa'>
+		
 		<path onclick="ShowOp('SZ')" data-html="true" data-toggle="tooltip" id="SZ" title2="Swaziland" class="land" d="M565.18,540.74L564.61,542.13L562.97,542.46L561.29,540.77L561.27,539.69L562.03,538.52L562.3,537.62L563.11,537.4L564.52,537.97L564.94,539.36z"/>
 
 		<path onclick="ShowOp('BI')" data-html="true" data-toggle="tooltip" id="BI" title2="Burundi" class="land" d="M557.52,475.93L557.34,472.56L556.63,471.3L558.34,471.52L559.2,469.93L560.69,470.11L560.85,471.21L561.45,471.84L561.48,472.75L560.79,473.33L559.69,474.79L558.68,475.8z"/>
@@ -199,6 +204,8 @@
 
 </g>
 <g id='West_Africa'>
+		<path onclick="ShowOp('CI')" data-html="true" data-toggle="tooltip" id="CI" title2="Côte d'Ivoire" class="land" d="M467.245,449.457L465.969,449.486L464.013,448.939L462.215,448.971L458.894,449.459L456.947,450.266L454.171,451.291L453.629,451.218L453.845,448.916L454.113,448.565L454.027,447.463L452.84,446.29L451.949,446.103L451.132,445.333L451.741,444.088L451.461,442.73L451.59,441.914L452.035,441.91L452.2,440.684L451.983,440.14L452.251,439.749L453.293,439.41L452.6,437.153L451.954,435.985L452.179,435.025L452.738,434.806L453.104,434.548L453.88,434.974L456.045,434.997L456.561,434.17L457.045,434.226L457.854,433.906L458.289,435.117L458.943,434.76L460.1,434.341L461.361,434.958L461.851,435.894L463.112,436.49L464.092,435.779L465.406,435.672L467.325,436.401L468.069,440.413L466.887,442.774L466.156,445.942L467.372,448.354z"/>
+
 		<path onclick="ShowOp('BJ')" data-html="true" data-toggle="tooltip" id="BJ" title2="Benin" class="land" d="M482.8,445.92L480.48,446.25L479.79,444.31L479.92,437.85L479.35,437.27L479.25,435.88L478.27,434.89L477.42,434.06L477.78,432.56L478.74,432.24L479.31,431L480.68,430.74L481.29,429.88L482.23,429.05L483.24,429.04L485.38,430.68L485.27,431.63L485.9,433.31L485.35,434.45L485.64,435.21L484.28,436.96L483.42,437.83L482.89,439.6L482.96,441.39z"/>
 
 		<path onclick="ShowOp('EH')" data-html="true" data-toggle="tooltip" id="EH" title2="Western Sahara" class="land" d="M438.57,383.06L442.19,383.07L450.94,383.1L450.94,383.1L450.94,383.1L442.19,383.07L438.57,383.06L438.46,383.15L438.41,383.19L436.63,386.39L434.77,387.53L433.75,389.44L433.69,391.09L432.94,392.88L432,393.37L430.44,395.31L429.48,397.46L429.66,398.48L428.74,400.05L427.66,400.87L427.53,402.26L427.41,403.53L428.02,402.53L439,402.55L438.47,398.2L439.16,396.65L441.78,396.38L441.69,388.52L450.9,388.69L450.9,383.96L450.96,383.35L450.96,383.14z"/>
@@ -403,12 +410,63 @@
 
 
 
-				</svg>
+</svg>
 
 
+		 </div>
+
+		<div class="col-4">
 			
+			<p><i class="fas fa-square" style="color: #cfc615"></i> Middle East and North Africa</p>
+			<p><i class="fas fa-square" style="color: #d8aee0;"></i> West Africa</p>
+			<p><i class="fas fa-square" style="color: #a7bceb"></i></i> Europe</p>
+			<p><i class="fas fa-square" style="color: #9a9145"></i></i> South Asia</p>
+			<p><i class="fas fa-square" style="color: #8eb58f"></i></i> Asia Pacific</p>
+			<p><i class="fas fa-square" style="color: #e23047"></i></i> Pacific Ocean Region</p>
+			<p><i class="fas fa-square" style="color: #c97b2f"></i></i> North America</p>
+			<p><i class="fas fa-square" style="color: #da1ead"></i></i> Central America and the Caribbean</p>
+			<p><i class="fas fa-square" style="color:  #0ac06e"></i></i> Sub Saharan Africa</p>
+			
+
+		</div> 
+
+
 </div>
 
+</div>
+
+	<br>
+	<div class="row">
+	 	<div class="col-12" style="padding-top: 0px;">	
+			<div id="operators" class="collapse">
+
+				<div class="container-fluid">
+					<div class="col-2 align-right" style="padding-bottom: 0px;">
+						<i id="close"  data-toggle="tooltip" class="pointer far fa-times-circle" style="color: red"></i>
+					</div> 
+					<div class="col-10">
+						<table class="table table-striped tableHeight" >
+					    			<thead>
+									    <tr>
+									      <th scope="col" >Operator name</th>	
+									      <th scope="col" >Website</th>
+									      <th scope="col">Phone number</th>
+									    </tr>
+								  </thead>
+								  <tbody id="table_op" >
+								  	<!------insertion----->
+								  </tbody>
+					    			
+					    </table>
+					</div>
+					   
+				</div>
+			</div>
+		
+			
+		</div>	
+
+	</div>
 	
 
 	</body>

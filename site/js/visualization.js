@@ -15,6 +15,28 @@ text.forEach(function(element){
 
 
 
+ function benchmarking_radio(idx,maxy){
+    $.get("/visualization",{index_user:idx,maxy:maxy},function(data){
+
+        if(!data){
+                console.log("No dataaaaaa");
+                }
+               else{ 
+                     
+                     var d=data.match(/'({&#39;.+})'/)
+                    // var d2=d[0].replace(/'/g,'')
+                    // var d3=d2.replace(/&#39;/g,'"')
+                    // console.log(d3)
+                     /* document.open();
+                      document.write(data);
+                      document.close(); */                     
+               }
+       })
+
+ }
+
+
+
  $(document).ready(function(){ 
 
   var info_user;
@@ -22,6 +44,21 @@ text.forEach(function(element){
 
   var averagePibUser;
   var averagePibcomp;
+
+$('#radio_eco').click(function(){
+    benchmarking_radio(id_user,'Economic')
+
+})
+$('#radio_fi').click(function(){
+    benchmarking_radio(id_user,'Financial')
+
+})
+$('#radio_med').click(function(){
+    benchmarking_radio(id_user,'Media')
+
+})
+
+
 
 $('#btn_logout').click(function(){
     $.get("/logout",function(data){
@@ -43,7 +80,7 @@ var height=450, width=750;
 var fill=d3.scale.category20b();
 //var data = dataKnn;
 var data=datafinal['data_final'];
-if(data.length >10){ var data2=data.slice(0,11) }
+if(data.length >10){ var data2=data.slice(0,10) }
 else {var data2=data }  
 
 var focus=d3.select("#wordCloud").append("svg")
@@ -87,12 +124,11 @@ function draw(words) {
       .attr("transform", function(d) {
         return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
       })
-      .text(function(d) { return d.text; });
+      .text(function(d) { return (d.text).replace('amp;',''); });
            
 }
 
-//}
-//});
+
 
 });
 
@@ -250,10 +286,11 @@ function charts(idx,id_user){
                       $('#charts').collapse('show');
                   }, 300);
                   });
+
                     $('#charts').on('shown.bs.collapse', function () {
                       $('html, body').animate({
-                          scrollTop: $('#charts').offset().top
-                      }, 100);})
+                          scrollTop: $('#aa').offset().top
+                      }, 200);})
                      /****************************barchart********************************/
                     var revenueuser=[];  
                    (data.user).forEach(function(element) {

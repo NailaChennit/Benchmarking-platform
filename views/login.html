@@ -27,7 +27,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
 <div class="container-fluid">
-	<a class="navbar-brand" href="#"><img src="#">
+	<a class="navbar-brand" href="#"><img src="image/logoo.png">
 	</a>
 	<button class="navbar-toggler" type="button" data_toggle="collapse" data-target="#navbarResponsive">
 		<span class="navbar-toggler-icon"></span>
@@ -35,22 +35,19 @@
 	<div class="collapse navbar-collapse" id="navbarResponsive">
 		<ul class="navbar-nav ml-auto">
 			<li class="nav-item active">
-				<a class="nav-link" href="#">Home</a>
+				<a class="nav-link" href="http://127.0.0.1:3000">Home</a>
 			</li>
 			<li class="nav-item ">
-				<a class="nav-link" href="#">About</a>
+				<a class="nav-link" href="http://127.0.0.1:3000">News</a>
 			</li>
 			<li class="nav-item ">
-				<a class="nav-link" href="#">Services</a>
+				<a class="nav-link" href="http://127.0.0.1:3000/register">Register</a>
 			</li>
 			<li class="nav-item ">
-				<a class="nav-link" href="#">Team</a>
-			</li>
-			<li class="nav-item ">
-				<a class="nav-link" href="#">Connect</a>
+				<a class="nav-link" href="http://127.0.0.1:3000/login">Log In</a>
 			</li>	
 			<li class="nav-item ">
-				<a class="nav-link" href="#">News</a>
+				<a class="nav-link" href="#footer">Contact</a>
 			</li>					
 
 		</ul>
@@ -80,14 +77,14 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
-						<input type="text" name="email" class="form-control" placeholder="email">
+						<input type="text" name="email" class="form-control" placeholder="Enetr your email">
 						<h5><font color="red" id="error_index"><%=data.error_email%></font></h5>						
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
-						<input type="password" name="password" class="form-control" placeholder="password">
+						<input type="password" name="password" class="form-control" placeholder="Enetr your password">
 					</div>
 
 						
@@ -128,7 +125,7 @@
 
 
 <!--- Footer -->
-<footer>
+<footer id="footer">
 <div class="container-fluid padding">
 <div class="row text-center">
 	<div class="col-md-4">
@@ -178,6 +175,9 @@
 		{ 
 		  $("#alert").append('<div class="col-6 text-center alert alert-primary fadeInDown"><p style="margin-bottom: 0px;">'+error+'</p></div>');
 		}	
+
+		   window.history.pushState("object or string", "Title", "/login");
+
 </script>
 
 

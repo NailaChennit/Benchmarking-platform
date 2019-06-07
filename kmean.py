@@ -6,7 +6,8 @@ import json
 import sys
 
 if __name__ == '__main__':  
-    #index=sys.argv[1] 
+    
+   
     def Calculate_distance(center,object):
         distance=0
         #(25 %, 35 %, 25 %, 15 %) resp(macro, operational, media, financial)
@@ -100,15 +101,19 @@ if __name__ == '__main__':
     def Kmeans(list_of_objects,K):
         centers=[]
         # choose center of clusters randomly
+        newlist=list_of_objects
         for a in range(0, K):
-            indice = random.randint(0, len(objects))
-            centers.append(list_of_objects[indice])
+            indice = random.randint(0, len(newlist))
+            centers.append(newlist[indice])
+            newlist.pop(indice)
 
         clusters=Clustering(list_of_objects,centers)
         means=[]
+        i=0
         for (key,cluster) in clusters.items():
             mean=Get_mean_of_cluster(cluster)
             means.append(Get_closest(cluster, mean))
+            i+=1
 
         while Are_equal(means,centers)==0:
             centers=means
@@ -153,7 +158,7 @@ if __name__ == '__main__':
                 revenue=1
             if population==0:
                 population=1
-            performance=(-1*nb_sub/population*revenue)*(qos+qon)
+            performance=(nb_sub/population*revenue)*(qos+qon)
             sorted[operator['ID_operator']]=performance
         return sorted
 
@@ -207,15 +212,17 @@ if __name__ == '__main__':
     #print(Get_intraclass(clusters, centers))
 
     #Partie à retourner à Naila
+    
+    Id=sys.argv[1] 
+    Maxy=sys.argv[2]
 
-
-    Id='VFQS.QA' ##iciiiiiiiiiii
+    #id='VFQS.QA' ##iciiiiiiiiiii
     ids,cluster=Get_IdOp_Same_Cluster(Id,clusters)
     #print(ids) #liste des indexes du meme cluster que T.BA
-    Maxy='Economic' # or 'Financial' or 'Media'
+    #Maxy='Economic' # or 'Financial' or 'Media'
     #print(Get_operator_performance(cluster,Maxy) )#return a list
     #print(Get_operator_performance(cluster,'Financial'))
-    x=Get_operator_performance(cluster,'Media')
+    x=Get_operator_performance(cluster,Maxy)
 
     #sort keys of  dictionnary by value
     sorted_operators = sorted(x.items(), key=operator.itemgetter(1))
@@ -223,3 +230,4 @@ if __name__ == '__main__':
     info_final={}
     info_final["data_final"]=cloud
     print(info_final)
+   

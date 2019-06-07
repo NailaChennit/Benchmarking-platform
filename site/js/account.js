@@ -35,7 +35,7 @@ $('#btn_logout').click(function(){
 
 
 $('#btn_benchmark').click(function(){ 
-       $.get("/visualization",{index_user:idx},function(data){
+       $.get("/visualization",{index_user:idx, maxy:'Economic'},function(data){
 
         if(!data){
                 console.log("No dataaaaaa");
@@ -226,14 +226,14 @@ $('#btn_benchmark').click(function(){
                    Chart.defaults.global.defaultFontSize = 15;
 
                   var Revenue_user = {
-                    label: 'Revenue of ',
+                    label: 'Revenue  ',
                     data: revenueuser,
                     backgroundColor: '#26B99A',
                     //borderWidth: 0,
                   };
 
                   var Capex_user = {
-                    label: 'Capex of ',
+                    label: 'Capital expenditure ',
                     data: capexuser,
                     backgroundColor: '#f78749',
                     hidden: true,

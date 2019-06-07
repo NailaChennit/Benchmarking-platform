@@ -19,9 +19,9 @@ app.use(session({secret: 'secret', resave: true, saveUninitialized: true}));
 app.use(function(req, res, next) {
   if (req.session && req.session.user) {
 
-  const url = 'localhost:27017/music';
+  const url = 'localhost:27017/dump';
   const db = monk(url);
-  const user = db.get('artists');
+  const user = db.get('Accounts');
   var data=user.findOne({ email: req.session.user.email}, function(err, user) {
       if (user) {
         
@@ -63,15 +63,14 @@ let exec_kmean = function(req,response) {
     pythonOptions: ['-u'],
     encoding: 'utf8',
     scriptPath:'./',
-    args: [req.query.index_user],///////elment pour kmean ----- message est une liste des info du script pr kmean--------------------
+    args: [req.query.index_user,req.query.maxy],///////elment pour kmean ----- message est une liste des info du script pr kmean--------------------
     pythonPath: 'C:/Users/naila/Anaconda3/python.exe'
     }
     var test= new PythonShell('kmean.py',options);
     test.on('message',function(message){
-     
+     //console.log(message)
      response.render('visualization.html',{data:message,id_user:req.query.index_user,name:req.session.user.name,lastname:req.session.user.lastname});
-     //response.send(message)
-    //resolve(message); 
+     
     });    
 //});
 } 
@@ -142,6 +141,7 @@ app.get('/afficher',function(request,response){
    
     })
    .then(function(articles) {
+    
     response.send(articles);
 })
    .catch((err) => {
@@ -199,20 +199,23 @@ app.post('/data',function(request,response){//a revoiir
 
 /***********************************************************Login***************************************/
 app.get('/login',function(request,response){
-   response.render('login.html',{data: {error:''}}); 
+  if(request.session.loggedin==true){ response.redirect('/account')   }
+  else{  
+   response.render('login.html',{data: {error:''}}); }
+  
 });
 
 app.post('/login',function(request,response){
   //verifier index
-  const url = 'localhost:27017/music';
+  const url = 'localhost:27017/dump';
   const db = monk(url);
-  const collection = db.get('artists');
+  const collection = db.get('Accounts');
   var data=collection.findOne(
   { email : request.body.email, password: request.body.password }//verifier email
   ,function(e,user){ 
     if(user) {
           request.session.loggedin = true;
-          request.session.user = user;
+          request.session.user = user; 
           //response.redirect('/dashboard');
           response.redirect('/account')
     }else {//request.session.reset();
@@ -227,6 +230,7 @@ app.post('/login',function(request,response){
 app.get('/logout', function(req, res) {
   req.session.destroy();
   res.render('login.html',{data: {error:'Succefully Logged Out!'}}); 
+ // res.redirect('/login')
 });
 
 
@@ -238,25 +242,30 @@ app.get('/register',function(request,response){
 
 app.post('/register',function(request,response){
   //verifier inddex
-  const url = 'localhost:27017/music';
+  const url = 'localhost:27017/dump';
   const db = monk(url);
+  const collection = db.get('Activation_keys');
+  //yahooStockPrices.getCurrentPrice('t', function(err, price){
+  //if(price==undefined){response.render('register.html',{data: {error_index:'Index does not exist in yahoo finance, please check the index!'}}); }
+  //else{
+  var data=collection.find({key:request.body.key},function(e,docs1){
+    if(docs1.length==0){response.render('register.html',{data: {error_key:'Key does not exist, try again'}})}
+    else{
+          const collection_account = db.get('Accounts');
+          var data=collection_account.find(
+          { email : request.body.email }//verifier email
+          ,function(e,docs){ 
+            if(docs.length==0) {
+                                var data=collection_account.insert(
+                                {index:docs1[0].index_YH, email : request.body.email, password: request.body.password,name:request.body.name,lastname:request.body.lastname }
+                                ,function(e,docs){                    
+                                     response.redirect('/login')
+                              });   
+             }           
+            else response.render('register.html',{data: {error_email:'Email already used!'}}); 
 
-  const collection = db.get('artists');
-  yahooStockPrices.getCurrentPrice('t', function(err, price){
-  if(price==undefined){response.render('register.html',{data: {error_index:'Index does not exist in yahoo finance, please check the index!'}}); }
-  else{
-  var data=collection.find(
-  { email : request.body.email }//verifier email
-  ,function(e,docs){ 
-    if(docs.length==0) {
-                        var data=collection.insert(
-                        { email : request.body.email, password: request.body.password, index: request.body.index, name:request.body.name, country: request.body.country, website:request.body.website }
-                        ,function(e,docs){                    
-                             //insert succeed
-                      });   
-    } else response.render('register.html',{data: {error_eamil:'Email already used!'}}); 
-  });
-  }
+          })  
+    }
 });
 
 });
@@ -348,7 +357,26 @@ app.get('/article_account', function(req, res) {
     }) 
 });
 
+/****************************list op per country*********/
 
+app.get('/world', function(req, res) {
+  res.render('region.html')
+})
+
+app.get('/list_op', function(req, res) {
+  const url = 'localhost:27017/dump';
+  const db = monk(url);
+  const collection = db.get('Operators');
+ 
+
+  var data_user=collection.find({ISO2: req.query.id_country},function(e,docs1){
+     
+      res.send(docs1)  
+
+          
+    }) 
+
+})
 
 
 
