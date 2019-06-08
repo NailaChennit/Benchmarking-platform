@@ -8,7 +8,7 @@
 
 
 .map__image path {
-	fill: #a4ced2;
+	
 	stroke: #FFF;
 	stroke-width: 1px;
 	transition: fill 0.3s;
@@ -17,24 +17,38 @@
     
 }
 
+.hoverr{ cursor: pointer; }
+.hoverr:hover { opacity: .2 !important; }
+
+.map__image path:hover {
+	
+	stroke: #FFF;
+	stroke-width: 1px;
+	transition: fill 0.3s;	
+	transform: scale(1.1,1.2);
+	z-index: 1;
+  	transform-origin: left;
+  	fill: yellow;
+}
+
 #Middle_East_and_North_Africa path{
-   fill: #cfc615;
+   fill: #74c493;
 
 }
 #West_Africa path{
-   fill: #d8aee0;
+   fill: #8e8c6d;
 
 }
 #Europe path{
-   fill: #a7bceb;
+   fill: #e2975d;
 
 }
 #South_Asia path{
-   fill: #9a9145;
+   fill: #e279a3 ;
 
 }
 #Asia_Pacific path{
-   fill: #8eb58f;
+   fill: #c94a53;
 
 }
 #Atlantic_Ocean_Region path{
@@ -46,23 +60,23 @@
 
 }
 #Pacific_Ocean_Region path{
-   fill: #e23047;
+   fill: #be5168;
 
 }
-#Latin_America_and_the_Caribbean path{
-   fill: #b54e4e;
+#Latin_America path{
+   fill: #9163b6;
 
 }
 #North_America path{
-   fill: #c97b2f;
+   fill: #e0598b;
 
 }
 #Central_America_and_the_Caribbean path{
-   fill: #da1ead;
+   fill: #447c69;
 
 }
 #Sub_Saharan_Africa path{
-   fill: #0ac06e;
+   fill: #f19670;
 
 }
 
@@ -76,8 +90,8 @@
 }*/
 
 
-.map__image path:hover {
-	fill: red;
+.map__image path.hovered{
+	fill: #FFF;
 	stroke: #FFF;
 	stroke-width: 1px;
 	transition: fill 0.3s;	
@@ -85,3 +99,5 @@
 	z-index: 1;
   	transform-origin: left;
 }
+
+

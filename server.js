@@ -279,6 +279,41 @@ app.get('/visualization',requireLogin, function(req, res) {
 });
 
 
+app.get('/LDA',function(req,res){
+    var options={
+    mode: 'text',
+    pythonOptions: ['-u'],
+    encoding: 'utf8',
+    scriptPath:'./',
+    args: [req.query.name_operator],///////elment pour kmean ----- message est une liste des info du script pr kmean--------------------
+    pythonPath: 'C:/Users/naila/Anaconda3/python.exe'
+    }
+    var test= new PythonShell('LDA.py',options);
+    test.on('message',function(message){
+      console.log(message)
+      //res.send(message);     
+    });
+
+
+})
+
+app.get('/radio',function(req,res){
+
+   var options={
+    mode: 'text',
+    pythonOptions: ['-u'],
+    encoding: 'utf8',
+    scriptPath:'./',
+    args: [req.query.index_user,req.query.maxy],///////elment pour kmean ----- message est une liste des info du script pr kmean--------------------
+    pythonPath: 'C:/Users/naila/Anaconda3/python.exe'
+    }
+    var test= new PythonShell('kmean.py',options);
+    test.on('message',function(message){
+     //console.log(message)
+      res.send(message);     
+    });
+})
+
 
 app.get('/charts', function(req, res) {
   const url = 'localhost:27017/dump';
@@ -319,6 +354,18 @@ app.get('/account',requireLogin, function(req, res) {
 
   res.render('account.html',{data : {index : req.session.user.index, name :req.session.user.name,lastname:req.session.user.lastname}})  
 });
+
+app.get('/quarter',function(req,res){
+  const url = 'localhost:27017/dump';
+  const db = monk(url);
+  const collection = db.get('KPI_Sub');
+
+  var data_user=collection.find({name: req.query.name},function(e,docs1){ 
+      res.send(docs1)  
+          
+    }) 
+
+})
 
 app.get('/Operateur_same_country', function(req, res) {
   const url = 'localhost:27017/dump';
@@ -366,11 +413,11 @@ app.get('/world', function(req, res) {
 app.get('/list_op', function(req, res) {
   const url = 'localhost:27017/dump';
   const db = monk(url);
-  const collection = db.get('Operators');
+  const collection = db.get('Map_Operators');
  
 
-  var data_user=collection.find({ISO2: req.query.id_country},function(e,docs1){
-     
+  var data_user=collection.find({country: req.query.country},function(e,docs1){
+
       res.send(docs1)  
 
           

@@ -5,6 +5,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>TelecomBenchmark</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<link href="css/mdb.min.css" rel="stylesheet">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -24,6 +26,10 @@
 	<script type="text/javascript" src="lib/lodash/lodash.js"></script> 
 	<script type="text/javascript" src="js/js-summarize.js"></script>
 	<script type="text/javascript" src="lib/tokenizer/tokenizer.js"></script>
+
+	
+	
+	
 </head>
 
 <body>
@@ -232,7 +238,7 @@
 
 			</div>	
 			<div class="col-xs-12 col-sm-12 col-lg-3 col-xl-2">
-				<button type="button" id="btn_benchmark"  class="btn btn-outline-secondary btn-lg"> Try it now!</button>
+				<button type="button" id="btn_benchmark"  class="btn btn-outline-secondary btn-lg">Try it now!</button>
 			</div>	
 			
 		</div>	
@@ -269,43 +275,15 @@
 	    	<table class="table table-striped">
 			  <thead>
 			    <tr>
-			      <th scope="col" >Quarter</th>	
-			      <th scope="col" >2015</th>
-			      <th scope="col">2016</th>
-			      <th scope="col">2017</th>
-			      <th scope="col">2018</th>
+			      <th scope="col" >Year/Quarter</th>	
+			      <th scope="col" >Q1</th>
+			      <th scope="col" >Q2</th>
+			      <th scope="col">Q3</th>
+			      <th scope="col">Q4</th>
 			    </tr>
 			  </thead>
-			  <tbody>
-			    <tr>
-			      <th scope="row">Q1 :</th>
-			      <td>25555</td>
-			      <td>44444</td>
-			      <td>8888888</td>
-			      <td>8888888</td>
-			    </tr>
-			    <tr>
-			      <th scope="row">Q2 :</th>
-			      <td>Jacob</td>
-			      <td>Thornton</td>
-			      <td>@fat</td>
-			      <td>8888888</td>
-			    </tr>
-			    <tr>
-			      <th scope="row">Q3 :</th>
-			      <td>Larry</td>
-			      <td>the Bird</td>
-			      <td>@twitter</td>
-			      <td>8888888</td>
-			    </tr>
+			  <tbody id="table_quarter">
 
-			    <tr>
-			      <th scope="row">Q4 :</th>
-			      <td>Larry</td>
-			      <td>the Bird</td>
-			      <td>@twitter</td>
-			      <td>8888888</td>
-			    </tr>
 			  </tbody>
 			</table>
     	</div>
@@ -444,5 +422,7 @@
 </div>		
 </div>	
 </footer>
+
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 </body>
 </html>		

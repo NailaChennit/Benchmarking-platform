@@ -1,4 +1,6 @@
+list_countries={"Afghanistan":"AF","Albania":"AL","Algeria":"DZ","Angola":"AO","Argentina":"AR","Armenia":"AM","Australia":"AU","Austria":"AT","Azerbaijan":"AZ","Bahamas":"BS","Bangladesh":"BD","Belarus":"BY","Belgium":"BE","Belize":"BZ","Benin":"BJ","Bhutan":"BT","Bolivia":"BO","Bosnia and Herzegovina":"BA","Botswana":"BW","Brazil":"BR","Brunei Darussalam":"BN","Bulgaria":"BG","Burkina Faso":"BF","Burundi":"BI","Cambodia":"KH","Cameroon":"CM","Canada":"CA","Central African Republic":"CF","Chad":"TD","Chile":"CL","China":"CN","Colombia":"CO","Costa Rica":"CR","Croatia":"HR","Cuba":"CU","Cyprus":"CY","Czech Republic":"CZ","Côte dIvoire":"CI","Democratic Republic of Congo":"CD","Denmark":"DK","Djibouti":"DJ","Dominican Republic":"DO","Ecuador":"EC","Egypt":"EG","El Salvador":"SV","Equatorial Guinea":"GQ","Eritrea":"ER","Estonia":"EE","Ethiopia":"ET","Falkland Islands":"FK","Fiji":"FJ","Finland":"FI","France":"FR","French Guiana":"GF","French Southern and Antarctic Lands":"TF","Gabon":"GA","Gambia":"GM","Georgia":"GE","Germany":"DE","Ghana":"GH","Greece":"GR","Greenland":"GL","Guatemala":"GT","Guinea":"GN","Guinea-Bissau":"GW","Guyana":"GY","Haiti":"HT","Honduras":"HN","Hong Kong":"HK","Hungary":"HU","Iceland":"IS","India":"IN","Indonesia":"ID","Iran":"IR","Iraq":"IQ","Ireland":"IE","Israel":"IL","Italy":"IT","Jamaica":"JM","Japan":"JP","Jordan":"JO","Kazakhstan":"KZ","Kenya":"KE","Kosovo":"XK","Kuwait":"KW","Kyrgyzstan":"KG","Lao People's Democratic Republic":"LA","Latvia":"LV","Lebanon":"LB","Lesotho":"LS","Liberia":"LR","Libya":"LY","Lithuania":"LT","Luxembourg":"LU","Macedonia":"MK","Madagascar":"MG","Malawi":"MW","Malaysia":"MY","Mali":"ML","Mauritania":"MR","Mexico":"MX","Moldova":"MD","Mongolia":"MN","Montenegro":"ME","Morocco":"MA","Mozambique":"MZ","Myanmar":"MM","Namibia":"NA","Nepal":"NP","Netherlands":"NL","New Caledonia":"NC","New Zealand":"NZ","Nicaragua":"NI","Niger":"NE","Nigeria":"NG","North Korea":"KP","Norway":"NO","Oman":"OM","Pakistan":"PK","Palestinian Territories":"PS","Panama":"PA","Papua New Guinea":"PG","Paraguay":"PY","Peru":"PE","Philippines":"PH","Poland":"PL","Portugal":"PT","Puerto Rico":"PR","Qatar":"QA","Republic of Congo":"CG","Romania":"RO","Russia":"RU","Rwanda":"RW","Saudi Arabia":"SA","Senegal":"SN","Serbia":"RS","Sierra Leone":"SL","Singapore":"SG","Slovakia":"SK","Slovenia":"SI","Solomon Islands":"SB","Somalia":"SO","South Africa":"ZA","South Korea":"KR","South Sudan":"SS","Spain":"ES","Sri Lanka":"LK","Sudan":"SD","Suriname":"SR","Svalbard and Jan Mayen":"SJ","Swaziland":"SZ","Sweden":"SE","Switzerland":"CH","Syria":"SY","Taiwan":"TW","Tajikistan":"TJ","Tanzania":"TZ","Thailand":"TH","Timor-Leste":"TL","Togo":"TG","Trinidad and Tobago":"TT","Tunisia":"TN","Turkey":"TR","Turkmenistan":"TM","Uganda":"UG","Ukraine":"UA","United Arab Emirates":"AE","United Kingdom":"GB","United States of America":"US","Uruguay":"UY","Uzbekistan":"UZ","Vanuatu":"VU","Venezuela":"VE","Vietnam":"VN","Western Sahara":"EH","Yemen":"YE","Zambia":"ZM","Zimbabwe":"ZW"};
 
+ 
   function popsummary(title,text){
     
     var summarizer = new JsSummarize();
@@ -35,6 +37,13 @@ $('#btn_logout').click(function(){
 
 
 $('#btn_benchmark').click(function(){ 
+         $(this).prop("disabled", true);
+      // add spinner to button
+          $(this).html(
+            `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...`
+          );
+
+
        $.get("/visualization",{index_user:idx, maxy:'Economic'},function(data){
 
         if(!data){
@@ -98,6 +107,14 @@ $('#btn_benchmark').click(function(){
                 $('#name_comp').text(data[0].name)
                
                 Draw_tabel_concurant(infos.ISO2)
+                show_articles(data[0].name);
+
+                function getKeyByValue(object, value) {
+                  return Object.keys(object).find(key => object[key] === value);
+                }
+                var country=getKeyByValue(list_countries,infos.ISO2);
+                console.log(country)
+                info_quarter_user(data[0].name,country)
                 
                }
              })
@@ -330,11 +347,11 @@ $('#btn_benchmark').click(function(){
 */
 
    }
-   show_articles(idx);
+   
    
    function show_articles(idx){
 
-    $.get("/article_account",{index:"VEON"},function(data){
+    $.get("/article_account",{index:idx},function(data){
                 if(!data){
                 console.log("No dataaaaaa");
                 }
@@ -441,4 +458,44 @@ $('#btn_benchmark').click(function(){
       $("#table_ratio").append(row);         
   }
 
+
+  function info_quarter_user(name_user,country){
+      //name=name_user+', '+country;
+      name="Swisscom";
+     $.get("/quarter",{name:name},function(data){
+                if(!data){
+                console.log("No dataaaaaa");
+                }
+               else{ 
+                 AddRowQuarter(data)
+               }
+      })
+  }
+
+
+  function AddRowQuarter(data){
+      
+      var list_Q=['Q1','Q2','Q3','Q4'];
+      var list_date=['2014','2015','2016','2017','2018']
+
+      list_date.forEach(function(year){
+          var row;
+          row=`<tr>
+                  <th scope="row">`+year+`</th>`;
+
+          list_Q.forEach(function(quarter){
+                 var nb_sub=data[0][quarter+'_'+year]
+                 console.log(nb_sub)
+                 row=row+`<td>`+nb_sub+`</td>`
+                  
+          })
+          row=row+'</tr>'
+          $("#table_quarter").append(row);   
+
+
+      })
+            
+  }
+
 });  
+

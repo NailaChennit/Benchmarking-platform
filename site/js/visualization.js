@@ -1,29 +1,49 @@
-/*************cloud*************/
+/*************Lda*************/
+var word_list=[];
+function LDA(name_operator){
+
 text=['5G', 'SDN', 'IoT', 'IIoT', 'Automated home', 'Cloud', 'Managed security services', 'Low Earth Orbit (LEO) satellites', 'AI', 'Conversational platforms', 'Internet TV', 'Vehicle-tovehicle (V2V) comms', 'Mobile payments', 'Drones', 'Fixed wireless access (FWA)', 'Convergence and quad-play', 'eSIM']
 
-var word_list=[];
-var dataKnn;
+$(document).ready(function(){
+    /*$.get('/LDA',{name_operator: name_operator},function(data){
+      if(!data){
+            console.log("No dataaaaaa");
+      }
+     else{
+            console.log('here')
+            console.log(data)*/
+            word_list=[];
+           /* var i=1;
+            text.forEach(function(element){
+                var word={};
+                word["text"]=element;
+                word["count"]=i;
+                i=i+5
+                word_list.push(word)
+            })*/
 
-var i=1;
-text.forEach(function(element){
-    var word={};
-    word["text"]=element;
-    word["count"]=i;
-    i=i+5
-    word_list.push(word)
+    // }
+
+
+   })
+
 })
 
+}
 
 
+
+
+/***************radiobutton*********/
  function benchmarking_radio(idx,maxy){
-    $.get("/visualization",{index_user:idx,maxy:maxy},function(data){
+    $.get("/radio",{index_user:idx,maxy:maxy},function(data){
 
         if(!data){
                 console.log("No dataaaaaa");
                 }
                else{ 
-                     
-                     var d=data.match(/'({&#39;.+})'/)
+                     redraw_cloud(data,id_user)
+                     //var d=data.match(/'({&#39;.+})'/)
                     // var d2=d[0].replace(/'/g,'')
                     // var d3=d2.replace(/&#39;/g,'"')
                     // console.log(d3)
@@ -78,7 +98,7 @@ $('#btn_logout').click(function(){
             
 var height=450, width=750;
 var fill=d3.scale.category20b();
-//var data = dataKnn;
+
 var data=datafinal['data_final'];
 if(data.length >10){ var data2=data.slice(0,10) }
 else {var data2=data }  
@@ -153,7 +173,7 @@ function charts(idx,id_user){
                     
                }
              })
-         $.get("/infos",{index:idx},function(data){
+         $.get("/infos",{index:idx},function(data){//infos of clicked company
                 if(!data){
                 console.log("No dataaaaaa");
                 }
@@ -171,6 +191,7 @@ function charts(idx,id_user){
                 //$('#2018').text('2018 statistics for '+ data[0].name)
                 
                 $('#name_comp').text(data[0].name)
+                LDA(data[0].name)
                 
                }
              })
@@ -641,6 +662,67 @@ function charts(idx,id_user){
 */
 
 
+function redraw_cloud(datafinal,id_user){
 
+ 
+datafinal=datafinal.replace(/'/g,'"')
+datafinal = JSON.parse(datafinal)//var datafinal = JSON.parse(datafinal)
+console.log(datafinal)
+
+$('#wordCloud svg').remove() 
+var height=450, width=750;
+var fill=d3.scale.category20b();
+
+var data=datafinal['data_final'];
+if(data.length >10){ var data2=data.slice(0,10) }
+else {var data2=data }  
+
+var focus=d3.select("#wordCloud").append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .attr("class", "wordcloud svg")
+    .append("g")
+      .attr("class","pointer")
+      .attr("transform", "translate(" + (width/2) + "," + (height/2) + ")")
+var colorScale = d3.scale.linear()
+              .domain([1,data2.length])
+              .range(["#393b79","#9c9ede"]);
+var sizeScale = d3.scale.linear()
+              .domain([1,data2.length])
+              .range([5*(data2.length-1)+15,15]); 
+ 
+
+ d3.layout.cloud().size([width, height])
+    .words(data2)
+    .padding(3)
+    .rotate(function() { return ~~(Math.random() * 2) *0; })
+    .font("Arial")
+    .spiral("archimedean")
+    .fontSize(function(d, index) { return sizeScale(index); })
+    .on("end", draw)
+    .start();
+ //.spiral("rectangular")   
+ 
+function draw(words) { 
+    
+    focus.selectAll("text")
+      .data(words)
+    .enter().append("text")
+      .style("font-size", function(d) { return  d.size + "px"; })
+      .style("font-family", "Arial")
+      .style("fill", function(d, i) { return fill(i); })
+      .on("click", function (d, i){
+      
+       charts(d.idx,id_user) })
+      .attr("text-anchor", "middle")
+      .attr("transform", function(d) {
+        return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+      })
+      .text(function(d) { return (d.text).replace('amp;',''); });
+           
+}
+
+
+}
 
 
