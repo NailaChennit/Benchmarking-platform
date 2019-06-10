@@ -280,18 +280,19 @@ app.get('/visualization',requireLogin, function(req, res) {
 
 
 app.get('/LDA',function(req,res){
+    console.log('ici')
     var options={
     mode: 'text',
     pythonOptions: ['-u'],
     encoding: 'utf8',
     scriptPath:'./',
     args: [req.query.name_operator],///////elment pour kmean ----- message est une liste des info du script pr kmean--------------------
-    pythonPath: 'C:/Users/naila/Anaconda3/python.exe'
+    pythonPath: 'C:/Users/naila/AppData/Local/Programs/Python/Python37-32/python.exe'
     }
     var test= new PythonShell('LDA.py',options);
     test.on('message',function(message){
-      console.log(message)
-      //res.send(message);     
+      //console.log(message)
+      res.send(message);     
     });
 
 

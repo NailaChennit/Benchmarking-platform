@@ -174,12 +174,12 @@ $('#btn_benchmark').click(function(){
                    (info_statement).forEach(function(element) {
                         qON.push(element.QON*100)
                    });
-                
+                console.log(qON)
                 var qOS=[];                     
                    (info_statement).forEach(function(element) {
                         qOS.push(element.QOS*100)
                    });    
-
+               // console.log(qOS)   
                 var qon = {
                     label: 'Quality of Network',
                     data: qON,
@@ -386,8 +386,8 @@ $('#btn_benchmark').click(function(){
                         var article =`<div class="col-lg-2" style="padding-right: 8px;padding-left: 8px;">
                                <div class="card">
                                   <div class="card-body">
-                                    <div id="fitin" class="col" style="padding-left: 0px;padding-right: 0px;"><div class="card-title"><strong>`+element['Title']+`</strong></div></div>
-                                    <br>
+                                    <div id="fitin" class="col" style="padding-left: 0px;padding-right: 0px;"><div class="card-title align-middle"style="height :95px font-size:25px"><strong>`+element['Title']+`</strong></div></div>
+                                    <hr>
                                     <h6 class="card-subtitle mb-2 text-muted">`+date+`</h6>
                                     <a  onclick="popsummary('`+element['Title']+`','`+text.toString()+`')">Summary</a><br>
                                     <a  href="`+element['Link']+`">Article</a>
@@ -397,11 +397,11 @@ $('#btn_benchmark').click(function(){
                                  $(id).append(article);
                       });
                          
-                        $(function() {
+                       /* $(function() {
                           while( $('#fitin div').height() > $('#fitin').height() ) { console.log('fsfsffsf')
                               $('#fitin div').css('font-size', (parseInt($('#fitin div').css('font-size')) - 1) + "px" );
                           }
-                        });
+                        });*/
 
                      }
 

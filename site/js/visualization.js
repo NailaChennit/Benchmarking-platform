@@ -1,35 +1,59 @@
 /*************Lda*************/
-var word_list=[];
-function LDA(name_operator){
+//var word_list=[];
+//function LDA(name_operator){
 
-text=['5G', 'SDN', 'IoT', 'IIoT', 'Automated home', 'Cloud', 'Managed security services', 'Low Earth Orbit (LEO) satellites', 'AI', 'Conversational platforms', 'Internet TV', 'Vehicle-tovehicle (V2V) comms', 'Mobile payments', 'Drones', 'Fixed wireless access (FWA)', 'Convergence and quad-play', 'eSIM']
+//text=['5G', 'SDN', 'IoT', 'IIoT', 'Automated home', 'Cloud', 'Managed security services', 'Low Earth Orbit (LEO) satellites', 'AI', 'Conversational platforms', 'Internet TV', 'Vehicle-tovehicle (V2V) comms', 'Mobile payments', 'Drones', 'Fixed wireless access (FWA)', 'Convergence and quad-play', 'eSIM']
 
-$(document).ready(function(){
-    /*$.get('/LDA',{name_operator: name_operator},function(data){
+ var word_list=[];
+ function LDA(name_operator){
+    $.get('/LDA',{name_operator: name_operator},function(data){
       if(!data){
             console.log("No dataaaaaa");
       }
-     else{
-            console.log('here')
-            console.log(data)*/
+     else{ 
+            result=JSON.parse(data.replace(/'/g,'"'))
+            var text=result["lda"]
             word_list=[];
-           /* var i=1;
-            text.forEach(function(element){
+           
+            text.forEach(function(element,i){
                 var word={};
                 word["text"]=element;
-                word["count"]=i;
+                i=i+1
+                word["count"]=(i);
                 i=i+5
                 word_list.push(word)
-            })*/
 
-    // }
+                
+
+            })
+            ZC.LICENSE = ["b55b025e438fa8a98e32482b5f768ff5"];
+                      var myConfig = {
+                          type: 'wordcloud',
+                          options: {
+                                      "words": word_list,
+
+                              
+                             
+                              colorType: 'palette',
+                        palette: ['#2196F3', '#3F51B5', '#42A5F5', '#5C6BC0', '#64B5F6', '#7986CB', '#90CAF9', '#9FA8DA', '#BBDEFB', '#C5CAE9']
+                          }
+                      };
+               
+                      zingchart.render({
+                          id: 'LDA',
+                          data: myConfig,
+                          height: 400,
+                          width: '100%'
+                      });
+
+     }
 
 
    })
 
-})
+  }  
 
-}
+  
 
 
 
@@ -58,6 +82,7 @@ $(document).ready(function(){
 
 
  $(document).ready(function(){ 
+  console.log(id_user)
 
   var info_user;
   var info_comp;  
@@ -197,7 +222,7 @@ function charts(idx,id_user){
              })
          
 
-         $.get("/charts",{index_user:"SNMMF",index_compare:idx},function(data){
+         $.get("/charts",{index_user:id_user,index_compare:idx},function(data){
                 if(!data){
                 console.log("No dataaaaaa");
                 }
@@ -486,7 +511,7 @@ function charts(idx,id_user){
                    (data.user).forEach(function(element) {
                         qONuser.push(element.QON*100)
                    });
-                
+                console.log(data.user)
                 var qONcompare=[];                     
                    (data.compare).forEach(function(element) {
                         qONcompare.push(element.QON*100)
@@ -667,7 +692,7 @@ function redraw_cloud(datafinal,id_user){
  
 datafinal=datafinal.replace(/'/g,'"')
 datafinal = JSON.parse(datafinal)//var datafinal = JSON.parse(datafinal)
-console.log(datafinal)
+//console.log(datafinal)
 
 $('#wordCloud svg').remove() 
 var height=450, width=750;

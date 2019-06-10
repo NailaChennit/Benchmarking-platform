@@ -138,9 +138,8 @@ box-shadow: -4px 2px 30px 1px rgba(0,0,0,0.75);
 
 #fitin{
     width: 256px; 
-    height: 106px;
+    height: 100px;
     overflow: hidden;
-    font-size: 28px;
 }
 .btn-primary{
   background-color: #6648b1;
