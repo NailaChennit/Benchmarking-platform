@@ -62,7 +62,7 @@ $('#btn_benchmark').click(function(){
 
 
   Charts(idx);
-
+  var info_statement;
   function Charts(idx){
          Infortaion_statement(idx);
          infortaion(idx);
@@ -75,7 +75,7 @@ $('#btn_benchmark').click(function(){
                 console.log("No dataaaaaa");
                 }
                else{ 
-                var info_statement=data;
+                info_statement=data;
                 bar_hor_subs(info_statement);
                 QOS_QON_line(info_statement)
                 Revenue_Capex_Bar(info_statement)
@@ -106,14 +106,13 @@ $('#btn_benchmark').click(function(){
                 
                 $('#name_comp').text(data[0].name)
                
-                Draw_tabel_concurant(infos.ISO2)
+                Draw_tabel_concurant(infos.ISO2,infos)
                 show_articles(data[0].name);
 
                 function getKeyByValue(object, value) {
                   return Object.keys(object).find(key => object[key] === value);
                 }
                 var country=getKeyByValue(list_countries,infos.ISO2);
-                console.log(country)
                 info_quarter_user(data[0].name,country)
                 
                }
@@ -128,7 +127,7 @@ $('#btn_benchmark').click(function(){
                         subs.push(element.Nb_sub)
                    });
                 
-                
+                subs=subs.reverse();
                 var data_subs = {
                     label: 'Number of subsribers per year',
                     data: subs,
@@ -137,7 +136,7 @@ $('#btn_benchmark').click(function(){
                   };
                    
                 var chartData = {
-                labels: ["2015", "2016", "2017", "2018"],  
+                labels: ["2018", "2017", "2016", "2015"],  
                 datasets: [data_subs]
               }; 
 
@@ -174,7 +173,6 @@ $('#btn_benchmark').click(function(){
                    (info_statement).forEach(function(element) {
                         qON.push(element.QON*100)
                    });
-                console.log(qON)
                 var qOS=[];                     
                    (info_statement).forEach(function(element) {
                         qOS.push(element.QOS*100)
@@ -291,7 +289,7 @@ $('#btn_benchmark').click(function(){
 
    }
 
-   function Draw_tabel_concurant(id_country){
+   function Draw_tabel_concurant(id_country,infos_user){
       
         var list_index=[];
         $.get("/Operateur_same_country",{id_country:id_country},function(data){ //tirer les op du mm pays
@@ -299,7 +297,7 @@ $('#btn_benchmark').click(function(){
                 console.log("No dataaaaaa");
                 }
                else{ 
-                list_index=data;
+                list_index=delete_user(data,infos_user);
                 list_index.forEach(function(element,i){
 
                     $.get("/info_statement",{index_user:element.index_YH},function(data){ //tirer les info de l op
@@ -307,8 +305,8 @@ $('#btn_benchmark').click(function(){
                     console.log("No dataaaaaa"); }
 
                    else{
-                           //console.log(data)
-                           AddRowRatio(data,list_index,i)
+                           
+                           AddRowRatio(data,list_index,i,info_statement)
                        }
                       })
                  })//fin foreach
@@ -316,39 +314,16 @@ $('#btn_benchmark').click(function(){
               }
         })
 
-
-        
-
-          
-         // $("#table_ratio").append(article);
-
-
-        /*var container = document.getElementById('table_ratio'),
-        tbl  = document.createElement('table');
-        tbl.style.width  = '100px';
-        tbl.style.border = '1px solid black';
-
-        for(var i = 0; i < 3; i++){
-            var tr = tbl.insertRow();
-            for(var j = 0; j < 2; j++){
-                if(i == 2 && j == 1){
-                    break;
-                } else {
-                    var td = tr.insertCell();
-                    td.appendChild(document.createTextNode('Cell'));
-                    td.style.border = '1px solid black';
-                    if(i == 1 && j == 1){
-                        td.setAttribute('rowSpan', '2');
-                    }
-                }
-            }
-        }
-        container.appendChild(tbl);
-*/
-
    }
    
-   
+   function delete_user(list_index,infos){
+    list_index.forEach(function(element,i){
+      if(element.index_YH==infos.index_YH){list_index.splice(i,1)}
+    })
+    return list_index
+   }
+
+
    function show_articles(idx){
 
     $.get("/article_account",{index:idx},function(data){
@@ -444,15 +419,22 @@ $('#btn_benchmark').click(function(){
 
   }
 
-  function AddRowRatio(info_op_list,list_index,i){
+  function AddRowRatio(info_op_list,list_index,i,info_statement){
       
       var row;
       row=`<tr>
               <th scope="row">`+list_index[i].name+' ('+list_index[i].index_YH+')'+`</th>`;
 
-      info_op_list.forEach(function(element){
-             row=row+`<td>`+element.Nb_sub+`</td>`
-              
+     
+      info_op_list.forEach(function(element,i){
+             var growth=(-1*(((info_statement[i].Nb_sub-element.Nb_sub)*100)/info_statement[i].Nb_sub)).toFixed(1)
+
+             if(growth<0){
+             row=row+`<td ">`+element.Nb_sub+' '+'<font color=blue>'+growth+`%</font></td>`
+           }
+             else{
+              row=row+`<td ">`+element.Nb_sub+' '+'<font color=red>'+growth+`%</font></td>`
+             }
       })
       row=row+'</tr>'
       $("#table_ratio").append(row);         
@@ -478,16 +460,26 @@ $('#btn_benchmark').click(function(){
       var list_Q=['Q1','Q2','Q3','Q4'];
       var list_date=['2014','2015','2016','2017','2018']
 
-      list_date.forEach(function(year){
+      list_date.forEach(function(year,){
           var row;
           row=`<tr>
                   <th scope="row">`+year+`</th>`;
 
-          list_Q.forEach(function(quarter){
-                 var nb_sub=data[0][quarter+'_'+year]
-                 console.log(nb_sub)
-                 row=row+`<td>`+nb_sub+`</td>`
-                  
+          list_Q.forEach(function(quarter,i){
+            if(i!=0){
+                 var growth=(((data[0][quarter+'_'+year]-data[0][list_Q[i-1]+'_'+year])*100)/data[0][quarter+'_'+year]).toFixed(0);
+               }
+            else { var growth='';} 
+           var nb_sub=data[0][quarter+'_'+year];
+           if(growth<0){
+           row=row+`<td >`+nb_sub+' <font color=red>'+growth+`%</font></td>`
+         }
+           else{
+            if(i!=0)
+                  row=row+`<td >`+nb_sub+' <font color=blue>+'+growth+`%</font></td>`
+            else  row=row+`<td >`+nb_sub+`</td>`    
+           }
+            
           })
           row=row+'</tr>'
           $("#table_quarter").append(row);   

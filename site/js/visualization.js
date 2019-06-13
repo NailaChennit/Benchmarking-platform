@@ -90,6 +90,10 @@
   var averagePibUser;
   var averagePibcomp;
 
+$('#radio_eco').tooltip({title: ""});///////////////aminaaaaaa
+$('#radio_fi').tooltip({title: ""});
+$('#radio_med').tooltip({title: ""});  
+
 $('#radio_eco').click(function(){
     benchmarking_radio(id_user,'Economic')
 
@@ -336,7 +340,10 @@ function charts(idx,id_user){
                     $('#charts').on('shown.bs.collapse', function () {
                       $('html, body').animate({
                           scrollTop: $('#aa').offset().top
-                      }, 200);})
+                      }, 500);
+                     /* var x= document.getElementById('#charts');
+                      x.scrollIntoView(true);*/
+                    })
                      /****************************barchart********************************/
                     var revenueuser=[];  
                    (data.user).forEach(function(element) {

@@ -207,13 +207,13 @@
 				                		<div class="row"><h4 id="name_user" style="font-weight: bold;"></h4></div>
 				                		
 				                		<div class="row justify-content-md-center"> 	
-				                			<div class=" mr-5" id="rev_user" style="margin-left: 10px;"><p style="margin-bottom: 12px;">Revenue</p><h5 class="text-muted">$ </h5><h6></h6></div>
-				                			<div class="mr-5"  id="capex_user"><p style="margin-bottom: 12px;">CAPEX</p><h5 class="text-muted">$ </h5><h6></h6></div>
-				                			<div class=" mr-5" id="gdp_user"><p style="margin-bottom: 12px;">GDP</p><h5 class="text-muted"></h5><h6></h6></div>
-				                			<div class=" mr-5" id="popu_user"><p style="margin-bottom: 12px;">Population</p><h5 class="text-muted"></h5><h6></h6></div>
-				                			<div class=" mr-5" id="qos_user"><p style="margin-bottom: 12px;">QOS</p><h5 class="text-muted"></h5><h6></h6></div>
-				                			<div class=" mr-5" id="qon_user"><p style="margin-bottom: 12px;">QON</p><h5 class="text-muted"></h5><h6></h6></div>
-				                			<div class=" mr-5" id="subs_user"><p style="margin-bottom: 12px;">Subscribers</p><h5 class="text-muted"></h5><h6></h6></div>
+				                			<div class=" mr-5" id="rev_user" style="margin-left: 10px;"><p style="margin-bottom: 12px;font-weight:bold">Revenue</p><h5 class="text-muted">$ </h5><h6></h6></div>
+				                			<div class="mr-5"  id="capex_user"><p style="margin-bottom: 12px;font-weight:bold">CAPEX</p><h5 class="text-muted">$ </h5><h6></h6></div>
+				                			<div class=" mr-5" id="gdp_user"><p style="margin-bottom: 12px;font-weight:bold">GDP</p><h5 class="text-muted"></h5><h6></h6></div>
+				                			<div class=" mr-5" id="popu_user"><p style="margin-bottom: 12px;font-weight:bold">Population</p><h5 class="text-muted"></h5><h6></h6></div>
+				                			<div class=" mr-5" id="qos_user"><p style="margin-bottom: 12px;font-weight:bold">QOS</p><h5 class="text-muted"></h5><h6></h6></div>
+				                			<div class=" mr-5" id="qon_user"><p style="margin-bottom: 12px;font-weight:bold">QON</p><h5 class="text-muted"></h5><h6></h6></div>
+				                			<div class=" mr-5" id="subs_user"><p style="margin-bottom: 12px;font-weight:bold">Subscribers</p><h5 class="text-muted"></h5><h6></h6></div>
 				                		</div>
 
 				                	</div>
@@ -248,7 +248,7 @@
 		<div class="col-7">			
             <div class="card"  >
                 <div class="card-body">
-                	<h6 class="card-title">Comparison of revenue ($/year)</h6>
+                	<h6 class="card-title" style="font-weight: bold">Revenuea & capital expenditurefont-weight:bold for the last 4 years ($/year)</h6>
                 	<hr>
                     <canvas id="chBarRevenue"></canvas>
                 </div>
@@ -270,7 +270,7 @@
    
     	<!--------------tabel abonné par trismestre------>
     	<hr>
-    	<div class="row"><div class="col-12" style="padding-bottom: 0px;"><h5 style="margin-bottom: 0px;">Number of subscribers per quarter for last 4 years :</h5></div></div>
+    	<div class="row"><div class="col-12" style="padding-bottom: 0px;"><h5 style="margin-bottom: 0px;font-weight: bold">Number of subscribers per quarter for last 4 years :</h5></div></div>
     	<div class="row text-center" >
 	    	<table class="table table-striped">
 			  <thead>
@@ -303,7 +303,7 @@
 		<div class="col-7">			
             <div class="card"  >
                 <div class="card-body">
-                	<h6 class="card-title">Number of subscribers per year</h6>
+                	<h6 class="card-title" style="font-weight: bold">Number of subscribers per year</h6>
                 	<hr>
                     <canvas id="bar-chart-horizontal"></canvas>
                 </div>
@@ -316,7 +316,7 @@
     	<div class="col-8">			
             <div class="card"  >
                 <div class="card-body">
-                	<h6 class="card-title">Comparison of revenue ($/year)</h6>
+                	<h6 class="card-title" style="font-weight: bold">Changes in QOS & QON per year (%)</h6>
                 	<hr>
                     <canvas id="chLineQon"></canvas>
                 </div>
@@ -337,17 +337,17 @@
     </div>
 
     <hr>
-    <div class="row"><div class="col-12" style="padding-bottom: 0px;"><h5 style="margin-bottom: 0px;">Number of subscribers of all operators of the country</h5></div></div>
-    <div class="row justify-content-md-center">   	
-    	<div class="col-9" style="padding-top: 0px;" >
+    <div class="row"><div class="col-12" style="padding-bottom: 8px;"><h5 style="margin-bottom: 0px;font-weight:bold">Number of subscribers of all operators of the country and ratio compared to your company</h5></div></div>
+    <div class="row ">   	
+    	<div class="col-10" style="padding-top: 0px;" >
     		<table class="table table-striped tableHeight" >
     			<thead>
 				    <tr>
 				      <th scope="col" >Operator</th>	
-				      <th scope="col" >2015</th>
-				      <th scope="col">2016</th>
-				      <th scope="col">2017</th>
-				      <th scope="col">2018</th>
+				      <th scope="col cent" align="center">2015</th>
+				      <th scope="col cent" align="center">2016</th>
+				      <th scope="col cent" align="center">2017</th>
+				      <th scope="col cent" align="center">2018</th>
 				    </tr>
 			  </thead>
 			  <tbody id="table_ratio" >

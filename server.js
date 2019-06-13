@@ -68,7 +68,7 @@ let exec_kmean = function(req,response) {
     }
     var test= new PythonShell('kmean.py',options);
     test.on('message',function(message){
-     //console.log(message)
+     console.log(message)
      response.render('visualization.html',{data:message,id_user:req.query.index_user,name:req.session.user.name,lastname:req.session.user.lastname});
      
     });    

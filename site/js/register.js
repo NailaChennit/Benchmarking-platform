@@ -151,7 +151,7 @@ function Display_Nav_Loggin(user){
 					<i class="fas fa-circle" style="color: #3bc63b"></i><br>
 					<div class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"> </a>
-						<div class="dropdown-menu  dropdown-menu-right " style="min-width:7rem; text-align: left;padding-left: 3px;">
+						<div class="dropdown-menu  dropdown-menu-right " style="min-width:7.2rem; text-align: left;padding-left: 3px;">
 							<a   href="http://127.0.0.1:3000/account"> My account</a>
 							<hr style="margin-bottom: 5px;padding-top: 0px;margin-top: 5px;">
 				            <a  id="logout" data-toggle="modal" data-target="#LogOutModal" href="#"> Log Out</a>

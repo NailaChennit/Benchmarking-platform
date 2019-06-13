@@ -252,24 +252,7 @@
 
 <!--- Two Column Section -->
 
-<div class="container-fluid padding">
-	<hr>
-<div class="row padding">
-	<div class="col-lg-6">
-		<h2>Our Services</h2>
-		<p>Our platform is dedicated to help mobile telecommunication companies improve their performence using Benchmarking</p>
-		<p>We have collected more than 150 reference companies from all around the world to achieve to present the best comparison to our customers</p>
-		<p>Begin your experience now</p>
-		<button class="btn btn-primary" data-toggle="modal" data-target="#learnmore">Learn more</button>
-		<br>
-	</div>
-	<div class="col-lg-6">
-		<img src="" class="img-fluid"> <!--imaaaaage-->
-		
-	</div>
-	
-</div>	
-</div>
+
 
 <!-- Modal learn more -->
 <div class="modal fade" id="learnmore" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -370,7 +353,7 @@
 	var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
 	var yyyy = today.getFullYear();
 
-	today = mm + '.' + dd + '.' + yyyy;
+	today = dd + '.' + mm + '.' + yyyy;
 
 	$('#date').text('Latest news '+today)
 </script>

@@ -22,11 +22,11 @@ if __name__ == '__main__':
     def Clustering(list_of_objects,centers):
         clusters = {}
         distances = {}  # key is indice of center , value is distance with object
-        for i in range(0, K):
+        for i in range(0, len(centers)):
             clusters[str(centers[i]['_id'])]=[]
         # assign each object to the closest cluster
         for object in list_of_objects:
-            for i in range(0, K):
+            for i in range(0, len(centers)):
                 distances[i] = Calculate_distance(centers[i], object)
 
             mini = min(distances,key=distances.get)  # get the closest center
@@ -36,11 +36,17 @@ if __name__ == '__main__':
 
     def Get_mean_of_cluster(cluster):
         mean={}
-        values=[]
         for attribut in attributes:
+            #print(attribut)
+            values = []
+            #print(cluster)
             for object in cluster:
+                #print(object)
                 values.append(object[attribut])
             values.sort()
+            #print(values)
+            #print(len(values))
+            #print(int(len(values)/2))
             mean[attribut]=(values[int(len(values)/2)])
         return mean
 
@@ -102,29 +108,32 @@ if __name__ == '__main__':
         centers=[]
         # choose center of clusters randomly
         newlist=list_of_objects
+        i=len(newlist)-1
         for a in range(0, K):
-            indice = random.randint(0, len(newlist))
+            indice = random.randint(0, i)
             centers.append(newlist[indice])
             newlist.pop(indice)
+            i=i-1
 
         clusters=Clustering(list_of_objects,centers)
         means=[]
-        i=0
         for (key,cluster) in clusters.items():
-            mean=Get_mean_of_cluster(cluster)
-            means.append(Get_closest(cluster, mean))
-            i+=1
-
-        while Are_equal(means,centers)==0:
+            if len(cluster)!=0:
+                mean= Get_mean_of_cluster(cluster)
+                means.append(Get_closest(cluster, mean))
+        count=0
+        while Are_equal(means,centers)==0 and count<=10:
             centers=means
             clusters = Clustering(list_of_objects, means)
             means = []
             for (key, cluster) in clusters.items():
                 mean = Get_mean_of_cluster(cluster)
                 means.append(Get_closest(cluster, mean))
+            count+=1
 
         #for center in centers:
           #  print(center['ID_operator'])
+
         return (clusters, centers)
 
     def Get_interclass(centers):
@@ -158,7 +167,7 @@ if __name__ == '__main__':
                 revenue=1
             if population==0:
                 population=1
-            performance=(nb_sub/population*revenue)*(qos+qon)
+            performance=(-1*nb_sub/population*revenue)*(qos+qon)
             sorted[operator['ID_operator']]=performance
         return sorted
 
@@ -183,13 +192,14 @@ if __name__ == '__main__':
         mycollection = mydb["Operators"]
         for idx,val in sorted_op:
             dict = {}
-            name = mycollection.find_one({"index_YH": idx})["name"]
-            country = mycollection.find_one({"index_YH": idx})["ISO2"]
+            name = mycollection.find_one({'index_YH': idx})['name']
+            country = mycollection.find_one({'index_YH': idx})['ISO2']
             dict["text"]=name+','+country##faut laisser la clé text
-            dict["idx"]=idx
-            dict["country"]=country
+            dict['idx']=idx
+            dict['country']=country
             cloud.append(dict)
         return cloud
+
 
 
     year=2017
@@ -214,6 +224,14 @@ if __name__ == '__main__':
     #Partie à retourner à Naila
     
     Id=sys.argv[1] 
+
+    try:
+        ids,cluster=Get_IdOp_Same_Cluster(Id,clusters)
+    except:
+        objects = Get_objects(year)
+        clusters, centers = Kmeans(objects, K)
+        ids,cluster=Get_IdOp_Same_Cluster(Id,clusters)
+    
     Maxy=sys.argv[2]
 
     #id='VFQS.QA' ##iciiiiiiiiiii

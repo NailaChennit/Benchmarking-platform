@@ -23,6 +23,7 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
 	<script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+
 </head>	
 <body>
 <!-----------get data kmean---->
@@ -75,6 +76,7 @@
 	var info='<%= data%>';
 	var info2=info.replace(/&#39;/g,'"')
 	var datafinal = JSON.parse(info2)
+	console.log(datafinal)
 	
 </script>
 
@@ -111,7 +113,7 @@
 <div class="container-fluid padding">
 <div class="row welcome text-center">
 	<div class="col-12">
-		<h3 class="display-4">10 best commpanies compared to yours</h3>
+		<h3 class="display-4"><font color="blue">10 best commpanies compared to yours</font></h3>
 		<hr>
 		<div class="col-12">
 			<p>Click on a company to show more details</p>
@@ -166,7 +168,7 @@
 			    <div class="col-md-3 stretch-card grid-margin">
 			    	<div class="card text-white" style="background-color: #26b99a; height:115px">
 			    		<div class="card-body">
-			    			<h6 id="aa">Annual Revenue</h6>			    			
+			    			<h6>Annual Revenue</h6>			    			
 			    			<h5 id="revenue">$ 15,00000</h5>
 			    			<p class="card-text decinc" data-toggle="tooltip" data-placement="bottom" id="incresed_rev">Incresed by 60%</p>
 			    		</div>	    		
@@ -277,7 +279,7 @@
 				<div class="col-8">
 		            <div class="card"  >
 		                <div class="card-body" id="contain_revenue">
-		                	<h6 class="card-title">Comparison of revenue ($/year)</h6>
+		                	<h6 class="card-title" style="font-weight: bold">Revenue per year for both companies ($/year)</h6>
 		                	<hr>
 		                    <canvas id="chBarRevenue"></canvas>
 		                </div>
@@ -309,7 +311,7 @@
 		    	<div class="col-6">
 		            <div class="card">
 		                <div class="card-body" id="contain_qos">
-		                	<h6 class="card-title">Comparison of Quality of service (%)</h6>
+		                	<h6 class="card-title" style="font-weight: bold">Quality of service (QOS) for both companies (%)</h6>
 		                	<hr>
 		                    <canvas id="chLineQos"></canvas>
 		                </div>
@@ -318,7 +320,7 @@
 		        <div class="col-6">
 		            <div class="card">
 		                <div class="card-body" id="contain_qon">
-		                	<h6 class="card-title">Comparison of quality of network (%)</h6>
+		                	<h6 class="card-title" style="font-weight: bold">Quality of network (QON) for both companies (%)</h6>
 		                	<hr>
 		                    <canvas id="chLineQon"></canvas>
 		                </div>
@@ -337,7 +339,7 @@
 	    		<div class="col-12">
 		            <div class="card">
 		                <div class="card-body" id="contain_subs">
-		                	<h6 class="card-title">Comparison of number of subscribers</h6>
+		                	<h6 class="card-title" style="font-weight: bold">Number of subscribers for both companies</h6>
 		                	<hr>
 		                    <canvas id="bar-chart-horizontal"></canvas>
 		                </div>
