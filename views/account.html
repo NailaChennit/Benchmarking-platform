@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>TelecomBenchmark</title>
+	<title>BoostTelecom</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 
@@ -56,6 +56,9 @@
 				</li>
 				<li class="nav-item ">
 					<a class="nav-link" href="#footer">Contact</a>
+				</li>	
+				<li class="nav-item ">
+					<a class="nav-link" href="http://127.0.0.1:3000/help">Help</a>
 				</li>	
 				<li class="nav-item "><%=data.name%><br><%=data.lastname%>
 			    </li>					
@@ -229,13 +232,12 @@
     </div>
 
 	
-		<div class="row jumbotron" style="padding-bottom: 0px;">
+		<div class="row jumbotron" style="padding-bottom: 0px;background: #dda83f;">
 			<div class="col-xs-12 col-sm-12 col-md-p col-lg-9 col-xl-10">
-				<p class="lead">
+				<p class="lead" style="font-weight: bold">
 					Try Benchmarking and imporove performance of your company
 				</p>
-				<p class="blue-text my-4 ">Benchmarkig is a great way to find the right competitors all around the wolrd </p>
-
+				<p class=" my-4 " style="color: #1f67a1">Benchmarkig is a great way to find the right competitors all around the wolrd </p>
 			</div>	
 			<div class="col-xs-12 col-sm-12 col-lg-3 col-xl-2">
 				<button type="button" id="btn_benchmark"  class="btn btn-outline-secondary btn-lg">Try it now!</button>
@@ -248,7 +250,7 @@
 		<div class="col-7">			
             <div class="card"  >
                 <div class="card-body">
-                	<h6 class="card-title" style="font-weight: bold">Revenuea & capital expenditurefont-weight:bold for the last 4 years ($/year)</h6>
+                	<h6 class="card-title" style="font-weight: bold">Revenue & capital expenditurefor the last 4 years ($/year)</h6>
                 	<hr>
                     <canvas id="chBarRevenue"></canvas>
                 </div>
@@ -359,6 +361,35 @@
        	
     </div>
     <hr>
+
+    <div class="collapse" id="collapse_comp">
+    	<div class="row">
+			<div class="col-sm-4">
+				<table class="table table-sm">
+					<tr><td style="width:30px;"><i class="fas fa-id-card"></i></td><td id="name_comp" style="text-align: left;"><span style="font-weight: bold;"></span></td></tr>
+					<tr><td style="width:20px;"><i class="fas fa-info"></i></i></td><td id="website_comp" style="text-align: left;"><a href="#" style="color:blue;text-decoration: underline; "></a></td></tr>
+					<tr><td style="width:20px;"><i class="fas fa-info"></i></td><td id="yh__index_comp" style="text-align: left;"><span style="font-weight: bold;"> Yahoo finance index : </span></td></tr>
+					<tr><td style="width:20px;"><i class="fas fa-users"></i></td><td id="nb_employee_comp" style="text-align: left;"><span style="font-weight: bold;">Number of employee : </span></strong></td></tr>
+					<tr><td style="width:20px;"><i class="fas fa-phone-square"></i></td><td id="phone_comp" style="text-align: left;"><span style="font-weight: bold;"></span></td></tr>
+					<tr><td style="width:20px;"><i class="fas fa-fax"></i></td><td id="fax_comp" style="text-align: left;"><span style="font-weight: bold;"></span></td></tr>
+					<tr><td ><i class="fas fa-map-marker-alt"></i></td><td id="address_comp" style="text-align: left;"><span style="font-weight: bold;"></span></td></tr>
+			    </table>
+			    <hr>
+		    </div>
+		    <div class="col-sm-8">
+	            <div class="card"  >
+	                <div class="card-body" id="contain_revenue">
+	                	<h6 class="card-title" style="font-weight: bold">Revenue per year for both companies ($/year)</h6>
+	                	<hr>
+	                    <canvas id="chBarRevComp"></canvas>
+	                </div>
+	            </div>
+	        </div>
+
+		</div>
+    </div>	
+
+
 
 </div>
 

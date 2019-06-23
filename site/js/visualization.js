@@ -26,6 +26,7 @@
                 
 
             })
+             $('#spinner').remove();
             ZC.LICENSE = ["b55b025e438fa8a98e32482b5f768ff5"];
                       var myConfig = {
                           type: 'wordcloud',
@@ -66,14 +67,9 @@
                 console.log("No dataaaaaa");
                 }
                else{ 
+                     $('#spinner-radio').remove();
                      redraw_cloud(data,id_user)
-                     //var d=data.match(/'({&#39;.+})'/)
-                    // var d2=d[0].replace(/'/g,'')
-                    // var d3=d2.replace(/&#39;/g,'"')
-                    // console.log(d3)
-                     /* document.open();
-                      document.write(data);
-                      document.close(); */                     
+                                        
                }
        })
 
@@ -82,7 +78,7 @@
 
 
  $(document).ready(function(){ 
-  console.log(id_user)
+
 
   var info_user;
   var info_comp;  
@@ -95,14 +91,22 @@ $('#radio_fi').tooltip({title: ""});
 $('#radio_med').tooltip({title: ""});  
 
 $('#radio_eco').click(function(){
+    $('#wordCloud svg').remove() 
+    $('#wordCloud').append('<div class="text-center" id="spinner-radio"> <br><div class="spinner-border text-info"></div></div>')
     benchmarking_radio(id_user,'Economic')
 
 })
 $('#radio_fi').click(function(){
+    $('#wordCloud svg').remove() 
+    $('#wordCloud').append('<div class="text-center" id="spinner-radio"> <br><div class="spinner-border text-info"></div></div>')
+
     benchmarking_radio(id_user,'Financial')
 
 })
 $('#radio_med').click(function(){
+    $('#wordCloud svg').remove() 
+    $('#wordCloud').append('<div class="text-center" id="spinner-radio"> <br><div class="spinner-border text-info"></div></div>')
+
     benchmarking_radio(id_user,'Media')
 
 })
@@ -196,7 +200,7 @@ function charts(idx,id_user){
                 if(!data){
                 console.log("No dataaaaaa");
                 }
-               else{$('#name_user').text(data[0].name)
+               else{$('#name_user').text(data[0].name+'('+data[0].index_YH+')')
                     
                     info_user=data;
                     
@@ -219,7 +223,7 @@ function charts(idx,id_user){
                 $('#fax').text(data[0].fax)
                 //$('#2018').text('2018 statistics for '+ data[0].name)
                 
-                $('#name_comp').text(data[0].name)
+                $('#name_comp').text(data[0].name+'('+data[0].index_YH+')')
                 LDA(data[0].name)
                 
                }
@@ -236,7 +240,7 @@ function charts(idx,id_user){
                    
                     $('#revenue').text('$ '+data.compare[3]['Revenue'])
 
-                    $('#GDP').text('$/hab '+data.compare[3]['Gdp'])
+                    $('#GDP').text('B$ '+data.compare[3]['Gdp'])
                     $('#QOS').text((data.compare[3]['QOS']*5).toFixed(1)+'/5')
                     $('#QON').text((data.compare[3]['QON']*5).toFixed(1)+'/5')
 
@@ -315,15 +319,15 @@ function charts(idx,id_user){
                     else{ 
                           
                          $('#name_user_gdp').text(data.user_country[0].Country)
-                         $('#name_user_gdp_val').text('$ '+averagePibUser.toFixed(2))
+                         $('#name_user_gdp_val').text('B$ '+averagePibUser.toFixed(2))
                          $('#name_comp_gdp').text(data.compare_country[0].Country)
-                         $('#name_comp_gdp_val').text('$ '+averagePibcomp.toFixed(2))     
+                         $('#name_comp_gdp_val').text('B$ '+averagePibcomp.toFixed(2))     
                     } 
                     })  
 
 
                     ////LDA
-                    $('#tit h6').text('Main technologies used by '+info_comp[0].name)
+                    $('#tit h6').text('Main technologies used by '+info_comp[0].name+'('+info_comp[0].index_YH+')')
 
                          
 
@@ -371,14 +375,14 @@ function charts(idx,id_user){
                    Chart.defaults.global.defaultFontSize = 15;
 
                   var Revenue_user = {
-                    label: 'Revenue of '+ info_user[0].name,
+                    label: info_user[0].name+'('+info_user[0].index_YH+')',
                     data: revenueuser,
                     backgroundColor: '#26B99A',
                     //borderWidth: 0,
                   };
 
                   var Capex_user = {
-                    label: 'Capex of '+info_user[0].name,
+                    label: info_user[0].name+'('+info_user[0].index_YH+')',
                     data: capexuser,
                     backgroundColor: '#26B99A',
                     hidden: true,
@@ -386,13 +390,13 @@ function charts(idx,id_user){
                   };
 
                   var Revenue_compare = {
-                    label: 'Revenue of '+info_comp[0].name,
+                    label: info_comp[0].name+'('+info_comp[0].index_YH+')',
                     data: revenuecompare,
                     backgroundColor: '#03586A',
                     //borderWidth: 0,
                   };
                   var Capex_compare = {
-                    label: 'Capex of '+info_comp[0].name,
+                    label: info_comp[0].name+'('+info_comp[0].index_YH+')',
                     data: capexcompare,
                     backgroundColor: '#03586A',
                     hidden: true,
@@ -459,7 +463,7 @@ function charts(idx,id_user){
               
               
                 var qos_user = {
-                    label: 'QOS of '+info_user[0].name,
+                    label: info_user[0].name+'('+info_user[0].index_YH+')',
                     data: qOSuser,
                     backgroundColor: 'rgba(38,185,154,0.31)',
                     borderColor :  'rgba(38,185,154,0.7)',
@@ -468,7 +472,7 @@ function charts(idx,id_user){
                   };
                   
                 var qos_compare = {
-                    label: 'QOS of '+info_comp[0].name,
+                    label: info_comp[0].name+'('+info_comp[0].index_YH+')',
                     data: qOScompare,
                     backgroundColor: 'rgba(3,88,106,0.3)',
                     borderColor :  'rgba(3,88,106,0.70)',
@@ -518,14 +522,14 @@ function charts(idx,id_user){
                    (data.user).forEach(function(element) {
                         qONuser.push(element.QON*100)
                    });
-                console.log(data.user)
+               
                 var qONcompare=[];                     
                    (data.compare).forEach(function(element) {
                         qONcompare.push(element.QON*100)
                    });    
 
                 var qon_user = {
-                    label: 'QON of '+info_user[0].name,
+                    label: info_user[0].name+'('+info_user[0].index_YH+')',
                     data: qONuser,
                     backgroundColor: 'rgba(38,185,154,0.31)',
                     borderColor :  'rgba(38,185,154,0.7)',
@@ -533,7 +537,7 @@ function charts(idx,id_user){
                    
 
                 var qon_compare = {
-                    label: 'QON of '+info_comp[0].name,
+                    label: info_comp[0].name+'('+info_comp[0].index_YH+')',
                     data: qONcompare,
                     //backgroundColor: '#03586A',
                     backgroundColor: 'rgba(3,88,106,0.3)',
@@ -587,14 +591,14 @@ function charts(idx,id_user){
                                  });                
 
                 var subs_user = {
-                                  label: 'Number of subscribers of '+info_user[0].name,
+                                  label: info_user[0].name+'('+info_user[0].index_YH+')',
                                   data: subsuser,
                                   backgroundColor: '#3e95cd',
                                   hidden: false,
                                   //borderWidth: 0,
                                 };
                 var subs_compare = {
-                                  label: 'Number of subscribers of '+info_comp[0].name,
+                                  label: info_comp[0].name+'('+info_comp[0].index_YH+')',
                                   data: subscompare,
                                   backgroundColor: '#8e5ea2',
                                   hidden: false,
@@ -701,7 +705,7 @@ datafinal=datafinal.replace(/'/g,'"')
 datafinal = JSON.parse(datafinal)//var datafinal = JSON.parse(datafinal)
 //console.log(datafinal)
 
-$('#wordCloud svg').remove() 
+
 var height=450, width=750;
 var fill=d3.scale.category20b();
 

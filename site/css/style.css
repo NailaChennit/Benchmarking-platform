@@ -10,10 +10,16 @@ html, body {
 text:hover { opacity: .3 !important; }
 
 a:hover{ opacity: .3 !important; }
+
+#table_ratio th.pointer:hover{ opacity: .3 !important; }
+
 h4{
   text-align: 'center';
 }
 
+.text-justify p {
+  text-align: justify;
+}
 
 .fadeInDown {
   -webkit-animation-name: fadeInDown;
@@ -76,6 +82,7 @@ tr th{
 }
 
 .pointer{ cursor: pointer; }
+
 
 #info td {
     font-family : 'Poppins';

@@ -68,7 +68,7 @@ let exec_kmean = function(req,response) {
     }
     var test= new PythonShell('kmean.py',options);
     test.on('message',function(message){
-     console.log(message)
+    
      response.render('visualization.html',{data:message,id_user:req.query.index_user,name:req.session.user.name,lastname:req.session.user.lastname});
      
     });    
@@ -280,7 +280,7 @@ app.get('/visualization',requireLogin, function(req, res) {
 
 
 app.get('/LDA',function(req,res){
-    console.log('ici')
+    
     var options={
     mode: 'text',
     pythonOptions: ['-u'],
@@ -424,6 +424,10 @@ app.get('/list_op', function(req, res) {
           
     }) 
 
+})
+
+app.get('/help', function(req, res) {
+  res.render('help.html')
 })
 
 

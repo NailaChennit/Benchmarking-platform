@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>TelecomBenchmark</title>
+	<title>BoostTelecom</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -44,7 +44,9 @@
 			<li class="nav-item ">
 				<a class="nav-link" href="footer">Contact</a>
 			</li>					
-
+			<li class="nav-item ">
+				<a class="nav-link" href="http://127.0.0.1:3000/help">Help</a>
+			</li>	
 		</ul>
 
 	</div>
@@ -64,11 +66,14 @@
 			<div class="card-body">
 
 				<form id="form" action="/register" method="POST" class="main-form needs-validation ">
-					<div class="form-group">
-						<label for="subscribers">Activation key</label>
-						<input type="Password" name="key" required class="form-control" placeholder="Key provided by your company">
-						<h5><font color="red" id="error_key"><%=data.error_key%></font></h5>
-					</div>	
+					<label for="subscribers">Activation key</label>
+					<div class="input-group form-group" style="margin-bottom: 8px;">						
+						<input type="Password" name="key" id="key" required class="form-control" placeholder="Key provided by your company">
+						<div class="input-group-prepend">
+							<span class="input-group-text pointer"><i onClick="see_unsee('#eye','#key')" id="eye" class="fas fa-eye"></i></span>
+						</div>
+					</div>
+					<h6 style="margin-bottom: 0.0px;"><font color="red" id="error_key"><%=data.error_key%></font></h6>	
 					<div class="row">
 							<div class="col-6 form-group">
 								<label for="subscribers">Name</label>
@@ -84,9 +89,12 @@
 						<input type="Email" name="email" id="email" required class="form-control" placeholder="Enter your email">
 						<small><font color="red" id="error_index"><%=data.error_email%></font></small>
 					</div>
-					<div class="form-group">
-						<label for="subscribers">Password</label>
+					<label for="subscribers">Password</label>
+					<div class="input-group form-group">						
 						<input type="Password" name="password" id="password" required class="form-control" placeholder="Enter a password">
+						<div class="input-group-prepend">
+							<span class="input-group-text pointer"><i onClick="see_unsee('#eye2','#password')" id="eye2" class="fas fa-eye"></i></span>
+						</div>
 					</div>
 					<div class="form-group">
 						<label for="subscribers">Confirm your password</label>
@@ -168,9 +176,6 @@
       </div>
     </div>
   </div>
-
-
-
 
 
 </body>

@@ -1,5 +1,8 @@
 list_countries={"Afghanistan":"AF","Albania":"AL","Algeria":"DZ","Angola":"AO","Argentina":"AR","Armenia":"AM","Australia":"AU","Austria":"AT","Azerbaijan":"AZ","Bahamas":"BS","Bangladesh":"BD","Belarus":"BY","Belgium":"BE","Belize":"BZ","Benin":"BJ","Bhutan":"BT","Bolivia":"BO","Bosnia and Herzegovina":"BA","Botswana":"BW","Brazil":"BR","Brunei Darussalam":"BN","Bulgaria":"BG","Burkina Faso":"BF","Burundi":"BI","Cambodia":"KH","Cameroon":"CM","Canada":"CA","Central African Republic":"CF","Chad":"TD","Chile":"CL","China":"CN","Colombia":"CO","Costa Rica":"CR","Croatia":"HR","Cuba":"CU","Cyprus":"CY","Czech Republic":"CZ","Côte dIvoire":"CI","Democratic Republic of Congo":"CD","Denmark":"DK","Djibouti":"DJ","Dominican Republic":"DO","Ecuador":"EC","Egypt":"EG","El Salvador":"SV","Equatorial Guinea":"GQ","Eritrea":"ER","Estonia":"EE","Ethiopia":"ET","Falkland Islands":"FK","Fiji":"FJ","Finland":"FI","France":"FR","French Guiana":"GF","French Southern and Antarctic Lands":"TF","Gabon":"GA","Gambia":"GM","Georgia":"GE","Germany":"DE","Ghana":"GH","Greece":"GR","Greenland":"GL","Guatemala":"GT","Guinea":"GN","Guinea-Bissau":"GW","Guyana":"GY","Haiti":"HT","Honduras":"HN","Hong Kong":"HK","Hungary":"HU","Iceland":"IS","India":"IN","Indonesia":"ID","Iran":"IR","Iraq":"IQ","Ireland":"IE","Israel":"IL","Italy":"IT","Jamaica":"JM","Japan":"JP","Jordan":"JO","Kazakhstan":"KZ","Kenya":"KE","Kosovo":"XK","Kuwait":"KW","Kyrgyzstan":"KG","Lao People's Democratic Republic":"LA","Latvia":"LV","Lebanon":"LB","Lesotho":"LS","Liberia":"LR","Libya":"LY","Lithuania":"LT","Luxembourg":"LU","Macedonia":"MK","Madagascar":"MG","Malawi":"MW","Malaysia":"MY","Mali":"ML","Mauritania":"MR","Mexico":"MX","Moldova":"MD","Mongolia":"MN","Montenegro":"ME","Morocco":"MA","Mozambique":"MZ","Myanmar":"MM","Namibia":"NA","Nepal":"NP","Netherlands":"NL","New Caledonia":"NC","New Zealand":"NZ","Nicaragua":"NI","Niger":"NE","Nigeria":"NG","North Korea":"KP","Norway":"NO","Oman":"OM","Pakistan":"PK","Palestinian Territories":"PS","Panama":"PA","Papua New Guinea":"PG","Paraguay":"PY","Peru":"PE","Philippines":"PH","Poland":"PL","Portugal":"PT","Puerto Rico":"PR","Qatar":"QA","Republic of Congo":"CG","Romania":"RO","Russia":"RU","Rwanda":"RW","Saudi Arabia":"SA","Senegal":"SN","Serbia":"RS","Sierra Leone":"SL","Singapore":"SG","Slovakia":"SK","Slovenia":"SI","Solomon Islands":"SB","Somalia":"SO","South Africa":"ZA","South Korea":"KR","South Sudan":"SS","Spain":"ES","Sri Lanka":"LK","Sudan":"SD","Suriname":"SR","Svalbard and Jan Mayen":"SJ","Swaziland":"SZ","Sweden":"SE","Switzerland":"CH","Syria":"SY","Taiwan":"TW","Tajikistan":"TJ","Tanzania":"TZ","Thailand":"TH","Timor-Leste":"TL","Togo":"TG","Trinidad and Tobago":"TT","Tunisia":"TN","Turkey":"TR","Turkmenistan":"TM","Uganda":"UG","Ukraine":"UA","United Arab Emirates":"AE","United Kingdom":"GB","United States of America":"US","Uruguay":"UY","Uzbekistan":"UZ","Vanuatu":"VU","Venezuela":"VE","Vietnam":"VN","Western Sahara":"EH","Yemen":"YE","Zambia":"ZM","Zimbabwe":"ZW"};
 
+var id_user;
+var info_user;
+var info_comp;
  
   function popsummary(title,text){
     
@@ -12,8 +15,149 @@ list_countries={"Afghanistan":"AF","Albania":"AL","Algeria":"DZ","Angola":"AO","
       
 }
 
+ function resetCanvas(id_canvas,id_container){
+  $('#'+id_canvas).remove();
+  $('#'+id_container).append('<canvas id="'+id_canvas+'"><canvas>');
+
+}
+function Display_companies(id_comp){
+    //Compare_number_subs('T',id_comp);
+    Info_compared(id_comp);
+    bar_chart_revenue(id_user,id_comp)
+
+}
+
+  function Info_compared(idx){
+   
+    $.get("/infos",{index:idx},function(data){
+                if(!data){
+                console.log("No dataaaaaa");
+                }
+               else{ 
+               
+                info_comp=data[0];
+                var infos=data[0];
+                $('#name_comp').text(data[0].name)
+                $('#website_comp a').text(((data[0].website).replace('https://','')).replace('http://',''))
+                $('#website_comp a').attr('href',data[0].website)
+                $('#yh__index_comp ').text('Yahoo finance index : '+data[0].index_YH)
+                $('#nb_employee_comp ').text('Number of employee : '+data[0].nb_employee)
+                $('#address_comp').text('')
+                $('#address_comp').append('<pre style="font-family:Poppins;">'+(data[0].address).trim()+'</pre>')
+                $('#phone_comp ').text(data[0].phone)
+                $('#fax_comp').text(data[0].fax)
 
 
+                 $('#collapse_comp').collapse('toggle');
+                    $("#collapse_comp").on('hidden.bs.collapse', function(){
+                      setTimeout(function(){
+                      $('#collapse_comp').collapse('show');
+                  }, 300);
+                  });
+            
+              }
+      })
+   }        
+
+function bar_chart_revenue(id_user,idx){
+
+    $.get("/charts",{index_user:id_user,index_compare:idx},function(data){
+                if(!data){
+                console.log("No dataaaaaa");
+                }
+               else{
+                             var revenueuser=[];  
+                             (data.user).forEach(function(element) {
+                                  revenueuser.push( element.Revenue)
+                             });
+                             
+                               var revenuecompare=[];
+                             (data.compare).forEach(function(element) {
+                                  revenuecompare.push( element.Revenue)
+                             });
+                             var capexuser=[];                     
+                             (data.user).forEach(function(element) {
+                                  capexuser.push(element.Capex)
+                             });
+                              
+                               var capexcompare=[];
+                             (data.compare).forEach(function(element) {
+                                  capexcompare.push(element.Capex)
+                             });
+                             
+                             
+
+
+                             Chart.defaults.global.defaultFontFamily = "Lato";
+                             Chart.defaults.global.defaultFontSize = 15;
+
+                            var Revenue_user = {
+                              label: info_user.name+'('+info_user.index_YH+')',
+                              data: revenueuser,
+                              backgroundColor: '#26B99A',
+                              //borderWidth: 0,
+                            };
+
+                            var Capex_user = {
+                              label: info_user.name+'('+info_user.index_YH+')',
+                              data: capexuser,
+                              backgroundColor: '#26B99A',
+                              hidden: true,
+                              //borderWidth: 0,
+                            };
+
+                            var Revenue_compare = {
+                              label: info_comp.name+'('+info_comp.index_YH+')',
+                              data: revenuecompare,
+                              backgroundColor: '#03586A',
+                              //borderWidth: 0,
+                            };
+                            var Capex_compare = {
+                              label: info_comp.name+'('+info_comp.index_YH+')',
+                              data: capexcompare,
+                              backgroundColor: '#03586A',
+                              hidden: true,
+                              //borderWidth: 0,
+                            };
+
+                            var years = {
+                              labels: ["2015", "2016", "2017", "2018"],
+                              datasets: [Revenue_user, Revenue_compare,Capex_user,Capex_compare]
+                            };
+
+                            var chartOptions = {
+                              scales: {
+                                xAxes: [{
+                                  barPercentage: 1,
+                                  categoryPercentage: 0.6
+                                }],
+                                yAxes: [{
+                                  scaleLabel: {
+                                     position: "top",
+                                     display: false,
+                                     labelString: '*10000 $',            
+                                },
+                                  ticks:{beginAtZero: true}
+                                }]
+                              }, 
+                              animation:{
+                                duration:4000,
+                                easing:'easeInOutQuint'
+                              }
+                            };
+
+                            
+                            resetCanvas("chBarRevComp","contain_revenue");
+                            var revenueCanvas = document.getElementById("chBarRevComp");
+
+                              var barChart = new Chart(revenueCanvas, {
+                              type: 'bar',
+                              data: years,
+                              options: chartOptions
+                            });
+                  }
+           })       
+}
 
 $(document).ready(function(){
 var idx=index_user;
@@ -90,7 +234,8 @@ $('#btn_benchmark').click(function(){
                 console.log("No dataaaaaa");
                 }
                else{ 
-               
+                id_user=data[0].index_YH;
+                info_user=data[0];
                 var infos=data[0];
                 $('#name').text(data[0].name)
                 $('#website a').text(((data[0].website).replace('https://','')).replace('http://',''))
@@ -104,7 +249,7 @@ $('#btn_benchmark').click(function(){
                 $('#btn_benchmark').attr("href","http://127.0.0.1:3000/visualization.html?idx="+data[0].index_YH)
                 //$('#2018').text('2018 statistics for '+ data[0].name)
                 
-                $('#name_comp').text(data[0].name)
+                //$('#name_comp').text(data[0].name)
                
                 Draw_tabel_concurant(infos.ISO2,infos)
                 show_articles(data[0].name);
@@ -423,7 +568,7 @@ $('#btn_benchmark').click(function(){
       
       var row;
       row=`<tr>
-              <th scope="row">`+list_index[i].name+' ('+list_index[i].index_YH+')'+`</th>`;
+              <th scope="row" onClick="Display_companies('`+list_index[i].index_YH+`')" class="pointer">`+list_index[i].name+` (`+list_index[i].index_YH+`)`+`</th>`;
 
      
       info_op_list.forEach(function(element,i){
@@ -488,6 +633,8 @@ $('#btn_benchmark').click(function(){
       })
             
   }
+
+  
 
 });  
 

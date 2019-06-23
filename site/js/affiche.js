@@ -82,7 +82,7 @@ $(document).ready(function(){
 				     
 				      <div class="row "><div class="col" style="text-align:center;"><button type="button" onclick="popsummary(`+(index+i)+`)" class="btn btn-outline-light btn-lg">SUMMARY</button></div></div>
 				      <br>
-				      <div class="row"><div class="col" style="text-align:center;"><a href="`+element['url']+`"><button type="button" class="btn btn-primary btn-lg">All article</button></a></div></div>   
+				      <div class="row"><div class="col" style="text-align:center;"><a href="`+element['url']+`"><button type="button" class="btn btn-primary btn-lg">Full article</button></a></div></div>   
 				  </div>  
 				  </div>
 				  </div>
@@ -176,13 +176,13 @@ function Display_Nav_Loggin(user){
 				</li>
 				<li class="nav-item ">
 					<a class="nav-link" href="http://127.0.0.1:3000/register">Register</a>
-				</li>		
+				</li>			
 				<li class="nav-item ">
-					<a class="nav-link" href="#">Services</a>
-				</li>	
-				<li class="nav-item ">
-					<a class="nav-link" href="#footer">About</a>
+					<a class="nav-link" href="#footer">Contact</a>
 				</li>
+				<li class="nav-item ">
+					<a class="nav-link" href="http://127.0.0.1:3000/help">Help</a>
+				</li>	
 				<li class="nav-item ">`+
 				user.name+`<br>`+
 					user.lastname+ 
