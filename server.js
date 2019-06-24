@@ -5,6 +5,7 @@ const rp = require('request-promise');
 const potusParse = require('./potusParse');
 const {PythonShell} = require('python-shell');
 const monk = require('monk');
+var ObjectId = require('mongodb').ObjectID;
 var bodyParser=require('body-parser'); 
 var session = require('express-session');
 var yahooStockPrices = require('yahoo-stock-prices');
@@ -430,6 +431,41 @@ app.get('/help', function(req, res) {
   res.render('help.html')
 })
 
+app.get('/history', function(req, res) {
+  const url = 'localhost:27017/dump';
+  const db = monk(url);
+  const collection = db.get('History');
+ 
+
+  var data_user=collection.find({index_user: req.query.index},function(e,docs1){
+
+      res.send(docs1)  
+
+  }) 
+})
+
+app.get('/save_history', function(req, res) {
+ 
+  const url = 'localhost:27017/dump';
+  const db = monk(url);
+  const collection = db.get('History');
+ 
+    var data=collection.insert(
+            {country:req.query.country, index_user : req.query.index_user,name: req.query.name,date:req.query.date,index: req.query.index }//verifier email
+             ,function(e,docs){res.send('fed up')
+    });
+}) 
+
+app.get('/delete_history', function(req, res) {
+ 
+  const url = 'localhost:27017/dump';
+  const db = monk(url);
+  const collection = db.get('History');
+  var data=collection.remove(
+            { _id : ObjectId(req.query.id)}
+             ,function(e,docs){res.send('fed up')
+    });
+}) 
 
 
 app.listen(3000,function(){

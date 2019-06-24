@@ -56,27 +56,6 @@
 
   
 
-
-
-
-/***************radiobutton*********/
- function benchmarking_radio(idx,maxy){
-    $.get("/radio",{index_user:idx,maxy:maxy},function(data){
-
-        if(!data){
-                console.log("No dataaaaaa");
-                }
-               else{ 
-                     $('#spinner-radio').remove();
-                     redraw_cloud(data,id_user)
-                                        
-               }
-       })
-
- }
-
-
-
  $(document).ready(function(){ 
 
 
@@ -86,51 +65,6 @@
   var averagePibUser;
   var averagePibcomp;
 
-$('#save_history').click(function(){
-
-    var index=$('#save_history').attr('index');
-    var name=$('#save_history').attr('name');
-    var id_user=$('#save_history').attr('id_user');
-    var country=$('#save_history').attr('country');
-
-   $.get("/save_history",{index_user:id_user,index:index,date:date,name:name,country:country},function(data){
-      if(!data){
-      console.log("No dataaaaaa");
-      }
-     else{ 
-          console.log('gggdgdg')
-          $('#save_history').html('Saved')
-          $('#save_history').attr('disabled',true)
-          
-     }
-   })
-
-})
-
-$('#radio_eco').tooltip({title: ""});///////////////aminaaaaaa
-$('#radio_fi').tooltip({title: ""});
-$('#radio_med').tooltip({title: ""});  
-
-$('#radio_eco').click(function(){
-    $('#wordCloud svg').remove() 
-    $('#wordCloud').append('<div class="text-center" id="spinner-radio"> <br><div class="spinner-border text-info"></div></div>')
-    benchmarking_radio(id_user,'Economic')
-
-})
-$('#radio_fi').click(function(){
-    $('#wordCloud svg').remove() 
-    $('#wordCloud').append('<div class="text-center" id="spinner-radio"> <br><div class="spinner-border text-info"></div></div>')
-
-    benchmarking_radio(id_user,'Financial')
-
-})
-$('#radio_med').click(function(){
-    $('#wordCloud svg').remove() 
-    $('#wordCloud').append('<div class="text-center" id="spinner-radio"> <br><div class="spinner-border text-info"></div></div>')
-
-    benchmarking_radio(id_user,'Media')
-
-})
 
 
 
@@ -149,60 +83,7 @@ $('#btn_logout').click(function(){
     });
   });
         
-            
-var height=450, width=750;
-var fill=d3.scale.category20b();
-
-var data=datafinal['data_final'];
-if(data.length >10){ var data2=data.slice(0,10) }
-else {var data2=data }  
-
-var focus=d3.select("#wordCloud").append("svg")
-      .attr("width", width)
-      .attr("height", height)
-      .attr("class", "wordcloud svg")
-    .append("g")
-      .attr("class","pointer")
-      .attr("transform", "translate(" + (width/2) + "," + (height/2) + ")")
-var colorScale = d3.scale.linear()
-              .domain([1,data2.length])
-              .range(["#393b79","#9c9ede"]);
-var sizeScale = d3.scale.linear()
-              .domain([1,data2.length])
-              .range([5*(data2.length-1)+15,15]); 
- 
-
- d3.layout.cloud().size([width, height])
-    .words(data2)
-    .padding(3)
-    .rotate(function() { return ~~(Math.random() * 2) *0; })
-    .font("Arial")
-    .spiral("archimedean")
-    .fontSize(function(d, index) { return sizeScale(index); })
-    .on("end", draw)
-    .start();
- //.spiral("rectangular")   
- 
-function draw(words) { 
-    
-    focus.selectAll("text")
-      .data(words)
-    .enter().append("text")
-      .style("font-size", function(d) { return  d.size + "px"; })
-      .style("font-family", "Arial")
-      .style("fill", function(d, i) { return fill(i); })
-      .on("click", function (d, i){
-      
-       charts(d.idx,id_user) })
-      .attr("text-anchor", "middle")
-      .attr("transform", function(d) {
-        return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-      })
-      .text(function(d) { return (d.text).replace('amp;',''); });
-           
-}
-
-
+charts(idx,id_user)
 
 });
 
@@ -725,69 +606,5 @@ function charts(idx,id_user){
 
               });
 */
-
-
-function redraw_cloud(datafinal,id_user){//pour les radio button
-
- 
-datafinal=datafinal.replace(/'/g,'"')
-datafinal = JSON.parse(datafinal)//var datafinal = JSON.parse(datafinal)
-//console.log(datafinal)
-
-
-var height=450, width=750;
-var fill=d3.scale.category20b();
-
-var data=datafinal['data_final'];
-if(data.length >10){ var data2=data.slice(0,10) }
-else {var data2=data }  
-
-var focus=d3.select("#wordCloud").append("svg")
-      .attr("width", width)
-      .attr("height", height)
-      .attr("class", "wordcloud svg")
-    .append("g")
-      .attr("class","pointer")
-      .attr("transform", "translate(" + (width/2) + "," + (height/2) + ")")
-var colorScale = d3.scale.linear()
-              .domain([1,data2.length])
-              .range(["#393b79","#9c9ede"]);
-var sizeScale = d3.scale.linear()
-              .domain([1,data2.length])
-              .range([5*(data2.length-1)+15,15]); 
- 
-
- d3.layout.cloud().size([width, height])
-    .words(data2)
-    .padding(3)
-    .rotate(function() { return ~~(Math.random() * 2) *0; })
-    .font("Arial")
-    .spiral("archimedean")
-    .fontSize(function(d, index) { return sizeScale(index); })
-    .on("end", draw)
-    .start();
- //.spiral("rectangular")   
- 
-function draw(words) { 
-    
-    focus.selectAll("text")
-      .data(words)
-    .enter().append("text")
-      .style("font-size", function(d) { return  d.size + "px"; })
-      .style("font-family", "Arial")
-      .style("fill", function(d, i) { return fill(i); })
-      .on("click", function (d, i){
-      
-       charts(d.idx,id_user) })
-      .attr("text-anchor", "middle")
-      .attr("transform", function(d) {
-        return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-      })
-      .text(function(d) { return (d.text).replace('amp;',''); });
-           
-}
-
-
-}
 
 

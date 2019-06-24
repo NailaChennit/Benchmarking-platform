@@ -162,6 +162,21 @@ function bar_chart_revenue(id_user,idx){
 $(document).ready(function(){
 var idx=index_user;
 
+
+$('#close').click(function(){
+
+    $('#collapse_comp').toggle('toggle')
+    setTimeout(function(){
+       $('#collapse_comp').removeClass('show')
+      $('#collapse_comp').attr('style','')}, 2000);
+    
+   
+
+  })
+
+
+$('#close').tooltip({title:'Close'}) 
+
 $('#btn_logout').click(function(){
     $.get("/logout",function(data){
       if(!data){
@@ -210,6 +225,7 @@ $('#btn_benchmark').click(function(){
   function Charts(idx){
          Infortaion_statement(idx);
          infortaion(idx);
+         Show_history(idx)
       }
 
 
@@ -224,6 +240,7 @@ $('#btn_benchmark').click(function(){
                 QOS_QON_line(info_statement)
                 Revenue_Capex_Bar(info_statement)
                 growth(info_statement)
+
                 
                }
              })
@@ -638,3 +655,51 @@ $('#btn_benchmark').click(function(){
 
 });  
 
+function Show_history(index){
+    
+     $.get("/history",{index:index},function(data){
+                if(!data){
+                console.log("No dataaaaaa");
+                }
+               else{ 
+                 Draw_table_history(data)
+               }
+      })
+
+}
+
+function Draw_table_history(data){
+
+  var row;
+  data.forEach(function(element, i){
+    row=`<tr>
+            <th scope="row" class="pointer">`+element.name+`</th>`;
+    row=row+`<td style="font-weight: 500;">`+element.country+`</td>`        
+    row=row+`<td style="font-weight: 500;">`+element.date+`</td>`
+    row=row+`<td ><i id="`+element._id+`" class="pointer fas fa-times-circle" style="color: red;font-size: 17px;"></i></td>`
+    row=row+'</tr>'
+    $("#table_history").append(row); 
+  })
+}
+
+/*function Delete(index){//modifiiie dans le server
+ $('#table_history tr')[index].remove();
+}*/
+
+$(document).ready(function(){
+  $('#table_history').on('click', 'tr td svg', function() {
+  ($($(this).parent()).parent()).remove();
+
+   var idRow=$(this).attr('id');
+   $.get("/delete_history",{id:idRow},function(data){
+            if(!data){
+            console.log("No dataaaaaa");
+            }
+           else{ 
+
+           }
+      })            
+  });
+
+
+})

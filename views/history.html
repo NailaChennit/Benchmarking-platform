@@ -73,14 +73,6 @@
 		
 </nav>
 
-<!-------------secret data--------------->
-<script>
-	var id_user= '<%= id_user%>';
-	var info='<%= data%>';
-	var info2=info.replace(/&#39;/g,'"')
-	var datafinal = JSON.parse(info2)
-	
-</script>
 
 <!-----------model logout---------->
 <div class="modal fade" id="LogOutModal">
@@ -106,42 +98,8 @@
         
       </div>
     </div>
-  </div>
-
-
-
-
-<!-------------------cloud------------->
-<div class="container-fluid padding">
-<div class="row welcome text-center">
-	<div class="col-12">
-		<h3 class="display-4"><font color="#5254a3">10 best commpanies compared to yours</font></h3>
-		<hr>
-		<div class="col-12">
-			<p>Click on a company to show more details</p>
-	    </div>
-		<div class="row">
-			<div style="text-align:center; height: 500px;background-image: url('image/grey4.jpg');" class="col-12 animated fadeInUp" id="wordCloud">
-					<div class="form-check-inline">
-					  <label class="form-check-label">
-					    <input type="radio" class="form-check-input" id="radio_eco" checked name="optradio">Max Economic
-					</div>
-					<div class="form-check-inline ">
-					  <label class="form-check-label">
-					    <input type="radio" class="form-check-input" id="radio_fi" name="optradio">Max Financial
-					  </label>
-					</div> 
-					<div class="form-check-inline ">
-					  <label class="form-check-label">
-					    <input type="radio" class="form-check-input" id="radio_med" name="optradio">Max Media
-					  </label>
-					</div> 				
-			</div>
-		</div>
-	</div>
 </div>
-<!---------------------GRAPHE ET IFO---->
-<div id="charts" class="collapse">
+
 <div  id='aa' class="container-fluid">
     <div class="row welcome text-center">
 		<div class="col-12">
@@ -442,3 +400,4 @@
 
 </body>
 </html>		
+
