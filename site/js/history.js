@@ -98,9 +98,7 @@ charts(idx,id_user)
 
 function charts(idx,id_user){
     $(document).ready(function(){ 
-         $('#save_history').html('Save')
-         $('#save_history').attr('disabled',false)
-         $.get("/infos",{index:id_user},function(data){
+          $.get("/infos",{index:id_user},function(data){
                 if(!data){
                 console.log("No dataaaaaa");
                 }
@@ -131,10 +129,6 @@ function charts(idx,id_user){
                 LDA(data[0].name)
 
 
-                $('#save_history').attr('index',data[0].index_YH)
-                $('#save_history').attr('name',data[0].name)
-                $('#save_history').attr('id_user',id_user)
-                $('#save_history').attr('country',data[0].ISO2)
                 
                }
              })
@@ -560,51 +554,5 @@ function charts(idx,id_user){
 })
 
 }
-
-/*$(document).ready(function(){
-                var averagePibUser =0;
-                (data.user).forEach(function(element) {
-                        averagePibUser=averagePibUser + element.Gdp
-                   });
-
-                averagePibUser=averagePibUser/(data.user).length   
-               
-                var averagePibcomp =0;
-                (data.compare).forEach(function(element) {
-                        averagePibcomp=averagePibcomp + element.Gdp
-                   });   
-                averagePibcomp=averagePibcomp/(data.compare).length
-
-                new Chart(document.getElementById("pie-chart"), {
-                    type: 'pie',
-                    data: {
-                      labels: [info_user[0].name, info_comp[0].name],
-                      datasets: [{
-                        label: "Population (millions)",
-                        backgroundColor: ["#3e95cd", "#8e5ea2"],
-                        data: [averagePibUser.toFixed(1),averagePibcomp.toFixed(1)]
-                      }]
-                    },
-                    options: {
-                      responsive: true,
-                      legend: {
-                          display: false,
-                          position:'bottom'
-                       },
-                      title: {
-                        display: false,
-                        text: 'Predicted world population (millions) in 2050'
-                      },
-                      animation: {
-                        duration:4000,
-                        animateScale: true,
-                        animateRotate: true
-                      }
-                    }
-                });
-               
-
-              });
-*/
 
 

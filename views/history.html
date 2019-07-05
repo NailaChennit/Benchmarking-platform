@@ -18,7 +18,7 @@
 	<script src="js/awesomplete.js"></script>
 	<script src="http://d3js.org/d3.v3.min.js"></script>
 	<script type="text/javascript" src="js/d3.layout.cloud.js"></script>
-	<script src="js/visualization.js"></script>
+	<script src="js/history.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 	<link href="css/awesomplete.css" rel="stylesheet">
 	<link href="css/style.css" rel="stylesheet">
@@ -73,6 +73,11 @@
 		
 </nav>
 
+<!-------------secret data--------------->
+<script>
+	var id_user= '<%= index_user%>';
+	var idx= '<%= index_clicked%>';
+</script>
 
 <!-----------model logout---------->
 <div class="modal fade" id="LogOutModal">
@@ -210,17 +215,6 @@
 		</div>
 	</div>	 
 
-    <div class="row jumbotron" style="padding-bottom: 0px;background: #d0dde0;margin-bottom: 0px;">
-		<div class="col-xs-12 col-sm-12 col-md-p col-lg-9 col-xl-10">
-			<p class="lead" style="font-weight: bold">
-				Save Information if you find it useful 
-			</p>
-		</div>	
-		<div class="col-xs-12 col-sm-12 col-lg-3 col-xl-2" style="padding-top: 8px;">
-			<button type="button" id="save_history" class="btn btn-outline-secondary btn-lg" style="background-color: #859eb1; color: black">Save</button>
-		</div>	
-		
-	</div>	
 
 
 	<div class="row">

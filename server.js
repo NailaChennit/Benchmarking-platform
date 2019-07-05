@@ -467,6 +467,13 @@ app.get('/delete_history', function(req, res) {
     });
 }) 
 
+app.get('/element_history', function(req, res) {
+ 
+    res.render('history.html',{index_user:req.query.index_user,index_clicked:req.query.index_clicked,name:req.session.user.name,lastname:req.session.user.lastname});
+     
+}) 
+
+
 
 app.listen(3000,function(){
 	console.log("server listening on port 3000");

@@ -82,7 +82,7 @@ $(document).ready(function(){
 				     
 				      <div class="row "><div class="col" style="text-align:center;"><button type="button" onclick="popsummary(`+(index+i)+`)" class="btn btn-outline-light btn-lg">SUMMARY</button></div></div>
 				      <br>
-				      <div class="row"><div class="col" style="text-align:center;"><a href="`+element['url']+`"><button type="button" class="btn btn-primary btn-lg">Full article</button></a></div></div>   
+				      <div class="row"><div class="col" style="text-align:center;"><a href="`+element['url']+`"><button type="button" class="btn btn-primary btn-lg" style="width:130px">Full</button></a></div></div>   
 				  </div>  
 				  </div>
 				  </div>

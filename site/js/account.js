@@ -595,7 +595,7 @@ $('#btn_benchmark').click(function(){
              row=row+`<td ">`+element.Nb_sub+' '+'<font color=blue>'+growth+`%</font></td>`
            }
              else{
-              row=row+`<td ">`+element.Nb_sub+' '+'<font color=red>'+growth+`%</font></td>`
+              row=row+`<td ">`+element.Nb_sub+' '+'<font color=red>+'+growth+`%</font></td>`
              }
       })
       row=row+'</tr>'
@@ -629,7 +629,7 @@ $('#btn_benchmark').click(function(){
 
           list_Q.forEach(function(quarter,i){
             if(i!=0){
-                 var growth=(((data[0][quarter+'_'+year]-data[0][list_Q[i-1]+'_'+year])*100)/data[0][quarter+'_'+year]).toFixed(0);
+                 var growth=(((data[0][quarter+'_'+year]-data[0][list_Q[i-1]+'_'+year])*100)/data[0][quarter+'_'+year]).toFixed(1);//naila
                }
             else { var growth='';} 
            var nb_sub=data[0][quarter+'_'+year];
@@ -673,7 +673,7 @@ function Draw_table_history(data){
   var row;
   data.forEach(function(element, i){
     row=`<tr>
-            <th scope="row" class="pointer">`+element.name+`</th>`;
+            <th scope="row" index_clicked="`+element.index+`" index_user="`+element.index_user+`" class="pointer">`+element.name+`</th>`;
     row=row+`<td style="font-weight: 500;">`+element.country+`</td>`        
     row=row+`<td style="font-weight: 500;">`+element.date+`</td>`
     row=row+`<td ><i id="`+element._id+`" class="pointer fas fa-times-circle" style="color: red;font-size: 17px;"></i></td>`
@@ -697,6 +697,23 @@ $(document).ready(function(){
             }
            else{ 
 
+           }
+      })            
+  });
+
+
+  $('#table_history').on('click', 'tr th', function() {
+
+   var index_clicked=$(this).attr('index_clicked');
+   var index_user=$(this).attr('index_user');
+   $.get("/element_history",{index_user:index_user,index_clicked:index_clicked},function(data){
+            if(!data){
+            console.log("No dataaaaaa");
+            }
+           else{ 
+                document.open();
+                document.write(data);
+                document.close(); 
            }
       })            
   });
