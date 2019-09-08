@@ -273,10 +273,10 @@ function charts(idx,id_user){
                     $('#QOS').text((data.compare[3]['QOS']*5).toFixed(1)+'/5')
                     $('#QON').text((data.compare[3]['QON']*5).toFixed(1)+'/5')
 
-                    $('#incresed_rev').text('Incresed by '+(((data.compare[3]['Revenue']-data.compare[2]['Revenue'])*100)/data.compare[3]['Revenue']).toFixed(1)+'%')
-                    $('#incresed_gdp').text('Incresed by '+(((data.compare[3]['Gdp']-data.compare[2]['Gdp'])*100)/data.compare[3]['Gdp']).toFixed(1)+'%')
-                    $('#incresed_qos').text('Decresed by '+(((data.compare[3]['QOS']-data.compare[2]['QOS'])*100)/data.compare[3]['QOS']).toFixed(1)+'%')
-                    $('#incresed_qon').text('Decresed by '+(((data.compare[3]['QON']-data.compare[2]['QON'])*100)/data.compare[3]['QON']).toFixed(1)+'%')
+                    $('#incresed_rev').text('Increased by '+(((data.compare[3]['Revenue']-data.compare[2]['Revenue'])*100)/data.compare[3]['Revenue']).toFixed(1)+'%')
+                    $('#incresed_gdp').text('Increased by '+(((data.compare[3]['Gdp']-data.compare[2]['Gdp'])*100)/data.compare[3]['Gdp']).toFixed(1)+'%')
+                    $('#incresed_qos').text('Decreased by '+(((data.compare[3]['QOS']-data.compare[2]['QOS'])*100)/data.compare[3]['QOS']).toFixed(1)+'%')
+                    $('#incresed_qon').text('Decreased by '+(((data.compare[3]['QON']-data.compare[2]['QON'])*100)/data.compare[3]['QON']).toFixed(1)+'%')
                     
                     $('#qos-title').tooltip({title: "Quality of Service"});
                     $('#qon-title').tooltip({title: "Quality of Network"});
@@ -310,21 +310,27 @@ function charts(idx,id_user){
                     grsubscomp=((((data.compare[3]['Nb_sub']-data.compare[2]['Nb_sub'])*100)/data.compare[3]['Nb_sub']).toFixed(1))         
                     
                     if(data.compare[3]['Revenue']>data.compare[2]['Revenue']){$('#rev_comp h5').text('+'+grrevcomp+'%')
+                                                                        $('#rev_comp').removeClass('text-danger')
                                                                         $('#rev_comp').addClass('text-primary')
                                                                         }
                           else{$('#rev_comp h5').text(grrevcomp+'%')
+                               $('#rev_comp').removeClass('text-primary')
                                $('#rev_comp').addClass('text-danger')}
 
                     if(-1*(data.compare[3]['Capex'])>-1*(data.compare[2]['Capex'])){$('#capex_comp h5').text('+'+grcapcomp+'%')
+                                                                        $('#capex_comp').removeClass('text-danger')
                                                                         $('#capex_comp').addClass('text-primary')
                                                                         }
                           else{$('#capex_comp h5').text(grcapcomp+'%')
+                               $('#capex_comp').removeClass('text-primary')
                                $('#capex_comp').addClass('text-danger')}         
 
                     if(data.compare[3]['Nb_sub']>data.compare[2]['Nb_sub']){$('#subs_comp h5').text('+'+grsubscomp+'%')
+                                                                        $('#subs_comp').removeClass('text-danger')
                                                                         $('#subs_comp').addClass('text-primary')
                                                                         }
                           else{$('#subs_comp h5').text(grsubscomp+'%')
+                               $('#subs_comp').removeClass('text-primary')
                                $('#subs_comp').addClass('text-danger')} 
 
                     //PIB

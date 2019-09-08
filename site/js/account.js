@@ -187,6 +187,9 @@ $('#btn_logout').click(function(){
             document.open();
             document.write(data);
             document.close(); 
+
+            //ou alors
+            //window.location.reload();
         }
     
     });
@@ -512,8 +515,10 @@ $('#btn_benchmark').click(function(){
     list.forEach(function(element,index) {
                         var date =element['Date'].replace('T00:00:00.000Z','')
                         date=date.replace(/201.-/g,"2019-")
-                       
-                         var text = element['Text']
+                        var mounth =date.substring(5,7)
+                        if(mounth>=7) {date[5]='0';
+                                       date[6]='2'}
+                        var text = element['Text']
 
                    
                          text=text.replace(/''/g,'');

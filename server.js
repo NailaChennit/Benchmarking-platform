@@ -130,8 +130,9 @@ app.get('/afficher',function(request,response){
     const $ = cheerio.load(html);
       var list=[];
       for (let i = 0; i < 12; i++) {
-        list.push($('div.search-content.left h4 a').eq(i).attr('href'));     
-
+        if($('div.search-content.left h4 a').eq(i).attr('href')!=undefined){
+        list.push($('div.search-content.left h4 a').eq(i).attr('href')); }    
+        console.log('rrrrrrr')  
         //retouner une lite avec url image text titre
         }
         return Promise.all(
@@ -398,7 +399,7 @@ app.get('/article_account', function(req, res) {
   const collection = db.get('Medias');
  
 
-  var data_user=collection.find({ID_operator: req.query.index},function(e,docs1){
+  var data_user=collection.find({ID_operator:{$regex: req.query.index}},function(e,docs1){
      
       res.send(docs1.slice(0,15))  
 

@@ -23,6 +23,121 @@
 
 <body>
 
+
+<!-----------model logout---------->
+<div class="modal fade" id="LogOutModal">
+    <div class="modal-dialog modal-dialog-centered ">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Log out</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          Are you sure you want to log out?
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" id="btn_logout" data-dismiss="modal">Yes</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+
+<script type="text/javascript">
+	
+
+$('#btn_logout').click(function(){
+$.get("/logout",function(data){
+  if(!data){
+        console.log("No dataaaaaa");
+      }
+  else{  
+       //window.open('index.html', '_self')
+        document.open();
+        document.write(data);
+        document.close(); 
+    }
+    
+    });
+  });
+	$.get("/ckeck_log",function(data){
+	if(!data){
+				console.log("No dataaaaaa");
+				}
+	else{
+			if(data.user){ Display_Nav_Loggin(data.user); 
+						  } 
+				
+
+		}
+	})
+
+	function Display_Nav_Loggin(user){
+ $('nav').replaceWith(
+ 	`
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="#"><img src="image/logoo.png">
+		</a>
+		<button class="navbar-toggler" type="button" data_toggle="collapse" data-target="#navbarResponsive">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarResponsive">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="http://127.0.0.1:3000/">Home</a>
+				</li>
+				<li class="nav-item ">
+					<a class="nav-link" href="http://127.0.0.1:3000/">Map</a>
+				</li>
+				<li class="nav-item ">
+					<a class="nav-link" href="http://127.0.0.1:3000/">News</a>
+				</li>
+				<li class="nav-item ">
+					<a class="nav-link" href="http://127.0.0.1:3000/register">Register</a>
+				</li>			
+				<li class="nav-item ">
+					<a class="nav-link" href="#footer">Contact</a>
+				</li>
+				<li class="nav-item ">
+					<a class="nav-link" href="http://127.0.0.1:3000/help">Help</a>
+				</li>	
+				<li class="nav-item ">`+
+				user.name+`<br>`+
+					user.lastname+ 
+				`</li>					
+				<li class="nav-item">
+					<i class="fas fa-circle" style="color: #3bc63b"></i><br>
+					<div class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"> </a>
+						<div class="dropdown-menu  dropdown-menu-right " style="min-width:7rem; text-align: left;padding-left: 3px;">
+							<a   href="http://127.0.0.1:3000/account"> My account</a>
+							<hr style="margin-bottom: 5px;padding-top: 0px;margin-top: 5px;">
+				            <a  id="logout" data-toggle="modal" data-target="#LogOutModal" href="#"> Log Out</a>
+				        <div>
+			        </div>
+				</li>				
+
+			</ul>
+
+		</div>
+	</div>
+		
+</nav>`)
+
+}
+
+</script>
+
 <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
 <div class="container-fluid">
 	<a class="navbar-brand" href="#"><img src="image/logoo.png">
@@ -128,6 +243,8 @@
 </div>		
 </div>	
 </footer>
+
+
 
 </body>
 </html>		

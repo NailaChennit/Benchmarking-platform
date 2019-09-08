@@ -185,7 +185,7 @@ if __name__ == '__main__':
                 return  ids ,cluster
 
 
-    def Display_in_cloud(sorted_op):
+    def Display_in_cloud(Id,sorted_op):
         cloud=[]
         myclient = pymongo.MongoClient('localhost', 27017)
         mydb = myclient['dump']
@@ -197,7 +197,8 @@ if __name__ == '__main__':
             dict["text"]=name+','+country##faut laisser la clé text
             dict['idx']=idx
             dict['country']=country
-            cloud.append(dict)
+            if idx!=Id:
+                cloud.append(dict)
         return cloud
 
 
@@ -244,7 +245,7 @@ if __name__ == '__main__':
 
     #sort keys of  dictionnary by value
     sorted_operators = sorted(x.items(), key=operator.itemgetter(1))
-    cloud=Display_in_cloud(sorted_operators)
+    cloud=Display_in_cloud(Id,sorted_operators)
     info_final={}
     info_final["data_final"]=cloud
     print(info_final)

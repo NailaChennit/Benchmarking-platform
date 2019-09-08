@@ -39,6 +39,9 @@
 				<a class="nav-link" href="http://127.0.0.1:3000">News</a>
 			</li>
 			<li class="nav-item ">
+				<a class="nav-link" href="http://127.0.0.1:3000/register">Register</a>
+			</li>
+			<li class="nav-item ">
 				<a class="nav-link" href="http://127.0.0.1:3000/login">Log In</a>
 			</li>
 			<li class="nav-item ">
@@ -76,12 +79,12 @@
 					<h6 style="margin-bottom: 0.0px;"><font color="red" id="error_key"><%=data.error_key%></font></h6>	
 					<div class="row">
 							<div class="col-6 form-group">
-								<label for="subscribers">Name</label>
-								<input type="text" name="name"  required class="form-control" placeholder="Enter your name">
+								<label for="subscribers" >Name</label>
+								<input type="text" name="name" required class="form-control text-capitalize" placeholder="Enter your name">
 							</div>
 							<div class="col-6 form-group">
-								<label for="subscribers">Lastname</label>
-								<input type="text" name="lastname" required class="form-control" placeholder="Enter your lastname">
+								<label for="subscribers" >Lastname</label>
+								<input type="text" name="lastname"  required class="form-control text-capitalize" placeholder="Enter your lastname">
 							</div>
                     </div>
 					<div class="form-group">
@@ -90,12 +93,13 @@
 						<small><font color="red" id="error_index"><%=data.error_email%></font></small>
 					</div>
 					<label for="subscribers">Password</label>
-					<div class="input-group form-group">						
-						<input type="Password" name="password" id="password" required class="form-control" placeholder="Enter a password">
+					<div class="input-group form-group" style="margin-bottom: 0px;">		
+						<input type="Password" name="password" id="password" minlength="8" required class="form-control" placeholder="Enter a password">
 						<div class="input-group-prepend">
 							<span class="input-group-text pointer"><i onClick="see_unsee('#eye2','#password')" id="eye2" class="fas fa-eye"></i></span>
 						</div>
 					</div>
+					<div class="row"><small style="padding-left: 15px;margin-bottom: 10px;padding-top: 5px;" class="text-muted">*Min lenght for the password is 8 characters </small></div>
 					<div class="form-group">
 						<label for="subscribers">Confirm your password</label>
 						<input type="Password" name="confirm_password" id="confirm_password" required class="form-control" placeholder="Confirm your password">

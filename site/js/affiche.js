@@ -52,7 +52,8 @@ $(document).ready(function(){
 				console.log("No dataaaaaa");
 				}
 	else{
-		articles=data;		
+		articles=data;
+		console.log(articles);		
 
 		carou1=articles.slice(0,4)
 		carou2=articles.slice(4,8)
